@@ -1781,3 +1781,36 @@ input[type="number"]::placeholder { color: var(--text-muted); }
     .whatsapp-float span { display: none; }
     .whatsapp-float { padding: 14px; border-radius: 50%; }
 }
+
+/* ── Language toggle button ──────────────────────────── */
+.lang-toggle {
+    background: transparent;
+    border: 1px solid rgba(240,192,96,0.4);
+    color: var(--gold);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Noto Serif Sinhala', var(--font);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+}
+.lang-toggle:hover {
+    background: rgba(240,192,96,0.12);
+    border-color: var(--gold);
+}
+
+/* ── Sinhala font rendering ─────────────────────────── */
+/* Noto Serif Sinhala is loaded on pages that need it.  */
+/* When lang-si is active, inject it into the font stack */
+body.lang-si {
+    font-family: 'Noto Serif Sinhala', 'Segoe UI', system-ui, sans-serif;
+}
+body.lang-si input,
+body.lang-si textarea,
+body.lang-si select,
+body.lang-si button {
+    font-family: 'Noto Serif Sinhala', 'Segoe UI', system-ui, sans-serif;
+}

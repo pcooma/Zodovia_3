@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,19 +18,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/style.css?v=6">
+    <link rel="stylesheet" href="/static/css/style.css?v=7">
 </head>
-<body class="page-home">
+<body class="page-home lang-si">
 
 <!-- Nav -->
 <nav class="navbar">
     <div class="nav-inner">
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links" id="navLinks">
-            <a href="#how-it-works">How It Works</a>
-            <a href="#pricing">Pricing</a>
-            <a href="#" id="navLoginBtn" class="btn btn-ghost">Sign In</a>
-            <a href="#birth-form" class="btn btn-primary">Get My Blueprint</a>
+            <a href="#how-it-works" data-i18n="nav_how_it_works">ක්‍රියා කරන ආකාරය</a>
+            <a href="#pricing" data-i18n="nav_pricing">මිළ ගණන්</a>
+            <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
+            <a href="#" id="navLoginBtn" class="btn btn-ghost" data-i18n="nav_sign_in">පිවිසෙන්න</a>
+            <a href="#birth-form" class="btn btn-primary" data-i18n="nav_get_blueprint">සිතියම ලබාගන්න</a>
         </div>
     </div>
 </nav>
@@ -41,14 +42,13 @@
     <div class="container">
         <div class="hero-inner">
             <div class="hero-text">
-                <p class="hero-eyebrow">AI-Assisted Astrology Guidance · Based on Your Birth Blueprint · Made for Sri Lanka</p>
-                <h1>Discover Your Birth Blueprint.<br>Get Personal Guidance for <em>Life, Career &amp; Love.</em></h1>
+                <p class="hero-eyebrow" data-i18n="hero_eyebrow">AI-ශක්‍ය ජ්‍යෝතිෂ මඟ පෙන්වීම · ඔබේ උපන් සිතියම මත ගොඩනඟා · ශ්‍රී ලාංකිකයන් සඳහා</p>
+                <h1 data-i18n-html="hero_h1_html">ඔබේ උපන් සිතියම සොයා ගන්න.<br>ජීවිතය, වෘත්තිය සහ ආදරය සඳහා <em>පෞද්ගලික මඟ පෙන්වීම.</em></h1>
                 <p class="hero-sub sinhala-sub" lang="si">ඔබගේ උපන් නැකත, ලග්නය සහ ග්‍රහ බලය මත පදනම් වූ AI-ශක්‍ය ජ්‍යෝතිෂ මඟ පෙන්වීම.</p>
-                <p class="hero-sub">AI-assisted astrology-based personal guidance — built from your exact birth chart, your goals, and what matters most to you right now. Personalised for Sri Lankan lives.</p>
-                <a href="#birth-form" class="btn btn-primary btn-lg">Get My Free Blueprint ✨</a>
+                <a href="#birth-form" class="btn btn-primary btn-lg" data-i18n="hero_cta">නිදහස් සිතියම ලබාගන්න ✨</a>
                 <div class="hero-social-proof">
                     <span>⭐⭐⭐⭐⭐</span>
-                    <span>"This felt more accurate and meaningful than anything I've read about myself." — members across Sri Lanka</span>
+                    <span data-i18n="hero_social">"මා ගැන කියවූ ඕනෑම දෙයකට වඩා මෙය නිවැරදි හා අර්ථවත් යැයි දැනෙන්නා විය." — ශ්‍රී ලංකා පුරා සාමාජිකයන්</span>
                 </div>
             </div>
             <div class="hero-visual">
@@ -63,22 +63,22 @@
                     <div class="insight-card insight-card-2">
                         <span class="insight-card-icon">💼</span>
                         <div>
-                            <div class="insight-card-label">Career Path</div>
-                            <div class="insight-card-value">Strong & Favourable</div>
+                            <div class="insight-card-label" data-i18n="card_career">වෘත්තීය මාර්ගය</div>
+                            <div class="insight-card-value" data-i18n="card_career_value">ශක්තිමත් හා හිතකර</div>
                         </div>
                     </div>
                     <div class="insight-card insight-card-3">
                         <span class="insight-card-icon">💑</span>
                         <div>
-                            <div class="insight-card-label">Love Compatibility</div>
-                            <div class="insight-card-value">Deeply Harmonious</div>
+                            <div class="insight-card-label" data-i18n="card_love">ආදර ගැළපීම</div>
+                            <div class="insight-card-value" data-i18n="card_love_value">ගැඹුරු සමගිය</div>
                         </div>
                     </div>
                     <div class="insight-card insight-card-4">
                         <span class="insight-card-icon">✨</span>
                         <div>
-                            <div class="insight-card-label">Today's Guidance</div>
-                            <div class="insight-card-value">Act with confidence</div>
+                            <div class="insight-card-label" data-i18n="card_today">අදේ මඟ පෙන්වීම</div>
+                            <div class="insight-card-value" data-i18n="card_today_value">විශ්වාසයෙන් ක්‍රියා කරන්න</div>
                         </div>
                     </div>
                 </div>
@@ -91,150 +91,153 @@
 <section class="section" id="birth-form">
     <div class="container container-sm">
         <div class="card form-card">
-            <h2 class="card-title">✨ Discover Your Blueprint</h2>
-            <p class="card-sub">It's free. No credit card required.</p>
+            <h2 class="card-title" data-i18n="form_section_title">✨ ඔබේ සිතියම සොයා ගන්න</h2>
+            <p class="card-sub" data-i18n="form_section_sub">නිදහස් වේ. ගෙවීම් කාඩ්පතක් අවශ්‍ය නොවේ.</p>
 
             <form id="birthForm">
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" placeholder="e.g. Sofia" required>
+                        <label for="name" data-i18n="form_name">ඔබේ නම</label>
+                        <input type="text" id="name" name="name" data-i18n-placeholder="form_name_ph" placeholder="උදා: නිශාන්ති" required>
                     </div>
                 </div>
                 <div class="form-row form-row-2">
                     <div class="form-group">
-                        <label for="birthDate">Date of Birth</label>
+                        <label for="birthDate" data-i18n="form_birth_date">උපන් දිනය</label>
                         <input type="date" id="birthDate" name="birth_date" required>
                     </div>
                     <div class="form-group">
-                        <label for="birthTime">Time of Birth</label>
+                        <label for="birthTime" data-i18n="form_birth_time">උපන් වේලාව</label>
                         <input type="time" id="birthTime" name="birth_time" value="12:00" required>
                         <div class="time-unknown-row">
                             <label class="checkbox-label">
                                 <input type="checkbox" id="timeUnknown">
-                                I don't know my exact birth time
+                                <span data-i18n="form_time_unknown">නිශ්චිත උපන් වේලාව නොදනිමි</span>
                             </label>
                         </div>
-                        <div id="timeUnknownNote" class="time-unknown-note hidden">
-                            Using 12:00 noon. Your Rising sign and house positions may be approximate.
+                        <div id="timeUnknownNote" class="time-unknown-note hidden" data-i18n="form_time_unknown_note">
+                            12:00 දහවල් භාවිතා කෙරේ. ලග්නය හා ග්‍රහ නිවාස ස්ථාන ආසන්න විය හැක.
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="birthCity">Birth City</label>
-                        <input type="text" id="birthCity" name="birth_city" placeholder="e.g. Colombo, Kandy, Galle, Jaffna…" required>
+                        <label for="birthCity" data-i18n="form_birth_city">උපන් නගරය</label>
+                        <input type="text" id="birthCity" name="birth_city" data-i18n-placeholder="form_birth_city_ph" placeholder="උදා: කොළඹ, මහනුවර, ගාල්ල, යාපනය…" required>
                         <div class="city-quick-picks" id="cityQuickPicks">
-                            <span class="city-pick-label">Quick pick:</span>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Colombo, Sri Lanka')">Colombo</button>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Kandy, Sri Lanka')">Kandy</button>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Galle, Sri Lanka')">Galle</button>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Jaffna, Sri Lanka')">Jaffna</button>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Kurunegala, Sri Lanka')">Kurunegala</button>
-                            <button type="button" class="city-chip" onclick="setBirthCity('Matara, Sri Lanka')">Matara</button>
-                            <button type="button" class="city-chip city-chip-other" onclick="document.getElementById('birthCity').value='';document.getElementById('birthCity').focus();document.getElementById('cityQuickPicks').style.display='none'">Other city →</button>
+                            <span class="city-pick-label" data-i18n="form_quick_pick">ඉක්මන් තේරීම:</span>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Colombo, Sri Lanka')">කොළඹ</button>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Kandy, Sri Lanka')">මහනුවර</button>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Galle, Sri Lanka')">ගාල්ල</button>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Jaffna, Sri Lanka')">යාපනය</button>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Kurunegala, Sri Lanka')">කුරුණෑගල</button>
+                            <button type="button" class="city-chip" onclick="setBirthCity('Matara, Sri Lanka')">මාතර</button>
+                            <button type="button" class="city-chip city-chip-other" onclick="document.getElementById('birthCity').value='';document.getElementById('birthCity').focus();document.getElementById('cityQuickPicks').style.display='none'">වෙනත් නගරය →</button>
                         </div>
-                        <button type="button" id="coordToggleBtn" class="coord-toggle-link">📍 Use exact coordinates instead</button>
+                        <button type="button" id="coordToggleBtn" class="coord-toggle-link" data-i18n="form_coordinates">📍 නිශ්චිත ඛණ්ඩාංක භාවිතා කරන්න</button>
                         <div id="coordInputs" class="hidden">
                             <div class="coord-pair">
                                 <div class="form-group">
-                                    <label for="birthLat">Latitude</label>
+                                    <label for="birthLat" data-i18n="form_latitude">අක්ෂාංශ</label>
                                     <input type="number" id="birthLat" step="0.000001" min="-90" max="90" placeholder="e.g. 6.927079">
                                 </div>
                                 <div class="form-group">
-                                    <label for="birthLon">Longitude</label>
+                                    <label for="birthLon" data-i18n="form_longitude">දේශාංශ</label>
                                     <input type="number" id="birthLon" step="0.000001" min="-180" max="180" placeholder="e.g. 79.861243">
                                 </div>
                             </div>
-                            <p class="coord-hint">Open <strong>Google Maps</strong>, right-click your exact location → "What's here?" → copy the two numbers shown (latitude, longitude)</p>
+                            <p class="coord-hint" data-i18n-html="form_coord_hint"><strong>Google Maps</strong> විවෘත කොට, ඔබේ ස්ථානය දකුණු-ක්ලික් කරන්න → "What's here?" → ඉලක්කම් දෙක (latitude, longitude) පිටපත් කරන්න</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Wellness Goals — visible by default, shapes the whole experience -->
+                <!-- Wellness Goals -->
                 <div class="wellness-section">
-                    <h3 class="wellness-title">What brings you here?</h3>
-                    <p class="wellness-sub">This shapes every insight you receive — your guidance will be built around your goals.</p>
+                    <h3 class="wellness-title" data-i18n="wellness_title">ඔබ මෙහි පැමිණ සිටින්නේ ඇයි?</h3>
+                    <p class="wellness-sub" data-i18n="wellness_sub">ඔබ ලබන සෑම අවබෝධයකටම මෙය හැඩ ගැස්වේ — ඔබේ ජීවිතේ අරමුණු වටා ඔබේ මඟ ගෙන යාම ගොඩ නැගෙනු ඇත.</p>
 
                     <div class="form-group">
-                        <label>My primary focus right now</label>
+                        <label data-i18n="wellness_focus_label">දැනට මගේ ප්‍රධාන අරමුණ</label>
                         <div class="focus-pills" id="wellnessPills">
-                            <button type="button" class="focus-pill active" data-value="personal_growth">🌱 Personal Growth</button>
-                            <button type="button" class="focus-pill" data-value="better_relationships">💑 Relationships</button>
-                            <button type="button" class="focus-pill" data-value="career_clarity">💼 Career &amp; Purpose</button>
-                            <button type="button" class="focus-pill" data-value="health_vitality">🌿 Health &amp; Energy</button>
-                            <button type="button" class="focus-pill" data-value="inner_peace">✨ Inner Peace</button>
-                            <button type="button" class="focus-pill" data-value="spiritual_connection">🌟 Spiritual Growth</button>
-                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                            <button type="button" class="focus-pill active" data-value="personal_growth" data-i18n="pill_personal_growth">🌱 පෞද්ගලික වර්ධනය</button>
+                            <button type="button" class="focus-pill" data-value="better_relationships" data-i18n="pill_relationships">💑 සම්බන්ධතා</button>
+                            <button type="button" class="focus-pill" data-value="career_clarity" data-i18n="pill_career">💼 වෘත්තිය සහ අරමුණ</button>
+                            <button type="button" class="focus-pill" data-value="health_vitality" data-i18n="pill_health">🌿 සෞඛ්‍යය සහ ශක්තිය</button>
+                            <button type="button" class="focus-pill" data-value="inner_peace" data-i18n="pill_inner_peace">✨ අභ්‍යන්තර සාමය</button>
+                            <button type="button" class="focus-pill" data-value="spiritual_connection" data-i18n="pill_spiritual">🌟 ආධ්‍යාත්මික වර්ධනය</button>
+                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__" data-i18n="pill_other">＋ වෙනත්</button>
                         </div>
                         <input type="text" class="pill-custom-input hidden" id="wellnessGoalCustom" placeholder="Describe your own focus…" maxlength="80">
                         <input type="hidden" id="wellnessGoal" value="personal_growth">
                     </div>
 
                     <div class="form-group" style="margin-top:14px">
-                        <label>Where I am right now</label>
+                        <label data-i18n="phase_label">දැනට මම සිටින්නේ</label>
                         <div class="focus-pills" id="lifePhasePills">
-                            <button type="button" class="focus-pill active" data-value="exploring">🌅 Exploring</button>
-                            <button type="button" class="focus-pill" data-value="building">🏗️ Building</button>
-                            <button type="button" class="focus-pill" data-value="healing">🌊 Healing</button>
-                            <button type="button" class="focus-pill" data-value="transitioning">🦋 In Transition</button>
-                            <button type="button" class="focus-pill" data-value="thriving">🌟 Thriving</button>
-                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                            <button type="button" class="focus-pill active" data-value="exploring" data-i18n="phase_exploring">🌅 සොයා බලමින්</button>
+                            <button type="button" class="focus-pill" data-value="building" data-i18n="phase_building">🏗️ ගොඩ නගමින්</button>
+                            <button type="button" class="focus-pill" data-value="healing" data-i18n="phase_healing">🌊 සුවය ලබමින්</button>
+                            <button type="button" class="focus-pill" data-value="transitioning" data-i18n="phase_transitioning">🦋 වෙනසකට</button>
+                            <button type="button" class="focus-pill" data-value="thriving" data-i18n="phase_thriving">🌟 සාර්ථකව</button>
+                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__" data-i18n="pill_other">＋ වෙනත්</button>
                         </div>
                         <input type="text" class="pill-custom-input hidden" id="lifePhaseCustom" placeholder="Describe where you are right now…" maxlength="80">
                         <input type="hidden" id="lifePhase" value="exploring">
                     </div>
 
                     <div class="form-group" style="margin-top:14px">
-                        <label for="primaryIntention">What do you hope to discover?</label>
-                        <textarea id="primaryIntention" placeholder="e.g. I want to understand why I keep repeating the same patterns… / I need clarity on my career direction… / I want to understand my relationship with my mother…" rows="2" maxlength="400"></textarea>
+                        <label for="primaryIntention" data-i18n="intention_label">ඔබ සොයා ගැනීමට බලාපොරොත්තු වන දේ?</label>
+                        <textarea id="primaryIntention" data-i18n-placeholder="intention_ph" placeholder="උදා: මමම ඒකාකාරී රටා නැවත නැවත නිර්මාණය කරන්නේ ඇයිදැයි දැනගන්නට අවශ්‍යයි…" rows="2" maxlength="400"></textarea>
                     </div>
 
                     <div class="form-group" style="margin-top:16px">
-                        <label class="label-small">Is there anything we should handle with extra care? <span class="label-optional">(optional)</span></label>
-                        <p class="sensitive-flags-intro">Your guidance will be written with greater care when we know what you are going through.</p>
+                        <label class="label-small">
+                            <span data-i18n="sensitive_label">විශේෂ සැලකිල්ලෙන් සෙලකිය යුතු දෙයක් ඇද්ද?</span>
+                            <span class="label-optional" data-i18n="sensitive_optional">(අදාළ නොවේ නම් තෝරන්න)</span>
+                        </label>
+                        <p class="sensitive-flags-intro" data-i18n="sensitive_intro">ඔබ ගෙවන දේ දැනගත් කල, ඔබේ මඟ පෙන්වීම වැඩි සැලකිල්ලෙන් ලියැවෙනු ඇත.</p>
                         <div class="sensitive-flags-grid">
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="depression">
                                 <span class="flag-icon">🌊</span>
-                                <span class="flag-text">Going through emotional stress</span>
+                                <span class="flag-text" data-i18n="flag_depression">චිත්තවේගීය ආතතියෙන් ගමන් කිරීම</span>
                                 <span class="flag-check"></span>
                             </label>
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="relationship_struggles">
                                 <span class="flag-icon">💔</span>
-                                <span class="flag-text">Relationship difficulties</span>
+                                <span class="flag-text" data-i18n="flag_relationship">සම්බන්ධතා දුෂ්කරතා</span>
                                 <span class="flag-check"></span>
                             </label>
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="family_difficulties">
                                 <span class="flag-icon">🏠</span>
-                                <span class="flag-text">Family pressure or conflict</span>
+                                <span class="flag-text" data-i18n="flag_family">පවුලේ පීඩනය හෝ ගැටුම</span>
                                 <span class="flag-check"></span>
                             </label>
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="health_issues">
                                 <span class="flag-icon">🌿</span>
-                                <span class="flag-text">Health challenges</span>
+                                <span class="flag-text" data-i18n="flag_health">සෞඛ්‍ය අභියෝග</span>
                                 <span class="flag-check"></span>
                             </label>
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="grief_loss">
                                 <span class="flag-icon">🕊️</span>
-                                <span class="flag-text">Grief or bereavement</span>
+                                <span class="flag-text" data-i18n="flag_grief">ශෝකය හෝ අහිමිවීම</span>
                                 <span class="flag-check"></span>
                             </label>
                             <label class="checkbox-flag-label">
                                 <input type="checkbox" class="sensitive-flag-cb" value="difficult_period">
                                 <span class="flag-icon">🌱</span>
-                                <span class="flag-text">Recovering from a difficult period</span>
+                                <span class="flag-text" data-i18n="flag_difficult">දුෂ්කර කාලයකින් සුවය ලැබීම</span>
                                 <span class="flag-check"></span>
                             </label>
                         </div>
                         <div id="sensitiveContextBox" class="sensitive-context-box hidden">
-                            <p class="sensitive-context-prompt">Thank you for sharing. Would you like to tell us a little more? <span class="label-optional">(optional — helps us respond with greater care)</span></p>
-                            <textarea id="sensitiveContext" rows="3" maxlength="600" placeholder="e.g. Things have been difficult at home… / I recently went through a hard time… / I am feeling lost about my direction…"></textarea>
-                            <p class="sensitive-context-note">💙 Your guidance will be written with sensitivity and care.</p>
+                            <p class="sensitive-context-prompt" data-i18n-html="sensitive_context_prompt">බෙදා ගැනීම ගැන ස්තූතියි. ටිකක් වැඩිදුර කියන්නද? <span class="label-optional">(අදාළ නොවේ නම් හිස් තබන්න)</span></p>
+                            <textarea id="sensitiveContext" rows="3" maxlength="600" data-i18n-placeholder="sensitive_context_ph" placeholder="උදා: ගෙදර ටිකක් අමාරු කාලයක් ගත කරනවා…"></textarea>
+                            <p class="sensitive-context-note" data-i18n="sensitive_context_note">💙 ඔබේ මඟ පෙන්වීම සංවේදිව හා සැලකිල්ලෙන් ලියැවෙනු ඇත.</p>
                         </div>
                     </div>
                 </div>
@@ -242,50 +245,48 @@
                 <div class="context-section">
                     <button type="button" class="context-toggle" id="contextToggle">
                         <span class="context-toggle-icon">✨</span>
-                        Personalise your reading
+                        <span data-i18n="personalise_toggle">ඔබේ කියවීම පෞද්ගලීකරණය කරන්න</span>
                         <span class="context-arrow" id="contextArrow">▼</span>
                     </button>
                     <div class="context-body hidden" id="contextBody">
-                        <p class="context-intro">Tell us what's on your mind and your guidance will speak directly to your life — not just generic advice.</p>
+                        <p class="context-intro" data-i18n="personalise_intro">ඔබේ ජීවිතය ගැන දන්නා තරමට, ඔබේ මඟ පෙන්වීම ඔබේ ජීවිතයට කෙලින්ම කතා කරනු ඇත.</p>
                         <div class="form-group">
-                            <label>What would you most like guidance on?</label>
+                            <label data-i18n="reading_focus_label">ඔබ වැඩිපුරම මඟ පෙන්වීම ලබා ගැනීමට කැමති දේ?</label>
                             <div class="focus-pills" id="focusPills">
-                                <button type="button" class="focus-pill active" data-value="general">✨ Just exploring</button>
-                                <button type="button" class="focus-pill" data-value="love">💕 Love &amp; Relationships</button>
-                                <button type="button" class="focus-pill" data-value="career">💼 Career &amp; Finance</button>
-                                <button type="button" class="focus-pill" data-value="health">🌿 Health &amp; Wellbeing</button>
-                                <button type="button" class="focus-pill" data-value="family">👨‍👩‍👧 Family Dynamics</button>
-                                <button type="button" class="focus-pill" data-value="spiritual">🌟 Spiritual Growth</button>
-                                <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                                <button type="button" class="focus-pill active" data-value="general" data-i18n="focus_general">✨ ගවේෂණය කරමින්</button>
+                                <button type="button" class="focus-pill" data-value="love" data-i18n="focus_love">💕 ආදරය සහ සම්බන්ධතා</button>
+                                <button type="button" class="focus-pill" data-value="career" data-i18n="focus_career">💼 වෘත්තිය සහ මූල්‍ය</button>
+                                <button type="button" class="focus-pill" data-value="health" data-i18n="focus_health2">🌿 සෞඛ්‍යය සහ යහපැවැත්ම</button>
+                                <button type="button" class="focus-pill" data-value="family" data-i18n="focus_family">👨‍👩‍👧 පවුල් ගතිකත්ව</button>
+                                <button type="button" class="focus-pill" data-value="spiritual" data-i18n="focus_spiritual2">🌟 ආධ්‍යාත්මික වර්ධනය</button>
+                                <button type="button" class="focus-pill focus-pill-other" data-value="__other__" data-i18n="pill_other">＋ වෙනත්</button>
                             </div>
                             <input type="text" class="pill-custom-input hidden" id="readingFocusCustom" placeholder="Describe what you'd like guidance on…" maxlength="80">
                             <input type="hidden" id="readingFocus" value="general">
                         </div>
                         <div class="form-group" style="margin-top:16px">
-                            <label for="lifeContext">Your situation or question</label>
-                            <textarea id="lifeContext" placeholder="e.g. I'm considering a big career change and wondering if the timing is right… or I keep attracting the same kind of partner and want to understand why…" rows="3"></textarea>
+                            <label for="lifeContext" data-i18n="context_label">ඔබේ තත්ත්වය හෝ ප්‍රශ්නය</label>
+                            <textarea id="lifeContext" data-i18n-placeholder="context_ph" placeholder="උදා: මම ලොකු වෘත්තීය වෙනසක් ගැන සිතන්නෙමි — කාලය නිවැරදිද?…" rows="3"></textarea>
                         </div>
                         <div class="form-group" style="margin-top:14px">
-                            <label for="lifeEvent">Upcoming life event</label>
+                            <label for="lifeEvent" data-i18n="life_event_label">ඉදිරි ජීවිත සිදුවීම</label>
                             <select id="lifeEvent">
-                                <option value="">None / not applicable</option>
-                                <option value="job_interview">Job interview or career move</option>
-                                <option value="foreign_employment">Seeking foreign employment / working abroad</option>
-                                <option value="ol_al_exams">O/L or A/L examinations</option>
-                                <option value="higher_education">Higher education / university admission</option>
-                                <option value="wedding">Wedding or marriage (porondam)</option>
-                                <option value="new_relationship">New romantic interest</option>
-                                <option value="business_nekath">Starting a business (auspicious timing)</option>
-                                <option value="moving">Moving or relocating</option>
-                                <option value="house_construction">Building or buying a house</option>
-                                <option value="health_journey">Health journey or recovery</option>
-                                <option value="family_change">Family change (baby, etc.)</option>
-                                <option value="other">Other major life event</option>
+                                <option value="" data-i18n="event_none">නැත / අදාළ නොවේ</option>
+                                <option value="job_interview" data-i18n="event_job">රැකියා සම්මුඛ පරීක්ෂණ හෝ වෘත්තීය ගමන</option>
+                                <option value="foreign_employment" data-i18n="event_foreign">විදේශ රැකියා ලබා ගැනීම</option>
+                                <option value="ol_al_exams" data-i18n="event_ol_al">සා/පෙ හෝ උ/පෙ විභාග</option>
+                                <option value="higher_education" data-i18n="event_higher">උසස් අධ්‍යාපනය / විශ්ව විද්‍යාල ඇතුලත් වීම</option>
+                                <option value="wedding" data-i18n="event_wedding">විවාහය (පොරොන්දම)</option>
+                                <option value="new_relationship" data-i18n="event_relationship">නව ආදර සම්බන්ධතා</option>
+                                <option value="business_nekath" data-i18n="event_business">ව්‍යාපාරය ආරම්භ කිරීම (නැකත)</option>
+                                <option value="moving" data-i18n="event_moving">ස්ථාන මාරු වීම</option>
+                                <option value="house_construction" data-i18n="event_house">ගෘහ ඉදිකිරීම හෝ ගෙදරක් ගැනීම</option>
+                                <option value="health_journey" data-i18n="event_health">සෞඛ්‍ය ගමනාන්ත හෝ සුවය ලැබීම</option>
+                                <option value="family_change" data-i18n="event_family">පවුලේ වෙනසක් (ළදරුවෙකු ආදිය)</option>
+                                <option value="other" data-i18n="event_other">වෙනත් ප්‍රධාන ජීවිත සිදුවීම</option>
                             </select>
                             <div id="otherEventGroup" style="display:none;margin-top:10px">
-                                <textarea id="otherEventDesc" rows="2"
-                                    placeholder="Tell us what's happening — e.g. I'm about to make a big decision about my living situation…"
-                                    style="width:100%;resize:vertical"></textarea>
+                                <textarea id="otherEventDesc" rows="2" placeholder="Tell us what's happening…" style="width:100%;resize:vertical"></textarea>
                             </div>
                         </div>
                     </div>
@@ -294,100 +295,100 @@
                 <div class="context-section">
                     <button type="button" class="context-toggle" id="demoToggle">
                         <span class="context-toggle-icon">👤</span>
-                        Tell us a little about yourself
+                        <span data-i18n="about_toggle">ඔබ ගැන ටිකක් කියන්න</span>
                         <span class="context-arrow" id="demoArrow">▼</span>
                     </button>
                     <div class="context-body hidden" id="demoBody">
-                        <p class="context-intro">The more we know about your life, the more your guidance will speak directly to you — personalised to who you really are.</p>
+                        <p class="context-intro" data-i18n="about_intro">ඔබේ ජීවිතය ගැන දන්නා තරමට, ඔබේ මඟ පෙන්වීම ඔබට කෙලින්ම කතා කරනු ඇත.</p>
 
                         <div class="form-row form-row-2">
                             <div class="form-group">
-                                <label for="demoGender">I identify as</label>
+                                <label for="demoGender" data-i18n="gender_label">මා හදුනා ගන්නේ</label>
                                 <select id="demoGender">
-                                    <option value="">Prefer not to say</option>
-                                    <option value="female">Female</option>
-                                    <option value="male">Male</option>
-                                    <option value="non_binary">Non-binary</option>
+                                    <option value="" data-i18n="gender_na">කීමට අකැමති</option>
+                                    <option value="female" data-i18n="gender_female">ගැහැණු</option>
+                                    <option value="male" data-i18n="gender_male">පිරිමි</option>
+                                    <option value="non_binary" data-i18n="gender_nb">ලිංග රහිත</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="demoMarital">Relationship status</label>
+                                <label for="demoMarital" data-i18n="marital_label">සම්බන්ධතා තත්ත්වය</label>
                                 <select id="demoMarital">
-                                    <option value="">Prefer not to say</option>
-                                    <option value="single">Single</option>
-                                    <option value="in_relationship">In a relationship</option>
-                                    <option value="married">Married</option>
-                                    <option value="divorced">Divorced</option>
-                                    <option value="widowed">Widowed</option>
+                                    <option value="" data-i18n="marital_na">කීමට අකැමති</option>
+                                    <option value="single" data-i18n="marital_single">තනිකඩ</option>
+                                    <option value="in_relationship" data-i18n="marital_relationship">සම්බන්ධතාවක</option>
+                                    <option value="married" data-i18n="marital_married">විවාහ</option>
+                                    <option value="divorced" data-i18n="marital_divorced">දික්කසාද</option>
+                                    <option value="widowed" data-i18n="marital_widowed">සැමියා / බිරිඳ අහිමිව</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-row form-row-2">
                             <div class="form-group">
-                                <label for="demoJobType">Work situation</label>
+                                <label for="demoJobType" data-i18n="job_label">රැකියා තත්ත්වය</label>
                                 <select id="demoJobType">
-                                    <option value="">Prefer not to say</option>
-                                    <option value="employed">Employed (local)</option>
-                                    <option value="foreign_employed">Working abroad / foreign employment</option>
-                                    <option value="self_employed">Self-employed / Freelance</option>
-                                    <option value="business_owner">Business owner</option>
-                                    <option value="student">Student</option>
-                                    <option value="homemaker">Homemaker</option>
-                                    <option value="retired">Retired</option>
+                                    <option value="" data-i18n="job_na">කීමට අකැමති</option>
+                                    <option value="employed" data-i18n="job_employed">රැකියාවේ (ස්ථානීය)</option>
+                                    <option value="foreign_employed" data-i18n="job_foreign">විදේශ රැකියාවේ</option>
+                                    <option value="self_employed" data-i18n="job_self">ස්වයං රැකියාවේ / Freelance</option>
+                                    <option value="business_owner" data-i18n="job_business">ව්‍යාපාරිකයා</option>
+                                    <option value="student" data-i18n="job_student">සිසුවා</option>
+                                    <option value="homemaker" data-i18n="job_homemaker">ගෘහ කළමනාකරු</option>
+                                    <option value="retired" data-i18n="job_retired">විශ්‍රාම ගත</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="demoEducation">Education</label>
+                                <label for="demoEducation" data-i18n="edu_label">අධ්‍යාපනය</label>
                                 <select id="demoEducation">
-                                    <option value="">Prefer not to say</option>
-                                    <option value="high_school">Up to O/L (Ordinary Level)</option>
-                                    <option value="al_completed">A/L (Advanced Level) completed</option>
-                                    <option value="vocational">Vocational / Trade / Diploma</option>
-                                    <option value="undergraduate">Undergraduate degree</option>
-                                    <option value="postgraduate">Postgraduate degree</option>
+                                    <option value="" data-i18n="edu_na">කීමට අකැමති</option>
+                                    <option value="high_school" data-i18n="edu_ol">සා/පෙ දක්වා</option>
+                                    <option value="al_completed" data-i18n="edu_al">උ/පෙ සම්පූර්ණ</option>
+                                    <option value="vocational" data-i18n="edu_voc">වෘත්තීය / ආයතනික / ඩිප්ලෝමා</option>
+                                    <option value="undergraduate" data-i18n="edu_ug">ස්නාතක උපාධිය</option>
+                                    <option value="postgraduate" data-i18n="edu_pg">ස්නාතකෝත්තර උපාධිය</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="demoOccupation">Your role or field</label>
-                                <input type="text" id="demoOccupation" placeholder="e.g. Teacher, Software Engineer, Artist, Nurse…">
+                                <label for="demoOccupation" data-i18n="occ_label">ඔබේ භූමිකාව හෝ ක්ෂේත්‍රය</label>
+                                <input type="text" id="demoOccupation" data-i18n-placeholder="occ_ph" placeholder="උදා: ගුරු, Software Engineer, ශිල්පකරු, හෙදිය…">
                             </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="demoLocation">Where you live now</label>
-                                <input type="text" id="demoLocation" placeholder="e.g. Colombo, Sri Lanka or Dubai, UAE">
+                                <label for="demoLocation" data-i18n="location_label">දැනට ජීවත් වන ස්ථානය</label>
+                                <input type="text" id="demoLocation" data-i18n-placeholder="location_ph" placeholder="උදා: කොළඹ, ශ්‍රී ලංකා හෝ Dubai, UAE">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Auth section — shown to guests -->
+                <!-- Auth section -->
                 <div id="authSection">
                     <hr class="divider">
-                    <p class="auth-note">Create a free account to save your profile and access daily personalised guidance.</p>
+                    <p class="auth-note" data-i18n="auth_note">ඔබේ ගිණුම සුරකින්නට හා දෛනික මඟ පෙන්වීම් ලබා ගන්නට නිදහස් ගිණුමක් සාදන්න.</p>
                     <div class="form-row form-row-2">
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+                            <label for="email" data-i18n="auth_email">ඊමේල්</label>
+                            <input type="email" id="email" name="email" data-i18n-placeholder="auth_email_ph" placeholder="you@example.com" autocomplete="email">
                         </div>
                         <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="min 8 characters" autocomplete="new-password">
+                            <label for="password" data-i18n="auth_password">මුරපදය</label>
+                            <input type="password" id="password" name="password" data-i18n-placeholder="auth_password_ph" placeholder="අවම අකුරු 8ක්" autocomplete="new-password">
                         </div>
                     </div>
                 </div>
 
                 <div id="formError" class="form-error hidden"></div>
 
-                <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn" style="margin-top:8px">
-                    Reveal My Blueprint ✨
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn" style="margin-top:8px" data-i18n="submit_btn">
+                    මගේ සිතියම හෙළිදරව් කරන්න ✨
                 </button>
-                <p class="form-disclaimer">For entertainment and personal self-reflection purposes. Not professional medical, legal, or financial advice.</p>
+                <p class="form-disclaimer" data-i18n="form_disclaimer">විනෝදාස්වාද හා පෞද්ගලික ස්වයං-ප්‍රතිබිම්බය සඳහා. වෘත්තීය වෛද්‍ය, නීතිමය හෝ මූල්‍ය උපදෙස් නොවේ.</p>
             </form>
         </div>
     </div>
@@ -396,35 +397,35 @@
 <!-- How It Works -->
 <section class="section section-alt" id="how-it-works">
     <div class="container">
-        <h2 class="section-title">How It Works</h2>
+        <h2 class="section-title" data-i18n="how_works_title">ක්‍රියා කරන ආකාරය</h2>
         <div class="steps">
             <div class="step">
                 <div class="step-icon">🌙</div>
-                <h3>Share Your Birth Details</h3>
-                <p>Enter your date, time, and place of birth. Your Lagna, planetary positions, and nakatha are all calculated from this — no two people are alike.</p>
+                <h3 data-i18n="step1_title">ඔබේ උපන් විස්තර ඇතුළු කරන්න</h3>
+                <p data-i18n="step1_text">ඔබේ උපන් දිනය, වේලාව සහ ස්ථානය ඇතුළු කරන්න. ඔබේ ලග්නය, ග්‍රහ ස්ථාන සහ නැකත ගණනය කෙරේ — කිසි දෙදෙනෙකු සමාන නොවේ.</p>
             </div>
             <div class="step">
                 <div class="step-icon">🌌</div>
-                <h3>AI Builds Your Blueprint</h3>
-                <p>Your birth chart is combined with your current life focus, goals, and personal context to create a unique astrology-based profile just for you.</p>
+                <h3 data-i18n="step2_title">AI ඔබේ සිතියම ගොඩ නගයි</h3>
+                <p data-i18n="step2_text">ඔබේ ජනන ජ්‍යෝතිෂ රේඛාව, ඔබේ දැනට ජීවිතයේ අරමුණු සහ පෞද්ගලික සන්දර්භය ඒකාබද්ධ කොට ඔබ සඳහාම සුවිශේෂ ව්‍යාකෘතියක් සාදා ගනී.</p>
             </div>
             <div class="step">
                 <div class="step-icon">✨</div>
-                <h3>Get Personal Daily Guidance</h3>
-                <p>Receive personalised daily horoscopes, compatibility readings, career and love insights — written specifically for your chart and your life situation.</p>
+                <h3 data-i18n="step3_title">දෛනික පෞද්ගලික මඟ පෙන්වීම ලබාගන්න</h3>
+                <p data-i18n="step3_text">ඔබේ ජ්‍යෝතිෂ රේඛාව සහ ජීවිත තත්ත්වය සඳහා ලියා ගත් පෞද්ගලික දෛනික හෝරෝස්කෝප, ගැළපීමේ කියවීම්, වෘත්තීය සහ ආදර අවබෝධ ලබා ගන්න.</p>
             </div>
         </div>
 
         <!-- Sri Lanka Use Cases -->
         <div class="sl-use-cases">
-            <h3 class="sl-use-cases-title">What Sri Lankans use Zodovia for</h3>
+            <h3 class="sl-use-cases-title" data-i18n="use_cases_title">ශ්‍රී ලාංකිකයන් Zodovia භාවිතා කරන්නේ</h3>
             <div class="sl-use-cases-grid">
-                <div class="sl-use-case">💑 Marriage compatibility (porondam)</div>
-                <div class="sl-use-case">💼 Career direction &amp; job timing</div>
-                <div class="sl-use-case">✈️ Foreign employment &amp; migration guidance</div>
-                <div class="sl-use-case">📚 O/L &amp; A/L exam preparation</div>
-                <div class="sl-use-case">🏠 House building &amp; auspicious timing</div>
-                <div class="sl-use-case">🌟 Daily life &amp; inner peace guidance</div>
+                <div class="sl-use-case" data-i18n="use_marriage">💑 විවාහ ගැළපීම (පොරොන්දම)</div>
+                <div class="sl-use-case" data-i18n="use_career">💼 වෘත්තීය දිශාව සහ රැකියා කාලය</div>
+                <div class="sl-use-case" data-i18n="use_foreign">✈️ විදේශ රැකියා සහ සංක්‍රමණ මඟ</div>
+                <div class="sl-use-case" data-i18n="use_exams">📚 සා/පෙ සහ උ/පෙ විභාග සූදානම</div>
+                <div class="sl-use-case" data-i18n="use_house">🏠 ගෙවල් ඉදිකිරීම සහ නැකත</div>
+                <div class="sl-use-case" data-i18n="use_daily">🌟 දෛනික ජීවිතය සහ අභ්‍යන්තර සාමය</div>
             </div>
         </div>
     </div>
@@ -435,16 +436,16 @@
     <div class="container">
         <div class="sl-trust-block">
             <div class="sl-trust-header">
-                <h2>Built for Sri Lankan Users</h2>
-                <p>Personalised astrology guidance in your language, at a price that makes sense locally.</p>
+                <h2 data-i18n="trust_title">ශ්‍රී ලාංකිකයන් සඳහා නිර්මිත</h2>
+                <p data-i18n="trust_sub">ඔබේ භාෂාවෙන් පෞද්ගලික ජ්‍යෝතිෂ මඟ පෙන්වීම, ස්ථානීය ගාස්තු.</p>
             </div>
             <div class="sl-trust-grid">
-                <div class="sl-trust-item"><span class="sl-trust-icon">💳</span><div><strong>Pay in LKR</strong><br>Monthly or yearly plans in Sri Lankan Rupees</div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">💬</span><div><strong>WhatsApp Support</strong><br>Contact us directly — quick, friendly help</div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">🔒</span><div><strong>Your Data is Private</strong><br>Birth data used only for your readings. Never sold.</div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">📧</span><div><strong>Daily Guidance to Your Inbox</strong><br>Personalised horoscope every morning</div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">🌙</span><div><strong>Astrology-Based Insights</strong><br>Lagna, planetary positions &amp; your life context combined</div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">↩️</span><div><strong>7-Day Money-Back Guarantee</strong><br>Not happy? Full refund — no questions asked</div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">💳</span><div><strong data-i18n="trust_lkr">LKR ලෙස ගෙවන්න</strong><br><span data-i18n="trust_lkr_sub">ශ්‍රී ලාංකිකන් රුපියල්වලින් මාසික හෝ වාර්ෂික සැලසුම්</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">💬</span><div><strong data-i18n="trust_wa">WhatsApp සහාය</strong><br><span data-i18n="trust_wa_sub">කෙලින්ම අප සම්බන්ධ කරගන්න — ඉක්මන් හා මිත්‍රශීලී</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">🔒</span><div><strong data-i18n="trust_privacy">ඔබේ දත්ත ආරක්ෂිතයි</strong><br><span data-i18n="trust_privacy_sub">ජනන දත්ත ඔබේ කියවීම් සඳහා පමණි. කිසිදිනක විකිණෙන්නේ නැත.</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">📧</span><div><strong data-i18n="trust_email_del">ඔබේ ඊමේල් පෙට්ටියට දෛනිකව</strong><br><span data-i18n="trust_email_del_sub">සෑම උදෑසනකම පෞද්ගලිකෙ හෝරෝස්කෝපය</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">🌙</span><div><strong data-i18n="trust_astro">ජ්‍යෝතිෂ-පදනම් අවබෝධය</strong><br><span data-i18n="trust_astro_sub">ලග්නය, ග්‍රහ ස්ථාන සහ ඔබේ ජීවිත සන්දර්භය ඒකාබද්ධ</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">↩️</span><div><strong data-i18n="trust_refund">දින 7 ආපසු ගෙවීමේ සහතිකය</strong><br><span data-i18n="trust_refund_sub">සතුටු නොවූවාද? සම්පූර්ණ ආපසු ගෙවීම — ප්‍රශ්නයක් නැති</span></div></div>
             </div>
         </div>
     </div>
@@ -453,73 +454,73 @@
 <!-- Pricing -->
 <section class="section section-alt" id="pricing">
     <div class="container">
-        <h2 class="section-title">Simple, Honest Pricing</h2>
-        <p style="text-align:center;color:var(--text-muted);margin:-16px auto 32px;max-width:480px;font-size:1.05rem;">Start free or go Premium from day one. Pay in LKR or USD.</p>
+        <h2 class="section-title" data-i18n="pricing_title">සරල, අවංක මිළ ගණන්</h2>
+        <p style="text-align:center;color:var(--text-muted);margin:-16px auto 32px;max-width:480px;font-size:1.05rem;" data-i18n="pricing_sub">ඉදිරි දිනයේ සිටම Premium ලබාගන්න. LKR හෝ USD ගෙවන්න.</p>
         <div class="pricing-grid-3">
 
             <!-- Free -->
             <div class="pricing-card">
                 <div class="plan-badge-wrap"></div>
-                <div class="pricing-tier">Free</div>
+                <div class="pricing-tier" data-i18n="plan_free">නිදහස්</div>
                 <div class="pricing-price">LKR 0<span></span></div>
-                <p class="plan-label">Forever free · No payment required.</p>
+                <p class="plan-label" data-i18n="plan_free_label">සදහටම නිදහස් · ගෙවීමක් අවශ්‍ය නොවේ.</p>
                 <ul class="pricing-features">
-                    <li>✅ Full birth chart (Lagna + 10 planets)</li>
-                    <li>✅ Sun, Moon &amp; Rising profile</li>
-                    <li>✅ AI-powered personality overview</li>
-                    <li>✅ All planetary house positions</li>
-                    <li>✅ 10 free compatibility readings</li>
-                    <li>✅ 5 trial previews of Premium features</li>
-                    <li>❌ Personalised daily guidance</li>
-                    <li>❌ Weekly &amp; monthly forecasts</li>
-                    <li>❌ Ask any life question</li>
+                    <li data-i18n="feat_birth_chart">✅ සම්පූර්ණ ජනන ජ්‍යෝතිෂ රේඛාව (ලග්නය + ග්‍රහ 10)</li>
+                    <li data-i18n="feat_sun_moon">✅ රවි, චන්ද සහ ලග්න ව්‍යාකෘතිය</li>
+                    <li data-i18n="feat_ai_overview">✅ AI-ශක්‍ය පෞරුෂ කෙටි සටහන</li>
+                    <li data-i18n="feat_houses">✅ සියලු ග්‍රහ නිවාස ස්ථාන</li>
+                    <li data-i18n="feat_compat_free">✅ නිදහස් ගැළපීම් කියවීම් 10ක්</li>
+                    <li data-i18n="feat_trial">✅ Premium අංශ 5ක් ත්‍යාගයක් ලෙස</li>
+                    <li data-i18n="feat_no_daily">❌ පෞද්ගලික දෛනික මඟ පෙන්වීම</li>
+                    <li data-i18n="feat_no_forecast">❌ සතිපතා සහ මාසික අනාවැකි</li>
+                    <li data-i18n="feat_no_ask">❌ ජීවිතයේ ප්‍රශ්නයක් අසන්න</li>
                 </ul>
-                <a href="#birth-form" class="btn btn-outline btn-full" style="margin-top:16px;">Start Free →</a>
+                <a href="#birth-form" class="btn btn-outline btn-full" style="margin-top:16px;" data-i18n="plan_start_free">නොමිලේ ආරම්භ කරන්න →</a>
             </div>
 
             <!-- Monthly -->
             <div class="pricing-card pricing-card-featured">
                 <div class="plan-badge-wrap">
-                    <span class="badge-popular">Most Popular</span>
+                    <span class="badge-popular" data-i18n="badge_popular">වඩාත් ජනප්‍රිය</span>
                 </div>
-                <div class="pricing-tier">Monthly</div>
+                <div class="pricing-tier" data-i18n="plan_monthly">මාසික</div>
                 <div class="pricing-price">LKR 990<span>/month</span></div>
-                <p class="plan-price-usd">or $3.99/month for international payment</p>
-                <p class="plan-label">Cancel anytime · 7-day money-back guarantee.</p>
+                <p class="plan-price-usd" data-i18n="plan_or_usd_monthly">හෝ ජාත්‍යන්තර ගෙවීම් $3.99/මාසෙට</p>
+                <p class="plan-label" data-i18n="plan_monthly_label">ඕනෑ වේලාවක අවලංගු කරන්න · දින 7 ආපසු ගෙවීමේ සහතිකය.</p>
                 <ul class="pricing-features">
-                    <li>✅ Everything in Free</li>
-                    <li>✅ Personalised daily guidance</li>
-                    <li>✅ Built from your exact blueprint</li>
-                    <li>✅ Weekly &amp; monthly forecasts</li>
-                    <li>✅ Daily delivery to your inbox</li>
-                    <li>✅ Compatibility insights (porondam)</li>
-                    <li>✅ Ask any life question</li>
-                    <li>✅ WhatsApp support</li>
+                    <li data-i18n="feat_everything">✅ නිදහස් සැලැස්මේ සියල්ල</li>
+                    <li data-i18n="feat_daily">✅ පෞද්ගලික දෛනික මඟ පෙන්වීම</li>
+                    <li data-i18n="feat_blueprint">✅ ඔබේ නිශ්චිත සිතියමෙන් ගොඩ නංවා</li>
+                    <li data-i18n="feat_forecast">✅ සතිපතා සහ මාසික අනාවැකි</li>
+                    <li data-i18n="feat_inbox">✅ ඔබේ ඊමේල් පෙට්ටියට දෛනිකව</li>
+                    <li data-i18n="feat_compat">✅ ගැළපීමේ අවබෝධය (පොරොන්දම)</li>
+                    <li data-i18n="feat_ask">✅ ජීවිතයේ ඕනෑම ප්‍රශ්නයක් අසන්න</li>
+                    <li data-i18n="feat_wa">✅ WhatsApp සහාය</li>
                 </ul>
-                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;">Get Monthly ✨</a>
+                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;" data-i18n="plan_get_monthly">මාසික ලබාගන්න ✨</a>
             </div>
 
             <!-- Yearly -->
             <div class="pricing-card">
                 <div class="plan-badge-wrap">
-                    <span class="badge-value">Best Value</span>
-                    <span class="badge-save">Save 58%</span>
+                    <span class="badge-value" data-i18n="badge_value">හොඳම වටිනාකම</span>
+                    <span class="badge-save" data-i18n="badge_save58">58% ඉතිරිය</span>
                 </div>
-                <div class="pricing-tier">Yearly</div>
+                <div class="pricing-tier" data-i18n="plan_yearly">වාර්ෂික</div>
                 <div class="pricing-price">LKR 4,990<span>/year</span></div>
-                <p class="plan-price-usd">or $29.99/year for international payment</p>
-                <p class="plan-label">Just LKR 416/month · 7-day money-back guarantee.</p>
+                <p class="plan-price-usd" data-i18n="plan_or_usd_yearly">හෝ ජාත්‍යන්තර ගෙවීම් $29.99/අවුරුද්දකට</p>
+                <p class="plan-label" data-i18n="plan_yearly_label">LKR 416/මාසික · දින 7 ආපසු ගෙවීමේ සහතිකය.</p>
                 <ul class="pricing-features">
-                    <li>✅ Everything in Free</li>
-                    <li>✅ Personalised daily guidance</li>
-                    <li>✅ Built from your exact blueprint</li>
-                    <li>✅ Weekly &amp; monthly forecasts</li>
-                    <li>✅ Daily delivery to your inbox</li>
-                    <li>✅ Compatibility insights (porondam)</li>
-                    <li>✅ Ask any life question</li>
-                    <li>✅ WhatsApp support</li>
+                    <li data-i18n="feat_everything">✅ නිදහස් සැලැස්මේ සියල්ල</li>
+                    <li data-i18n="feat_daily">✅ පෞද්ගලික දෛනික මඟ පෙන්වීම</li>
+                    <li data-i18n="feat_blueprint">✅ ඔබේ නිශ්චිත සිතියමෙන් ගොඩ නංවා</li>
+                    <li data-i18n="feat_forecast">✅ සතිපතා සහ මාසික අනාවැකි</li>
+                    <li data-i18n="feat_inbox">✅ ඔබේ ඊමේල් පෙට්ටියට දෛනිකව</li>
+                    <li data-i18n="feat_compat">✅ ගැළපීමේ අවබෝධය (පොරොන්දම)</li>
+                    <li data-i18n="feat_ask">✅ ජීවිතයේ ඕනෑම ප්‍රශ්නයක් අසන්න</li>
+                    <li data-i18n="feat_wa">✅ WhatsApp සහාය</li>
                 </ul>
-                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;">Get Yearly ✨</a>
+                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;" data-i18n="plan_get_yearly">වාර්ෂික ලබාගන්න ✨</a>
             </div>
 
         </div>
@@ -530,16 +531,16 @@
 <footer class="footer">
     <div class="container">
         <p class="footer-logo">✨ Zodovia</p>
-        <p class="footer-tagline">AI-assisted astrology guidance for Sri Lankan lives.</p>
+        <p class="footer-tagline" data-i18n="footer_tagline">ශ්‍රී ලාංකිකයන් සඳහා AI-ශක්‍ය ජ්‍යෝතිෂ මඟ පෙන්වීම.</p>
         <div class="footer-links">
-            <a href="/pricing">Pricing</a>
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/refund">Refund Policy</a>
-            <a href="mailto:contact@zodovia.com">Email Support</a>
-            <a href="https://wa.me/94700000000" target="_blank" rel="noopener">WhatsApp</a>
+            <a href="/pricing" data-i18n="nav_pricing">මිළ ගණන්</a>
+            <a href="/terms" data-i18n="footer_terms">සේවා නියම</a>
+            <a href="/privacy" data-i18n="footer_privacy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</a>
+            <a href="/refund" data-i18n="footer_refund">ආපසු ගෙවීමේ ප්‍රතිපත්තිය</a>
+            <a href="mailto:contact@zodovia.com" data-i18n="footer_email">ඊමේල් සහාය</a>
+            <a href="https://wa.me/94700000000" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
         </div>
-        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved. | For entertainment &amp; self-reflection purposes only.</p>
+        <p class="footer-copy" data-i18n="footer_copy">© 2026 Zodovia. සියලු හිමිකම් ඇවිරිණි. | විනෝදාස්වාද හා ස්වයං-ප්‍රතිබිම්බය සඳහා.</p>
     </div>
 </footer>
 
@@ -548,7 +549,7 @@
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
     </svg>
-    <span>Chat with us</span>
+    <span data-i18n="trust_wa_sub">කෙලින්ම අප සම්බන්ධ කරගන්න</span>
 </a>
 
 <!-- Login Modal -->
@@ -556,28 +557,29 @@
     <div class="modal-overlay" id="modalOverlay"></div>
     <div class="modal-box">
         <button class="modal-close" id="modalClose">&times;</button>
-        <h2>Sign In</h2>
+        <h2 data-i18n="modal_sign_in">පිවිසෙන්න</h2>
         <form id="loginForm">
             <div class="form-group">
-                <label for="loginEmail">Email</label>
-                <input type="email" id="loginEmail" required placeholder="you@example.com" autocomplete="email">
+                <label for="loginEmail" data-i18n="auth_email">ඊමේල්</label>
+                <input type="email" id="loginEmail" required data-i18n-placeholder="auth_email_ph" placeholder="you@example.com" autocomplete="email">
             </div>
             <div class="form-group">
-                <label for="loginPassword">Password</label>
+                <label for="loginPassword" data-i18n="auth_password">මුරපදය</label>
                 <input type="password" id="loginPassword" required placeholder="Your password" autocomplete="current-password">
             </div>
             <div id="loginError" class="form-error hidden"></div>
-            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-full" data-i18n="modal_sign_in">පිවිසෙන්න</button>
         </form>
         <p style="text-align:center;margin-top:14px;font-size:0.85rem;">
-            <a href="/forgot-password" style="color:var(--text-muted);">Forgot your password?</a>
+            <a href="/forgot-password" style="color:var(--text-muted);" data-i18n="modal_forgot">මුරපදය අමතකද?</a>
         </p>
-        <p style="text-align:center;margin-top:8px;font-size:0.85rem;color:var(--text-muted)">
-            New here? <a href="#birth-form" onclick="document.getElementById('loginModal').classList.add('hidden')">Get your free profile</a> to create an account.
+        <p style="text-align:center;margin-top:8px;font-size:0.85rem;color:var(--text-muted)" data-i18n-html="modal_new_html">
+            නව ආගන්තුකයෙකුද? <a href="#birth-form" onclick="document.getElementById('loginModal').classList.add('hidden')">නිදහස් ව්‍යාකෘතිය ලබාගන්න</a> ගිණුමක් සෑදීමට.
         </p>
     </div>
 </div>
 
+<script src="/static/js/i18n.js?v=1"></script>
 <script src="/static/js/main.js?v=6"></script>
 <script>
 (function(){
@@ -590,7 +592,6 @@
     }).catch(function(){});
 })();
 
-// Inject admin link only for superusers — keeps it out of public HTML
 (function(){
     var raw = localStorage.getItem('zodovia_user');
     if (!raw) return;

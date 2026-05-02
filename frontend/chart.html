@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,18 +13,22 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="robots" content="noindex, nofollow">
     <link rel="canonical" href="https://zodovia.com/chart">
-    <link rel="stylesheet" href="/static/css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=7">
 </head>
-<body class="page-chart">
+<body class="page-chart lang-si">
 
 <nav class="navbar navbar-dark">
     <div class="nav-inner">
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
-            <a href="/dashboard" id="dashboardLink" class="btn btn-ghost hidden">Dashboard</a>
-            <a href="/compatibility" id="compatibilityLink" class="btn btn-ghost hidden">Compatibility</a>
+            <a href="/dashboard" id="dashboardLink" class="btn btn-ghost hidden" data-i18n="nav_dashboard">Dashboard</a>
+            <a href="/compatibility" id="compatibilityLink" class="btn btn-ghost hidden" data-i18n="nav_compatibility">Compatibility</a>
             <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
-            <a href="#" id="logoutBtn" class="btn btn-ghost">Sign Out</a>
+            <a href="#" id="logoutBtn" class="btn btn-ghost" data-i18n="nav_sign_out">Sign Out</a>
+            <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
         </div>
     </div>
 </nav>
@@ -32,14 +36,14 @@
 <!-- Loading state -->
 <div id="loadingState" class="loading-screen">
     <div class="loader-star">✨</div>
-    <p>The cosmos is preparing your reading…</p>
+    <p data-i18n="loading_cosmos">The cosmos is preparing your reading…</p>
 </div>
 
 <!-- Error state -->
 <div id="errorState" class="loading-screen hidden">
     <div style="font-size:2.5rem">⚠️</div>
     <p id="errorMessage" style="color:#ff8080;text-align:center;max-width:400px"></p>
-    <a href="/" class="btn btn-outline" style="margin-top:8px">Go Home</a>
+    <a href="/" class="btn btn-outline" style="margin-top:8px" data-i18n="go_home">Go Home</a>
 </div>
 
 <!-- Chart content (hidden until loaded) -->
@@ -49,22 +53,22 @@
     <section class="section section-hero-chart">
         <div class="container container-sm">
             <p class="eyebrow" id="chartUserName"></p>
-            <h1>Your Cosmic Blueprint</h1>
+            <h1 data-i18n="chart_blueprint">Your Cosmic Blueprint</h1>
             <div class="big-three">
                 <div class="sign-card">
-                    <div class="sign-label">☀️ Sun</div>
+                    <div class="sign-label" data-i18n="chart_sun_label">☀️ Sun</div>
                     <div class="sign-name" id="sunSign"></div>
-                    <div class="sign-note">Your core identity</div>
+                    <div class="sign-note" data-i18n="chart_sun_note">Your core identity</div>
                 </div>
                 <div class="sign-card sign-card-center">
-                    <div class="sign-label">🌙 Moon</div>
+                    <div class="sign-label" data-i18n="chart_moon_label">🌙 Moon</div>
                     <div class="sign-name" id="moonSign"></div>
-                    <div class="sign-note">Your emotional self</div>
+                    <div class="sign-note" data-i18n="chart_moon_note">Your emotional self</div>
                 </div>
                 <div class="sign-card">
-                    <div class="sign-label">⬆️ Rising</div>
+                    <div class="sign-label" data-i18n="chart_rising_label">⬆️ Rising</div>
                     <div class="sign-name" id="risingSign"></div>
-                    <div class="sign-note">How the world sees you</div>
+                    <div class="sign-note" data-i18n="chart_rising_note">How the world sees you</div>
                 </div>
             </div>
         </div>
@@ -74,7 +78,7 @@
     <section class="section">
         <div class="container container-sm">
             <div class="reading-card">
-                <h2 id="readingTitle">✨ Your Personal Reading</h2>
+                <h2 id="readingTitle" data-i18n="chart_reading_title">✨ Your Personal Reading</h2>
                 <div class="reading-body" id="readingBody"></div>
             </div>
         </div>
@@ -83,8 +87,8 @@
     <!-- Natal Chart Wheel -->
     <section class="section section-alt">
         <div class="container container-sm">
-            <h2 class="section-title">🔮 Your Natal Chart Wheel</h2>
-            <p class="section-sub">Every planet placed at its exact degree — the sky frozen at the moment of your birth</p>
+            <h2 class="section-title" data-i18n="chart_wheel_title">🔮 Your Natal Chart Wheel</h2>
+            <p class="section-sub" data-i18n="chart_wheel_sub">Every planet placed at its exact degree — the sky frozen at the moment of your birth</p>
             <div class="wheel-wrapper">
                 <svg id="chartWheel" class="chart-wheel-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
                 <div class="wheel-legend">
@@ -107,7 +111,7 @@
                         <span class="rising-glyph" id="risingGlyph"></span>
                     </div>
                     <div>
-                        <p class="rising-eyebrow">Your Ascendant</p>
+                        <p class="rising-eyebrow" data-i18n="ascendant_label">Your Ascendant</p>
                         <h2 class="rising-title"><span id="risingSignTitle"></span> Rising</h2>
                         <p class="rising-degree-label" id="risingDegreeLabel"></p>
                     </div>
@@ -119,17 +123,17 @@
                 <div class="rising-pillars">
                     <div class="rising-pillar">
                         <div class="pillar-icon">🎭</div>
-                        <h4>First Impression</h4>
+                        <h4 data-i18n="pillar1_title">First Impression</h4>
                         <p id="pillar1"></p>
                     </div>
                     <div class="rising-pillar">
                         <div class="pillar-icon">🌅</div>
-                        <h4>Your Presence</h4>
+                        <h4 data-i18n="pillar2_title">Your Presence</h4>
                         <p id="pillar2"></p>
                     </div>
                     <div class="rising-pillar">
                         <div class="pillar-icon">🗺️</div>
-                        <h4>Life Approach</h4>
+                        <h4 data-i18n="pillar3_title">Life Approach</h4>
                         <p id="pillar3"></p>
                     </div>
                 </div>
@@ -140,7 +144,7 @@
     <!-- Planetary Table -->
     <section class="section section-alt">
         <div class="container container-sm">
-            <h2 class="section-title">🪐 All Planetary Positions</h2>
+            <h2 class="section-title" data-i18n="chart_planets_title">🪐 All Planetary Positions</h2>
             <div class="planet-grid" id="planetGrid"></div>
         </div>
     </section>
@@ -152,17 +156,17 @@
                 <div class="ask-stars-header">
                     <span class="ask-stars-icon">🔮</span>
                     <div>
-                        <h2>Ask the Stars</h2>
-                        <p class="ask-stars-sub">Ask any question about love, career, family, or life decisions. Your chart holds the answer.</p>
+                        <h2 data-i18n="ask_stars_title">Ask the Stars</h2>
+                        <p class="ask-stars-sub" data-i18n="ask_stars_sub">Ask any question about love, career, family, or life decisions. Your chart holds the answer.</p>
                     </div>
                 </div>
                 <div class="ask-stars-form">
-                    <textarea id="starsQuestion" placeholder="e.g. Why do I keep attracting the same type of person? / Is now a good time to start my business? / How do I improve my relationship with my mother?" rows="3" maxlength="600"></textarea>
+                    <textarea id="starsQuestion" data-i18n-placeholder="ask_stars_ph" placeholder="e.g. Why do I keep attracting the same type of person?" rows="3" maxlength="600"></textarea>
                     <div id="starsCounter" class="ask-counter">600 characters left</div>
-                    <button type="button" class="btn btn-primary" id="askStarsBtn">Ask the Stars ✨</button>
+                    <button type="button" class="btn btn-primary" id="askStarsBtn" data-i18n="ask_stars_btn">Ask the Stars ✨</button>
                 </div>
                 <div id="starsLoading" class="hidden" style="text-align:center;padding:20px;color:var(--text-muted)">
-                    <span class="loader-dot"></span> The stars are consulting…
+                    <span class="loader-dot"></span> <span data-i18n="ask_stars_loading">The stars are consulting…</span>
                 </div>
                 <div id="starsAnswer" class="stars-answer hidden"></div>
             </div>
@@ -176,15 +180,15 @@
                 <div class="ask-stars-header">
                     <span class="ask-stars-icon">🔮</span>
                     <div>
-                        <h2>Ask the Stars</h2>
-                        <p class="ask-stars-sub">Premium members can ask any life question and get a deeply personalised astrological answer based on their exact chart.</p>
+                        <h2 data-i18n="ask_stars_title">Ask the Stars</h2>
+                        <p class="ask-stars-sub" data-i18n="ask_stars_locked_sub">Premium members can ask any life question and get a deeply personalised astrological answer based on their exact chart.</p>
                     </div>
                 </div>
                 <div class="ask-stars-example">
                     <p class="ask-stars-example-q">"Why do I keep falling for the same type of person?"</p>
                     <p class="ask-stars-example-a">With Venus in Scorpio and your 7th house ruled by Neptune, you're drawn to intensity and mystery — but your Moon in Pisces means you idealise partners before seeing them clearly. The answer lies in your…</p>
                 </div>
-                <a href="#paywallSection" class="btn btn-primary btn-full" style="margin-top:16px">🔒 Unlock Full Answers — Upgrade to Premium</a>
+                <a href="#paywallSection" class="btn btn-primary btn-full" style="margin-top:16px" data-i18n="ask_stars_example_btn">🔒 Unlock Full Answers — Upgrade to Premium</a>
             </div>
         </div>
     </section>
@@ -194,26 +198,23 @@
         <div class="container container-sm">
             <div class="paywall-card">
                 <div class="paywall-icon">🔮</div>
-                <h2>Unlock Your Full Blueprint</h2>
-                <p>Get your complete personal reading, daily guidance, weekly &amp; monthly forecasts, and the ability to ask any life question — all tailored to your exact blueprint.</p>
+                <h2 data-i18n="paywall_unlock">Unlock Your Full Blueprint</h2>
+                <p data-i18n="paywall_unlock_sub">Get your complete personal reading, daily guidance, weekly &amp; monthly forecasts, and the ability to ask any life question — all tailored to your exact blueprint.</p>
                 <div class="paywall-features">
-                    <span>✨ Complete deep-dive reading</span>
-                    <span>🔮 Ask any life question</span>
-                    <span>💑 Compatibility insights</span>
-                    <span>📧 Daily guidance by email</span>
-                </div>
-                <div class="paywall-price">
-                    Only <strong>$3.99/month</strong> — or $29.99/year
+                    <span data-i18n="feat_everything">✅ Everything in Free</span>
+                    <span data-i18n="feat_daily">✅ Personalised daily guidance</span>
+                    <span data-i18n="feat_ask">✅ Ask any life question</span>
+                    <span data-i18n="feat_compat">✅ Compatibility insights</span>
                 </div>
                 <div class="paywall-actions">
-                    <a href="/pricing" class="btn btn-primary btn-lg" id="upgradeMonthlyBtn">
+                    <a href="/pricing" class="btn btn-primary btn-lg" id="upgradeMonthlyBtn" data-i18n="paywall_monthly">
                         Upgrade Monthly — $3.99
                     </a>
-                    <a href="/pricing" class="btn btn-outline" id="upgradeYearlyBtn">
+                    <a href="/pricing" class="btn btn-outline" id="upgradeYearlyBtn" data-i18n="paywall_yearly">
                         Upgrade Yearly — $29.99 (save 37%)
                     </a>
                 </div>
-                <p class="paywall-note">Cancel anytime. Secure payments by PayPal.</p>
+                <p class="paywall-note" data-i18n="paywall_note">Cancel anytime. Secure payments by PayPal.</p>
             </div>
         </div>
     </section>
@@ -223,14 +224,15 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-links">
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/refund">Refund Policy</a>
+            <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+            <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+            <a href="/refund" data-i18n="footer_refund">Refund Policy</a>
         </div>
-        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+        <p class="footer-copy" data-i18n="footer_copy_simple">© 2026 Zodovia. All rights reserved.</p>
     </div>
 </footer>
 
+<script src="/static/js/i18n.js?v=1"></script>
 <script src="/static/js/chart.js?v=4"></script>
 </body>
 </html>

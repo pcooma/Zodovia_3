@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard — Zodovia</title>
     <meta name="description" content="Your Zodovia dashboard — daily horoscopes, birth chart, Ask the Stars, and compatibility reports. All tailored to your chart.">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="/static/css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=7">
 </head>
-<body class="page-dashboard">
+<body class="page-dashboard lang-si">
 
 <nav class="navbar">
     <div class="nav-inner">
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
             <span id="navUserName" class="nav-user"></span>
-            <a href="/chart" class="btn btn-ghost">My Chart</a>
-            <a href="/compatibility" class="btn btn-ghost">Compatibility</a>
+            <a href="/chart" class="btn btn-ghost" data-i18n="nav_my_chart">My Chart</a>
+            <a href="/compatibility" class="btn btn-ghost" data-i18n="nav_compatibility">Compatibility</a>
             <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
-            <a href="#" id="logoutBtn" class="btn btn-ghost">Sign Out</a>
+            <a href="#" id="logoutBtn" class="btn btn-ghost" data-i18n="nav_sign_out">Sign Out</a>
+            <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
         </div>
     </div>
 </nav>
@@ -26,14 +30,14 @@
 <!-- Loading -->
 <div id="loadingState" class="loading-screen">
     <div class="loader-star">✨</div>
-    <p>Aligning the stars…</p>
+    <p data-i18n="loading_stars">Aligning the stars…</p>
 </div>
 
 <!-- Post-payment activation banner -->
 <div id="activationBanner" class="hidden" style="background:rgba(var(--gold-rgb,212,175,55),0.12);border:1px solid var(--gold);border-radius:12px;padding:20px 24px;max-width:520px;margin:48px auto;text-align:center;">
     <div style="font-size:1.8rem;margin-bottom:8px;">✨</div>
-    <p id="activationMsg" style="color:var(--text);font-weight:600;margin-bottom:4px;">Activating your Premium subscription…</p>
-    <p style="color:var(--text-muted);font-size:0.88rem;">This usually takes just a few seconds.</p>
+    <p id="activationMsg" style="color:var(--text);font-weight:600;margin-bottom:4px;" data-i18n="dash_activate_msg">Activating your Premium subscription…</p>
+    <p style="color:var(--text-muted);font-size:0.88rem;" data-i18n="dash_activate_sub">This usually takes just a few seconds.</p>
 </div>
 
 <!-- Upgrade prompt for free users -->
@@ -42,20 +46,20 @@
         <div class="container container-sm">
             <div class="paywall-card">
                 <div class="paywall-icon">🔮</div>
-                <h2>Welcome to Zodovia!</h2>
-                <p>Upgrade to Premium to unlock your personalised daily guidance, compatibility insights, Ask the Stars, and everything built around your unique blueprint.</p>
+                <h2 data-i18n="upgrade_title">Welcome to Zodovia!</h2>
+                <p data-i18n="upgrade_sub">Upgrade to Premium to unlock your personalised daily guidance, compatibility insights, Ask the Stars, and everything built around your unique blueprint.</p>
                 <div class="paywall-features">
-                    <span>🌟 Daily personalised guidance</span>
-                    <span>💑 Compatibility insights</span>
-                    <span>🔮 Ask any life question</span>
-                    <span>📧 Morning delivery to your inbox</span>
+                    <span data-i18n="upgrade_feat1">🌟 Daily personalised guidance</span>
+                    <span data-i18n="upgrade_feat2">💑 Compatibility insights</span>
+                    <span data-i18n="upgrade_feat3">🔮 Ask any life question</span>
+                    <span data-i18n="upgrade_feat4">📧 Morning delivery to your inbox</span>
                 </div>
                 <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
-                    <a href="/pricing" class="btn btn-outline">Monthly — $3.99/mo ✨</a>
-                    <a href="/pricing" class="btn btn-primary" id="dashUpgradeBtn">Yearly — $29.99/yr · Save 37% ✨</a>
+                    <a href="/pricing" class="btn btn-outline" data-i18n="upgrade_monthly">Monthly — $3.99/mo ✨</a>
+                    <a href="/pricing" class="btn btn-primary" id="dashUpgradeBtn" data-i18n="upgrade_yearly">Yearly — $29.99/yr · Save 37% ✨</a>
                 </div>
-                <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:10px;">7-day money-back guarantee · cancel anytime</p>
-                <p class="paywall-note"><a href="/chart">View my full blueprint instead →</a></p>
+                <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:10px;" data-i18n="upgrade_guarantee">7-day money-back guarantee · cancel anytime</p>
+                <p class="paywall-note"><a href="/chart" data-i18n="upgrade_link">View my full blueprint instead →</a></p>
             </div>
         </div>
     </section>
@@ -85,11 +89,11 @@
         <div class="container container-md">
             <div class="dash-card horoscope-card">
                 <div class="dash-card-header">
-                    <h2>🌟 Today's Horoscope</h2>
+                    <h2 data-i18n="dash_horoscope">🌟 Today's Horoscope</h2>
                     <span class="horoscope-date" id="horoscopeDate"></span>
                 </div>
                 <div id="horoscopeLoading" class="horoscope-loading">
-                    <span class="loader-dot"></span> Consulting the stars…
+                    <span class="loader-dot"></span> <span data-i18n="dash_loading_stars">Consulting the stars…</span>
                 </div>
                 <div id="horoscopeContent" class="horoscope-body hidden"></div>
             </div>
@@ -101,10 +105,10 @@
         <div class="container container-md">
             <div class="dash-card intention-card">
                 <div class="dash-card-header">
-                    <h2>🌱 Today's Intention</h2>
+                    <h2 data-i18n="dash_intention">🌱 Today's Intention</h2>
                 </div>
                 <div id="intentionLoading" class="horoscope-loading">
-                    <span class="loader-dot"></span> Setting your intention…
+                    <span class="loader-dot"></span> <span data-i18n="dash_loading_intention">Setting your intention…</span>
                 </div>
                 <div id="intentionContent" class="intention-body hidden"></div>
             </div>
@@ -114,18 +118,18 @@
     <!-- Weekly & Monthly Forecasts -->
     <section class="section">
         <div class="container container-md">
-            <h2 class="section-title">Your Forecasts</h2>
+            <h2 class="section-title" data-i18n="dash_forecasts">Your Forecasts</h2>
             <div class="forecast-grid">
 
                 <!-- This Week -->
                 <div class="dash-card forecast-card">
                     <div class="dash-card-header">
-                        <h2>📅 This Week's Guidance</h2>
-                        <button class="btn btn-outline btn-sm" id="weekForecastBtn">View →</button>
+                        <h2 data-i18n="dash_week">📅 This Week's Guidance</h2>
+                        <button class="btn btn-outline btn-sm" id="weekForecastBtn" data-i18n="week_view">View →</button>
                     </div>
-                    <p class="forecast-teaser">A personalised 7-day reading crafted from your unique chart.</p>
+                    <p class="forecast-teaser" data-i18n="dash_week_teaser">A personalised 7-day reading crafted from your unique chart.</p>
                     <div id="weekForecastLoading" class="horoscope-loading hidden">
-                        <span class="loader-dot"></span> Reading the week ahead…
+                        <span class="loader-dot"></span> <span data-i18n="dash_loading_week">Reading the week ahead…</span>
                     </div>
                     <div id="weekForecastContent" class="horoscope-body hidden"></div>
                 </div>
@@ -133,12 +137,12 @@
                 <!-- This Month -->
                 <div class="dash-card forecast-card">
                     <div class="dash-card-header">
-                        <h2>🌕 This Month's Themes</h2>
-                        <button class="btn btn-outline btn-sm" id="monthForecastBtn">View →</button>
+                        <h2 data-i18n="dash_month">🌕 This Month's Themes</h2>
+                        <button class="btn btn-outline btn-sm" id="monthForecastBtn" data-i18n="month_view">View →</button>
                     </div>
-                    <p class="forecast-teaser">Explore the major themes, opportunities, and growth edges this month holds for you.</p>
+                    <p class="forecast-teaser" data-i18n="dash_month_teaser">Explore the major themes, opportunities, and growth edges this month holds for you.</p>
                     <div id="monthForecastLoading" class="horoscope-loading hidden">
-                        <span class="loader-dot"></span> Mapping the month ahead…
+                        <span class="loader-dot"></span> <span data-i18n="dash_loading_month">Mapping the month ahead…</span>
                     </div>
                     <div id="monthForecastContent" class="horoscope-body hidden"></div>
                 </div>
@@ -150,29 +154,29 @@
     <!-- Personal Tools -->
     <section class="section section-alt">
         <div class="container container-md">
-            <h2 class="section-title">Your Personal Tools</h2>
+            <h2 class="section-title" data-i18n="dash_tools">Your Personal Tools</h2>
             <div class="features-grid">
 
                 <!-- Compatibility Checker -->
                 <a href="/compatibility" class="feature-card feature-card-link">
                     <div class="feature-card-icon">💑</div>
-                    <h3>Compatibility Insights</h3>
-                    <p>Understand the dynamic between you and anyone — romantic partner, family member, friend, or colleague.</p>
-                    <span class="feature-cta">Explore Now →</span>
+                    <h3 data-i18n="dash_compat">Compatibility Insights</h3>
+                    <p data-i18n="dash_compat_sub">Understand the dynamic between you and anyone — romantic partner, family member, friend, or colleague.</p>
+                    <span class="feature-cta" data-i18n="dash_compat_cta">Explore Now →</span>
                 </a>
 
                 <!-- Ask the Stars inline -->
                 <div class="feature-card" id="askStarsDash">
                     <div class="feature-card-icon">🔮</div>
-                    <h3>Ask Any Question</h3>
-                    <p>Have a question about love, career, family, or a big decision? Your blueprint holds the answer.</p>
-                    <button class="btn btn-outline btn-sm" id="askToggleBtn">Ask a Question</button>
+                    <h3 data-i18n="dash_ask">Ask Any Question</h3>
+                    <p data-i18n="dash_ask_sub">Have a question about love, career, family, or a big decision? Your blueprint holds the answer.</p>
+                    <button class="btn btn-outline btn-sm" id="askToggleBtn" data-i18n="dash_ask_btn">Ask a Question</button>
                     <div id="dashAskForm" class="hidden" style="margin-top:14px">
-                        <textarea class="dash-ask-textarea" id="dashQuestion" placeholder="e.g. Is now the right time to leave my job? Why do I keep attracting the wrong partners?" rows="2" maxlength="600"></textarea>
+                        <textarea class="dash-ask-textarea" id="dashQuestion" data-i18n-placeholder="dash_ask_ph" placeholder="e.g. Is now the right time to leave my job?" rows="2" maxlength="600"></textarea>
                         <div id="dashAskCounter" class="ask-counter">600 characters left</div>
-                        <button class="btn btn-primary btn-full" style="margin-top:8px;font-size:0.88rem" id="dashAskBtn">Ask ✨</button>
+                        <button class="btn btn-primary btn-full" style="margin-top:8px;font-size:0.88rem" id="dashAskBtn" data-i18n="dash_ask_btn2">Ask ✨</button>
                         <div id="dashAskLoading" class="hidden" style="padding:10px 0;color:var(--text-muted);font-size:0.85rem">
-                            <span class="loader-dot"></span> The stars are speaking…
+                            <span class="loader-dot"></span> <span data-i18n="dash_ask_loading">The stars are speaking…</span>
                         </div>
                         <div id="dashAskResult" class="dash-ask-result hidden"></div>
                     </div>
@@ -181,9 +185,9 @@
                 <!-- My Chart -->
                 <a href="/chart" class="feature-card feature-card-link">
                     <div class="feature-card-icon">🗺️</div>
-                    <h3>Your Full Blueprint</h3>
-                    <p>Explore all 10 planetary positions and your complete personal reading — what each placement means for your life, growth, and relationships.</p>
-                    <span class="feature-cta">View Blueprint →</span>
+                    <h3 data-i18n="dash_full_bp">Your Full Blueprint</h3>
+                    <p data-i18n="dash_full_bp_sub">Explore all 10 planetary positions and your complete personal reading — what each placement means for your life, growth, and relationships.</p>
+                    <span class="feature-cta" data-i18n="dash_full_bp_cta">View Blueprint →</span>
                 </a>
 
             </div>
@@ -193,23 +197,23 @@
     <!-- Quick Stats -->
     <section class="section">
         <div class="container container-md">
-            <h2 class="section-title">Your Personal Profile</h2>
+            <h2 class="section-title" data-i18n="dash_profile">Your Personal Profile</h2>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">☀️ Sun Sign</div>
+                    <div class="stat-label" data-i18n="dash_sun">☀️ Sun Sign</div>
                     <div class="stat-value" id="statSun"></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">🌙 Moon Sign</div>
+                    <div class="stat-label" data-i18n="dash_moon">🌙 Moon Sign</div>
                     <div class="stat-value" id="statMoon"></div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">⬆️ Rising Sign</div>
+                    <div class="stat-label" data-i18n="dash_rising">⬆️ Rising Sign</div>
                     <div class="stat-value" id="statRising"></div>
                 </div>
                 <div class="stat-card stat-card-cta">
-                    <div class="stat-label">📊 Full Chart</div>
-                    <a href="/chart" class="btn btn-outline btn-sm">View →</a>
+                    <div class="stat-label" data-i18n="dash_chart_label">📊 Full Chart</div>
+                    <a href="/chart" class="btn btn-outline btn-sm" data-i18n="dash_view_chart">View →</a>
                 </div>
             </div>
         </div>
@@ -220,14 +224,15 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-links">
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/refund">Refund Policy</a>
+            <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+            <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+            <a href="/refund" data-i18n="footer_refund">Refund Policy</a>
         </div>
-        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+        <p class="footer-copy" data-i18n="footer_copy_simple">© 2026 Zodovia. All rights reserved.</p>
     </div>
 </footer>
 
+<script src="/static/js/i18n.js?v=1"></script>
 <script src="/static/js/dashboard.js?v=4"></script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -157,24 +157,25 @@
         .payhere-note strong { color: var(--teal); }
     </style>
 </head>
-<body>
+<body class="lang-si">
 
 <nav class="navbar">
     <div class="nav-inner">
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
-            <a href="/">Home</a>
+            <a href="/" data-i18n="nav_home">Home</a>
             <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--text-muted)">💬 WhatsApp</a>
-            <a href="/" class="btn btn-primary">Get Started Free</a>
+            <a href="/" class="btn btn-primary" data-i18n="nav_get_started">Get Started Free</a>
+            <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
         </div>
     </div>
 </nav>
 
 <section class="section section-hero-chart" style="padding: 72px 0 48px;">
     <div class="container" style="text-align:center;">
-        <p class="eyebrow">Simple, Honest Pricing</p>
-        <h1 style="font-size:2.6rem; margin-bottom:12px;">Choose Your Plan</h1>
-        <p style="color:var(--text-muted); max-width:500px; margin:0 auto; font-size:1.05rem;">
+        <p class="eyebrow" data-i18n="pricing_page_eyebrow">Simple, Honest Pricing</p>
+        <h1 style="font-size:2.6rem; margin-bottom:12px;" data-i18n="pricing_page_title">Choose Your Plan</h1>
+        <p style="color:var(--text-muted); max-width:500px; margin:0 auto; font-size:1.05rem;" data-i18n="pricing_page_sub">
             Start free to explore your blueprint. Go Premium from day one — pay in LKR or USD.
         </p>
     </div>
@@ -185,9 +186,9 @@
 
         <!-- Payment method toggle -->
         <div class="payment-tabs" id="paymentTabs">
-            <button class="payment-tab active" onclick="showPayment('payhere')" id="tab-payhere">🇱🇰 Pay in LKR (PayHere)</button>
-            <button class="payment-tab" onclick="showPayment('bank')" id="tab-bank">🏦 Bank Transfer (LKR)</button>
-            <button class="payment-tab" onclick="showPayment('paypal')" id="tab-paypal">🌍 International (PayPal / USD)</button>
+            <button class="payment-tab active" onclick="showPayment('payhere')" id="tab-payhere" data-i18n="tab_payhere">🇱🇰 Pay in LKR (PayHere)</button>
+            <button class="payment-tab" onclick="showPayment('bank')" id="tab-bank" data-i18n="tab_bank">🏦 Bank Transfer (LKR)</button>
+            <button class="payment-tab" onclick="showPayment('paypal')" id="tab-paypal" data-i18n="tab_paypal">🌍 International (PayPal / USD)</button>
         </div>
 
         <!-- PayHere / LKR pricing cards -->
@@ -436,7 +437,7 @@
 
         <!-- FAQ -->
         <div style="max-width:640px; margin:60px auto 0;">
-            <h2 class="section-title" style="margin-bottom:32px;">Frequently Asked Questions</h2>
+            <h2 class="section-title" style="margin-bottom:32px;" data-i18n="faq_title">Frequently Asked Questions</h2>
 
             <div class="faq-item">
                 <h3>Can I pay in Sri Lankan Rupees?</h3>
@@ -474,7 +475,7 @@
 <footer class="footer">
     <div class="container">
         <p class="footer-logo">✨ Zodovia</p>
-        <p class="footer-tagline">AI-assisted astrology guidance for Sri Lankan lives.</p>
+        <p class="footer-tagline" data-i18n="footer_tagline">AI-assisted astrology guidance for Sri Lankan lives.</p>
         <div class="footer-links">
             <a href="/terms">Terms of Service</a>
             <a href="/privacy">Privacy Policy</a>
@@ -482,7 +483,7 @@
             <a href="mailto:contact@zodovia.com">Email Support</a>
             <a href="https://wa.me/94700000000" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved. | For entertainment &amp; self-reflection purposes only.</p>
+        <p class="footer-copy" data-i18n="footer_copy">&copy; 2026 Zodovia. All rights reserved. | For entertainment &amp; self-reflection purposes only.</p>
     </div>
 </footer>
 
@@ -494,6 +495,7 @@
     <span>Chat with us</span>
 </a>
 
+<script src="/static/js/i18n.js?v=1"></script>
 <script>
 // Payment section tabs
 function showPayment(type) {

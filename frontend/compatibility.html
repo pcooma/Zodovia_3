@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compatibility Check — Zodovia</title>
     <meta name="description" content="Check astrological compatibility with a partner, friend, or family member. AI-powered reading based on both birth charts.">
     <meta name="robots" content="noindex, nofollow">
-    <link rel="stylesheet" href="/static/css/style.css?v=4">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=7">
 </head>
-<body class="page-compatibility">
+<body class="page-compatibility lang-si">
 
 <nav class="navbar">
     <div class="nav-inner">
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
-            <a href="/dashboard" class="btn btn-ghost">Dashboard</a>
-            <a href="/chart" class="btn btn-ghost">My Chart</a>
+            <a href="/dashboard" class="btn btn-ghost" data-i18n="nav_dashboard">Dashboard</a>
+            <a href="/chart" class="btn btn-ghost" data-i18n="nav_my_chart">My Chart</a>
             <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
-            <a href="#" id="logoutBtn" class="btn btn-ghost">Sign Out</a>
+            <a href="#" id="logoutBtn" class="btn btn-ghost" data-i18n="nav_sign_out">Sign Out</a>
+            <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
         </div>
     </div>
 </nav>
@@ -25,16 +29,16 @@
 <!-- Hero -->
 <section class="compat-page-hero">
     <div class="container">
-        <p class="eyebrow">Premium Feature</p>
-        <h1>💑 Compatibility Check</h1>
-        <p>Discover the cosmic chemistry between you and anyone in your life — a partner, parent, sibling, best friend, or colleague. Your stars reveal the truth.</p>
+        <p class="eyebrow" data-i18n="compat_premium">Premium Feature</p>
+        <h1 data-i18n="compat_title">💑 Compatibility Check</h1>
+        <p data-i18n="compat_sub">Discover the cosmic chemistry between you and anyone in your life — a partner, parent, sibling, best friend, or colleague. Your stars reveal the truth.</p>
     </div>
 </section>
 
 <!-- Loading state -->
 <div id="loadingState" class="loading-screen hidden">
     <div class="loader-star">💑</div>
-    <p id="loadingMsg">Comparing your cosmic blueprints…</p>
+    <p id="loadingMsg" data-i18n="compat_loading">Comparing your cosmic blueprints…</p>
 </div>
 
 <!-- Form -->
@@ -44,46 +48,46 @@
 
             <!-- Your details (pre-filled) -->
             <div class="compat-person-section you">
-                <div class="compat-section-label you">YOU</div>
+                <div class="compat-section-label you" data-i18n="compat_you">YOU</div>
                 <p id="yourDetails" style="color:var(--text-muted);font-size:0.9rem">Loading your chart…</p>
             </div>
 
             <!-- Their details -->
             <div class="compat-person-section them">
-                <div class="compat-section-label them">THEIR DETAILS</div>
+                <div class="compat-section-label them" data-i18n="compat_them">THEIR DETAILS</div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="p2Name">Their Name</label>
-                        <input type="text" id="p2Name" placeholder="e.g. Jamie" required>
+                        <label for="p2Name" data-i18n="compat_their_name">Their Name</label>
+                        <input type="text" id="p2Name" data-i18n-placeholder="compat_their_name_ph" placeholder="e.g. Jamie" required>
                     </div>
                 </div>
                 <div class="form-row form-row-2">
                     <div class="form-group">
-                        <label for="p2Date">Date of Birth</label>
+                        <label for="p2Date" data-i18n="compat_date">Date of Birth</label>
                         <input type="date" id="p2Date" required>
                     </div>
                     <div class="form-group">
-                        <label for="p2Time">Time of Birth</label>
+                        <label for="p2Time" data-i18n="compat_time">Time of Birth</label>
                         <input type="time" id="p2Time" value="12:00" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="p2City">Birth City</label>
-                        <input type="text" id="p2City" placeholder="e.g. Paris, France" required>
-                        <button type="button" id="p2CoordToggleBtn" class="coord-toggle-link">📍 Use exact coordinates instead</button>
+                        <label for="p2City" data-i18n="compat_city">Birth City</label>
+                        <input type="text" id="p2City" data-i18n-placeholder="compat_city_ph" placeholder="e.g. Paris, France" required>
+                        <button type="button" id="p2CoordToggleBtn" class="coord-toggle-link" data-i18n="compat_coordinates">📍 Use exact coordinates instead</button>
                         <div id="p2CoordInputs" class="hidden">
                             <div class="coord-pair">
                                 <div class="form-group">
-                                    <label for="p2Lat">Latitude</label>
+                                    <label for="p2Lat" data-i18n="form_latitude">Latitude</label>
                                     <input type="number" id="p2Lat" step="0.000001" min="-90" max="90" placeholder="e.g. 6.927079">
                                 </div>
                                 <div class="form-group">
-                                    <label for="p2Lon">Longitude</label>
+                                    <label for="p2Lon" data-i18n="form_longitude">Longitude</label>
                                     <input type="number" id="p2Lon" step="0.000001" min="-180" max="180" placeholder="e.g. 79.861243">
                                 </div>
                             </div>
-                            <p class="coord-hint">Open <strong>Google Maps</strong>, right-click their exact location → "What's here?" → copy the two numbers shown (latitude, longitude)</p>
+                            <p class="coord-hint" data-i18n-html="form_coord_hint">Open <strong>Google Maps</strong>, right-click your exact location → "What's here?" → copy the two numbers shown (latitude, longitude)</p>
                         </div>
                     </div>
                 </div>
@@ -91,22 +95,22 @@
 
             <!-- Relationship type -->
             <div class="form-group" style="margin-bottom:28px">
-                <label>Relationship Type</label>
+                <label data-i18n="compat_rel">Relationship Type</label>
                 <div class="rel-pills" id="relPills">
-                    <button type="button" class="rel-pill active" data-value="romantic">💕 Romantic Partner</button>
-                    <button type="button" class="rel-pill" data-value="friend">🤝 Close Friend</button>
-                    <button type="button" class="rel-pill" data-value="mother">👩 Mother</button>
-                    <button type="button" class="rel-pill" data-value="father">👨 Father</button>
-                    <button type="button" class="rel-pill" data-value="sibling">👫 Brother / Sister</button>
-                    <button type="button" class="rel-pill" data-value="cousin">👨‍👩‍👧 Cousin</button>
-                    <button type="button" class="rel-pill" data-value="colleague">💼 Colleague</button>
+                    <button type="button" class="rel-pill active" data-value="romantic" data-i18n="rel_romantic">💕 Romantic Partner</button>
+                    <button type="button" class="rel-pill" data-value="friend" data-i18n="rel_friend">🤝 Close Friend</button>
+                    <button type="button" class="rel-pill" data-value="mother" data-i18n="rel_mother">👩 Mother</button>
+                    <button type="button" class="rel-pill" data-value="father" data-i18n="rel_father">👨 Father</button>
+                    <button type="button" class="rel-pill" data-value="sibling" data-i18n="rel_sibling">👫 Brother / Sister</button>
+                    <button type="button" class="rel-pill" data-value="cousin" data-i18n="rel_cousin">👨‍👩‍👧 Cousin</button>
+                    <button type="button" class="rel-pill" data-value="colleague" data-i18n="rel_colleague">💼 Colleague</button>
                 </div>
                 <input type="hidden" id="relType" value="romantic">
             </div>
 
             <div id="compatError" class="form-error hidden"></div>
 
-            <button type="button" class="btn btn-primary btn-full btn-lg" id="checkCompatBtn">
+            <button type="button" class="btn btn-primary btn-full btn-lg" id="checkCompatBtn" data-i18n="compat_check_btn">
                 Check Compatibility ✨
             </button>
         </div>
@@ -122,7 +126,7 @@
             </div>
             <div class="compat-reading" id="compatReading"></div>
             <div style="margin-top:28px;text-align:center">
-                <button type="button" class="btn btn-outline" id="newCheckBtn">Check Another Person</button>
+                <button type="button" class="btn btn-outline" id="newCheckBtn" data-i18n="compat_another">Check Another Person</button>
             </div>
         </div>
     </div>
@@ -131,14 +135,15 @@
 <footer class="footer">
     <div class="container">
         <div class="footer-links">
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/refund">Refund Policy</a>
+            <a href="/terms" data-i18n="footer_terms">Terms of Service</a>
+            <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
+            <a href="/refund" data-i18n="footer_refund">Refund Policy</a>
         </div>
-        <p class="footer-copy">&copy; 2025 Zodovia. All rights reserved.</p>
+        <p class="footer-copy" data-i18n="footer_copy_simple">© 2026 Zodovia. All rights reserved.</p>
     </div>
 </footer>
 
+<script src="/static/js/i18n.js?v=1"></script>
 <script src="/static/js/compatibility.js?v=4"></script>
 <script>
 (function(){
