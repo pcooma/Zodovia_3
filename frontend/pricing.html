@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zodovia Pricing — Free, Monthly &amp; Yearly Plans</title>
-    <meta name="description" content="Start free or go Premium from day one. $3.99/month or $29.99/year for daily guidance, deep analysis, Ask any question, and compatibility insights.">
-    <meta property="og:title" content="Zodovia — Simple, Honest Pricing">
-    <meta property="og:description" content="Free forever, or unlock Premium for $3.99/month or $29.99/year. Cancel anytime. 7-day money-back guarantee.">
+    <title>Zodovia Pricing — LKR Plans for Sri Lanka | Free, Monthly &amp; Yearly</title>
+    <meta name="description" content="Start free or go Premium. Pay in LKR — LKR 990/month or LKR 4,990/year. Personalised astrology guidance, daily horoscopes, compatibility, and more.">
+    <meta property="og:title" content="Zodovia — Simple, Honest Pricing for Sri Lanka">
+    <meta property="og:description" content="Free forever, or unlock Premium for LKR 990/month or LKR 4,990/year. Cancel anytime. 7-day money-back guarantee.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://zodovia.com/pricing">
     <meta property="og:image" content="https://zodovia.com/static/og.png">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="canonical" href="https://zodovia.com/pricing">
-    <link rel="stylesheet" href="/static/css/style.css?v=5">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=6">
     <style>
         .pricing-grid-3 {
             display: grid;
@@ -77,14 +80,8 @@
             margin-top: 10px;
             line-height: 1.5;
         }
-        .btn-subscribe {
-            width: 100%;
-            margin-top: 16px;
-        }
-        .btn-current {
-            opacity: 0.55;
-            cursor: default;
-        }
+        .btn-subscribe { width: 100%; margin-top: 16px; }
+        .btn-current { opacity: 0.55; cursor: default; }
         .autorenew-box {
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
@@ -97,6 +94,67 @@
             line-height: 1.7;
         }
         .autorenew-box strong { color: var(--text); }
+
+        /* Payment method tabs */
+        .payment-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+        .payment-tab {
+            background: var(--deep);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font);
+        }
+        .payment-tab:hover { border-color: var(--gold); color: var(--gold); }
+        .payment-tab.active {
+            background: rgba(240,192,96,0.15);
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Bank transfer box */
+        .bank-transfer-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: var(--radius);
+            padding: 32px 36px;
+            max-width: 680px;
+            margin: 0 auto;
+        }
+        .bank-transfer-box h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .bank-transfer-box p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; line-height: 1.7; }
+        .bank-details-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .bank-details-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.07); font-size: 0.9rem; }
+        .bank-details-table td:first-child { color: var(--text-muted); width: 140px; }
+        .bank-details-table td:last-child { color: var(--text); font-weight: 600; }
+        .bank-transfer-steps { list-style: none; counter-reset: step; display: flex; flex-direction: column; gap: 10px; }
+        .bank-transfer-steps li { counter-increment: step; display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; color: var(--text-muted); }
+        .bank-transfer-steps li::before { content: counter(step); background: var(--gold); color: #1a0e00; width: 22px; min-width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; margin-top: 1px; }
+        .bank-transfer-steps li strong { color: var(--text); }
+
+        /* PayHere section */
+        .payhere-note {
+            background: rgba(78, 205, 196, 0.06);
+            border: 1px solid rgba(78, 205, 196, 0.25);
+            border-radius: 10px;
+            padding: 14px 18px;
+            max-width: 680px;
+            margin: 24px auto 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .payhere-note strong { color: var(--teal); }
     </style>
 </head>
 <body>
@@ -106,6 +164,7 @@
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
             <a href="/">Home</a>
+            <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--text-muted)">💬 WhatsApp</a>
             <a href="/" class="btn btn-primary">Get Started Free</a>
         </div>
     </div>
@@ -116,7 +175,7 @@
         <p class="eyebrow">Simple, Honest Pricing</p>
         <h1 style="font-size:2.6rem; margin-bottom:12px;">Choose Your Plan</h1>
         <p style="color:var(--text-muted); max-width:500px; margin:0 auto; font-size:1.05rem;">
-            Start free to explore your blueprint. Go Premium from day one — or upgrade anytime.
+            Start free to explore your blueprint. Go Premium from day one — pay in LKR or USD.
         </p>
     </div>
 </section>
@@ -124,113 +183,255 @@
 <section class="section" style="padding-top:0;">
     <div class="container">
 
-        <div class="pricing-grid-3">
-
-            <!-- ── Free ────────────────────────────── -->
-            <div class="pricing-card">
-                <div class="plan-badge-wrap"></div>
-                <div class="pricing-tier">Free</div>
-                <div class="pricing-price">$0</div>
-                <p class="plan-label">Forever free · No credit card required.</p>
-                <ul class="pricing-features">
-                    <li>✅ Full birth chart (10 planets)</li>
-                    <li>✅ Sun, Moon &amp; Rising profile</li>
-                    <li>✅ AI-powered personality overview</li>
-                    <li>✅ All planetary house positions</li>
-                    <li>✅ 10 free compatibility readings</li>
-                    <li>✅ 5 trial previews of Premium features</li>
-                    <li>❌ Personalised daily guidance</li>
-                    <li>❌ Weekly &amp; monthly forecasts</li>
-                    <li>❌ Daily email delivery</li>
-                    <li>❌ Ask any life question</li>
-                </ul>
-                <a href="/" class="btn btn-outline btn-full" style="margin-top:16px;">Start Free →</a>
-            </div>
-
-            <!-- ── Monthly ─────────────────────────── -->
-            <div class="pricing-card pricing-card-featured">
-                <div class="plan-badge-wrap">
-                    <span class="badge-popular">Most Popular</span>
-                </div>
-                <div class="pricing-tier">Monthly</div>
-                <div class="pricing-price">$3.99<span>/month</span></div>
-                <p class="plan-label">Billed monthly · auto-renews · cancel anytime.<br>7-day money-back guarantee.</p>
-                <ul class="pricing-features">
-                    <li>✅ Everything in Free</li>
-                    <li>✅ Personalised daily guidance</li>
-                    <li>✅ Built from your exact blueprint</li>
-                    <li>✅ Weekly &amp; monthly forecasts</li>
-                    <li>✅ Daily delivery to your inbox</li>
-                    <li>✅ Compatibility insights</li>
-                    <li>✅ Ask any life question</li>
-                    <li>✅ Priority support</li>
-                </ul>
-
-                <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
-                        onclick="subscribePlan('monthly')">
-                    Subscribe Monthly ✨
-                </button>
-
-                <!-- Hidden PayPal form — submitted via JS after auth check -->
-                <form id="ppForm_monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display:none;">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="5UCX7JGEEJ3QJ" />
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="hidden" name="return" value="https://zodovia.com/dashboard?activated=1" />
-                    <input type="hidden" name="cancel_return" value="https://zodovia.com/pricing" />
-                </form>
-
-                <p class="renewal-note">
-                    🔒 Secure payments via <strong>PayPal</strong><br>
-                    Use the <strong>same email</strong> you registered with on Zodovia.
-                </p>
-            </div>
-
-            <!-- ── Yearly ──────────────────────────── -->
-            <div class="pricing-card">
-                <div class="plan-badge-wrap">
-                    <span class="badge-value">Best Value</span>
-                    <span class="badge-save">Save 37%</span>
-                </div>
-                <div class="pricing-tier">Yearly</div>
-                <div class="pricing-price">$29.99<span>/year</span></div>
-                <p class="plan-label">Just $2.50/month · auto-renews yearly · cancel anytime.<br>7-day money-back guarantee.</p>
-                <ul class="pricing-features">
-                    <li>✅ Everything in Free</li>
-                    <li>✅ Personalised daily guidance</li>
-                    <li>✅ Built from your exact blueprint</li>
-                    <li>✅ Weekly &amp; monthly forecasts</li>
-                    <li>✅ Daily delivery to your inbox</li>
-                    <li>✅ Compatibility insights</li>
-                    <li>✅ Ask any life question</li>
-                    <li>✅ Priority support</li>
-                </ul>
-
-                <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
-                        onclick="subscribePlan('yearly')">
-                    Subscribe Yearly ✨
-                </button>
-
-                <!-- Hidden PayPal form — submitted via JS after auth check -->
-                <form id="ppForm_yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display:none;">
-                    <input type="hidden" name="cmd" value="_s-xclick" />
-                    <input type="hidden" name="hosted_button_id" value="F88PZH4KYH6T2" />
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input type="hidden" name="return" value="https://zodovia.com/dashboard?activated=1" />
-                    <input type="hidden" name="cancel_return" value="https://zodovia.com/pricing" />
-                </form>
-
-                <p class="renewal-note">
-                    🔒 Secure payments via <strong>PayPal</strong><br>
-                    Use the <strong>same email</strong> you registered with on Zodovia.
-                </p>
-            </div>
-
+        <!-- Payment method toggle -->
+        <div class="payment-tabs" id="paymentTabs">
+            <button class="payment-tab active" onclick="showPayment('payhere')" id="tab-payhere">🇱🇰 Pay in LKR (PayHere)</button>
+            <button class="payment-tab" onclick="showPayment('bank')" id="tab-bank">🏦 Bank Transfer (LKR)</button>
+            <button class="payment-tab" onclick="showPayment('paypal')" id="tab-paypal">🌍 International (PayPal / USD)</button>
         </div>
 
-        <!-- Auto-renewal info box -->
+        <!-- PayHere / LKR pricing cards -->
+        <div id="section-payhere" class="pricing-section">
+            <div class="pricing-grid-3">
+
+                <!-- ── Free ── -->
+                <div class="pricing-card">
+                    <div class="plan-badge-wrap"></div>
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-price">LKR 0</div>
+                    <p class="plan-label">Forever free · No payment required.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Full birth chart (Lagna + 10 planets)</li>
+                        <li>✅ Sun, Moon &amp; Rising profile</li>
+                        <li>✅ AI-powered personality overview</li>
+                        <li>✅ All planetary house positions</li>
+                        <li>✅ 10 free compatibility readings</li>
+                        <li>✅ 5 trial previews of Premium features</li>
+                        <li>❌ Personalised daily guidance</li>
+                        <li>❌ Weekly &amp; monthly forecasts</li>
+                        <li>❌ Daily email delivery</li>
+                        <li>❌ Ask any life question</li>
+                    </ul>
+                    <a href="/" class="btn btn-outline btn-full" style="margin-top:16px;">Start Free →</a>
+                </div>
+
+                <!-- ── Monthly LKR ── -->
+                <div class="pricing-card pricing-card-featured">
+                    <div class="plan-badge-wrap">
+                        <span class="badge-popular">Most Popular</span>
+                    </div>
+                    <div class="pricing-tier">Monthly</div>
+                    <div class="pricing-price">LKR 990<span>/month</span></div>
+                    <p class="plan-label">Billed monthly · cancel anytime.<br>7-day money-back guarantee.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Personalised daily guidance</li>
+                        <li>✅ Built from your exact blueprint</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Daily delivery to your inbox</li>
+                        <li>✅ Compatibility insights (porondam)</li>
+                        <li>✅ Ask any life question</li>
+                        <li>✅ WhatsApp support</li>
+                    </ul>
+                    <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
+                            onclick="subscribePlan('monthly')">
+                        Subscribe Monthly ✨
+                    </button>
+                    <p class="renewal-note">
+                        🔒 Secure payments via <strong>PayHere</strong> (Sri Lanka)<br>
+                        Visa / Mastercard / Amex / eZ Cash / mCash accepted
+                    </p>
+                </div>
+
+                <!-- ── Yearly LKR ── -->
+                <div class="pricing-card">
+                    <div class="plan-badge-wrap">
+                        <span class="badge-value">Best Value</span>
+                        <span class="badge-save">Save 58%</span>
+                    </div>
+                    <div class="pricing-tier">Yearly</div>
+                    <div class="pricing-price">LKR 4,990<span>/year</span></div>
+                    <p class="plan-label">Just LKR 416/month · cancel anytime.<br>7-day money-back guarantee.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Personalised daily guidance</li>
+                        <li>✅ Built from your exact blueprint</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Daily delivery to your inbox</li>
+                        <li>✅ Compatibility insights (porondam)</li>
+                        <li>✅ Ask any life question</li>
+                        <li>✅ WhatsApp support</li>
+                    </ul>
+                    <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
+                            onclick="subscribePlan('yearly')">
+                        Subscribe Yearly ✨
+                    </button>
+                    <p class="renewal-note">
+                        🔒 Secure payments via <strong>PayHere</strong> (Sri Lanka)<br>
+                        Visa / Mastercard / Amex / eZ Cash / mCash accepted
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="payhere-note">
+                <strong>About PayHere:</strong> PayHere is Sri Lanka's leading payment gateway, licensed by the Central Bank of Sri Lanka. Your card details are processed securely by PayHere — Zodovia never stores your payment information. Subscriptions can be cancelled at any time from your PayHere account or by contacting us.
+            </div>
+        </div>
+
+        <!-- Bank Transfer section -->
+        <div id="section-bank" class="pricing-section" style="display:none;">
+            <div class="bank-transfer-box">
+                <h3>💳 Pay via Bank Transfer (LKR)</h3>
+                <p>Transfer your subscription payment directly to our bank account and email us proof. We will activate your Premium access within <strong>2 business hours</strong> (9 AM – 6 PM, Monday–Saturday).</p>
+
+                <table class="bank-details-table">
+                    <tr><td>Bank</td><td><!-- INSERT YOUR BANK NAME --></td></tr>
+                    <tr><td>Account Name</td><td><!-- INSERT ACCOUNT NAME --></td></tr>
+                    <tr><td>Account No.</td><td><!-- INSERT ACCOUNT NUMBER --></td></tr>
+                    <tr><td>Branch</td><td><!-- INSERT BRANCH --></td></tr>
+                </table>
+
+                <p><strong>How much to transfer:</strong></p>
+                <ul style="color:var(--text-muted);padding-left:20px;margin-bottom:20px;font-size:0.9rem;line-height:1.8;">
+                    <li><strong style="color:var(--gold)">Monthly plan:</strong> LKR 990</li>
+                    <li><strong style="color:var(--gold)">Yearly plan:</strong> LKR 4,990</li>
+                </ul>
+
+                <ol class="bank-transfer-steps">
+                    <li>Transfer <strong>LKR 990</strong> (monthly) or <strong>LKR 4,990</strong> (yearly) to the account above.</li>
+                    <li>Take a screenshot or photo of your transfer confirmation.</li>
+                    <li>Email it to <strong>contact@zodovia.com</strong> with your <strong>Zodovia registered email address</strong> in the message.</li>
+                    <li>We will activate your Premium access and reply within <strong>2 business hours</strong>.</li>
+                </ol>
+
+                <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);">
+                    For faster activation, you can also WhatsApp the transfer proof to us at
+                    <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--gold);">+94 700 000 000</a>.
+                </p>
+            </div>
+        </div>
+
+        <!-- International / PayPal section -->
+        <div id="section-paypal" class="pricing-section" style="display:none;">
+            <div class="pricing-grid-3">
+
+                <!-- ── Free ── -->
+                <div class="pricing-card">
+                    <div class="plan-badge-wrap"></div>
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-price">$0</div>
+                    <p class="plan-label">Forever free · No credit card required.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Full birth chart (Lagna + 10 planets)</li>
+                        <li>✅ Sun, Moon &amp; Rising profile</li>
+                        <li>✅ AI-powered personality overview</li>
+                        <li>✅ All planetary house positions</li>
+                        <li>✅ 10 free compatibility readings</li>
+                        <li>✅ 5 trial previews of Premium features</li>
+                        <li>❌ Personalised daily guidance</li>
+                        <li>❌ Weekly &amp; monthly forecasts</li>
+                        <li>❌ Daily email delivery</li>
+                        <li>❌ Ask any life question</li>
+                    </ul>
+                    <a href="/" class="btn btn-outline btn-full" style="margin-top:16px;">Start Free →</a>
+                </div>
+
+                <!-- ── Monthly USD ── -->
+                <div class="pricing-card pricing-card-featured">
+                    <div class="plan-badge-wrap">
+                        <span class="badge-popular">Most Popular</span>
+                    </div>
+                    <div class="pricing-tier">Monthly</div>
+                    <div class="pricing-price">$3.99<span>/month</span></div>
+                    <p class="plan-label">Billed monthly · auto-renews · cancel anytime.<br>7-day money-back guarantee.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Personalised daily guidance</li>
+                        <li>✅ Built from your exact blueprint</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Daily delivery to your inbox</li>
+                        <li>✅ Compatibility insights</li>
+                        <li>✅ Ask any life question</li>
+                        <li>✅ Priority support</li>
+                    </ul>
+                    <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
+                            onclick="subscribePlan('monthly')">
+                        Subscribe Monthly ✨
+                    </button>
+                    <form id="ppForm_monthly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display:none;">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="5UCX7JGEEJ3QJ" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value="https://zodovia.com/dashboard?activated=1" />
+                        <input type="hidden" name="cancel_return" value="https://zodovia.com/pricing" />
+                    </form>
+                    <p class="renewal-note">
+                        🔒 Secure payments via <strong>PayPal</strong><br>
+                        Use the <strong>same email</strong> you registered with on Zodovia.
+                    </p>
+                </div>
+
+                <!-- ── Yearly USD ── -->
+                <div class="pricing-card">
+                    <div class="plan-badge-wrap">
+                        <span class="badge-value">Best Value</span>
+                        <span class="badge-save">Save 37%</span>
+                    </div>
+                    <div class="pricing-tier">Yearly</div>
+                    <div class="pricing-price">$29.99<span>/year</span></div>
+                    <p class="plan-label">Just $2.50/month · auto-renews yearly · cancel anytime.<br>7-day money-back guarantee.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Personalised daily guidance</li>
+                        <li>✅ Built from your exact blueprint</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Daily delivery to your inbox</li>
+                        <li>✅ Compatibility insights</li>
+                        <li>✅ Ask any life question</li>
+                        <li>✅ Priority support</li>
+                    </ul>
+                    <button class="btn btn-primary btn-full btn-subscribe subscribe-btn"
+                            onclick="subscribePlan('yearly')">
+                        Subscribe Yearly ✨
+                    </button>
+                    <form id="ppForm_yearly" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="display:none;">
+                        <input type="hidden" name="cmd" value="_s-xclick" />
+                        <input type="hidden" name="hosted_button_id" value="F88PZH4KYH6T2" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value="https://zodovia.com/dashboard?activated=1" />
+                        <input type="hidden" name="cancel_return" value="https://zodovia.com/pricing" />
+                    </form>
+                    <p class="renewal-note">
+                        🔒 Secure payments via <strong>PayPal</strong><br>
+                        Use the <strong>same email</strong> you registered with on Zodovia.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Sri Lanka Trust Block -->
+        <div class="sl-trust-block" style="margin-top:56px;">
+            <div class="sl-trust-header">
+                <h2>Built for Sri Lankan Users</h2>
+                <p>Personalised astrology guidance in your language, at a price that makes sense locally.</p>
+            </div>
+            <div class="sl-trust-grid">
+                <div class="sl-trust-item"><span class="sl-trust-icon">💳</span><div><strong>Pay in LKR</strong><br>Monthly or yearly plans in Sri Lankan Rupees</div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">💬</span><div><strong>WhatsApp Support</strong><br><a href="https://wa.me/94700000000" target="_blank" rel="noopener">Chat with us</a> — quick, friendly help</div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">🔒</span><div><strong>Your Data is Private</strong><br>Birth data used only for your readings. Never sold.</div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">↩️</span><div><strong>7-Day Money-Back</strong><br>Not happy? Full refund — no questions asked</div></div>
+            </div>
+        </div>
+
+        <!-- Auto-renewal info -->
         <div class="autorenew-box">
-            <strong>How auto-renewals work:</strong> Your subscription renews automatically — monthly plans every 30 days, yearly plans every 365 days. PayPal sends you an email notification before each charge. To cancel at any time, log into your PayPal account → Settings → Payments → Manage automatic payments, and cancel from there. You keep full access until the end of your current billing period. No partial refunds on unused time — but we offer a <strong>7-day money-back guarantee</strong> on your first charge.
+            <strong>Cancellation &amp; renewals:</strong>
+            <strong>PayHere subscriptions</strong> — Cancel anytime by contacting us at <a href="mailto:contact@zodovia.com" style="color:var(--gold)">contact@zodovia.com</a> or via <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a>. You keep full access until the end of your current billing period.
+            <strong>Bank transfer plans</strong> — simply do not re-transfer on renewal — access stops at end of billing period.
+            <strong>PayPal subscriptions</strong> — log into your PayPal account → Settings → Payments → Manage automatic payments, find Zodovia and cancel.
+            We offer a <strong>7-day money-back guarantee</strong> on your first charge regardless of payment method.
         </div>
 
         <!-- FAQ -->
@@ -238,24 +439,28 @@
             <h2 class="section-title" style="margin-bottom:32px;">Frequently Asked Questions</h2>
 
             <div class="faq-item">
-                <h3>Can I go straight to a paid plan without starting free?</h3>
-                <p>Yes. Click any Subscribe button — if you don't have an account yet, you'll be asked to create one first (takes 30 seconds), then taken straight to checkout. Your subscription activates the moment PayPal confirms your payment.</p>
+                <h3>Can I pay in Sri Lankan Rupees?</h3>
+                <p>Yes. Choose "Pay in LKR (PayHere)" above to pay in LKR using your local debit or credit card, or use the "Bank Transfer" option to pay directly to our bank account. International users can use PayPal in USD.</p>
             </div>
             <div class="faq-item">
-                <h3>What makes Zodovia different?</h3>
-                <p>Unlike generic horoscopes, every insight is built from your unique birth blueprint combined with your personal goals and where you are in life right now. Nothing is shared with millions of other people — it's yours.</p>
+                <h3>How does bank transfer activation work?</h3>
+                <p>Transfer LKR 990 (monthly) or LKR 4,990 (yearly) to our bank account, then email the transfer proof to <strong>contact@zodovia.com</strong> with your Zodovia registered email. We activate your account within 2 business hours (9 AM – 6 PM, Mon–Sat).</p>
+            </div>
+            <div class="faq-item">
+                <h3>Can I go straight to a paid plan without starting free?</h3>
+                <p>Yes. Click any Subscribe button — if you don't have an account yet, you'll be asked to create one first (takes 30 seconds), then taken straight to checkout.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What makes Zodovia different from generic horoscopes?</h3>
+                <p>Every insight is built from your unique birth blueprint — your Lagna, planetary positions, and your personal goals and life situation. Nothing is shared with millions of others — it is yours alone.</p>
             </div>
             <div class="faq-item">
                 <h3>How do I cancel my subscription?</h3>
-                <p>Log into your PayPal account → Settings → Payments → Manage automatic payments → find Zodovia and cancel. Your access continues until the end of the current billing period. No questions asked.</p>
+                <p>Contact us at <strong>contact@zodovia.com</strong> or WhatsApp us. For PayPal, log into PayPal → Settings → Manage automatic payments → find Zodovia and cancel. Your access continues until the end of the billing period.</p>
             </div>
             <div class="faq-item">
                 <h3>Is there a free trial?</h3>
                 <p>The free tier is always free and includes 5 trial previews of Premium features. We also offer a 7-day money-back guarantee on all paid plans.</p>
-            </div>
-            <div class="faq-item">
-                <h3>What currencies do you accept?</h3>
-                <p>Payments are processed in USD via PayPal, which automatically handles currency conversion at checkout — you can pay from any country using your local currency or card.</p>
             </div>
             <div class="faq-item">
                 <h3>Is my birth data private?</h3>
@@ -269,38 +474,96 @@
 <footer class="footer">
     <div class="container">
         <p class="footer-logo">✨ Zodovia</p>
-        <p class="footer-tagline">Your personal guide to the cosmos.</p>
+        <p class="footer-tagline">AI-assisted astrology guidance for Sri Lankan lives.</p>
         <div class="footer-links">
             <a href="/terms">Terms of Service</a>
             <a href="/privacy">Privacy Policy</a>
             <a href="/refund">Refund Policy</a>
+            <a href="mailto:contact@zodovia.com">Email Support</a>
+            <a href="https://wa.me/94700000000" target="_blank" rel="noopener">WhatsApp</a>
         </div>
-        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved. | For entertainment &amp; self-reflection purposes only.</p>
     </div>
 </footer>
 
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/94700000000" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+    <span>Chat with us</span>
+</a>
+
 <script>
-function subscribePlan(plan) {
+// Payment section tabs
+function showPayment(type) {
+    ['payhere','bank','paypal'].forEach(function(t){
+        document.getElementById('section-' + t).style.display = t === type ? '' : 'none';
+        document.getElementById('tab-' + t).classList.toggle('active', t === type);
+    });
+}
+
+// Subscribe handler — routes to correct provider based on active tab
+async function subscribePlan(plan) {
     var token = localStorage.getItem('zodovia_token');
     if (!token) {
-        // Not logged in — send to registration with plan param so we redirect to checkout after
         window.location.href = '/?plan=' + plan;
         return;
     }
-    // Logged in — submit the hidden PayPal form directly
-    var form = document.getElementById('ppForm_' + plan);
-    if (form) form.submit();
+
+    // Determine active payment tab
+    var activeTab = document.querySelector('.payment-tab.active');
+    var tabId = activeTab ? activeTab.id : 'tab-payhere';
+
+    // PayPal tab — use hidden form directly
+    if (tabId === 'tab-paypal') {
+        var form = document.getElementById('ppForm_' + plan);
+        if (form) { form.submit(); return; }
+    }
+
+    // PayHere or API-driven — call backend checkout-url
+    var btn = event && event.currentTarget ? event.currentTarget : document.querySelector('.subscribe-btn');
+    var origHTML = btn ? btn.innerHTML : '';
+    if (btn) { btn.disabled = true; btn.innerHTML = 'Loading... ⌛'; }
+
+    try {
+        var resp = await fetch('/api/payments/checkout-url?plan=' + plan, {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+        if (!resp.ok) throw new Error('request failed');
+        var data = await resp.json();
+
+        if (data.method === 'POST' && data.params) {
+            // PayHere — build and auto-submit form
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = data.checkout_url;
+            Object.keys(data.params).forEach(function(key) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = data.params[key];
+                form.appendChild(input);
+            });
+            document.body.appendChild(form);
+            form.submit();
+        } else {
+            window.location.href = data.checkout_url;
+        }
+    } catch (e) {
+        if (btn) { btn.disabled = false; btn.innerHTML = origHTML; }
+        alert('Could not start checkout. Please try again or contact us on WhatsApp.');
+    }
 }
 
+// Show Premium banner for existing paid users
 document.addEventListener('DOMContentLoaded', function () {
     var userRaw = localStorage.getItem('zodovia_user');
     if (!userRaw) return;
     var user;
     try { user = JSON.parse(userRaw); } catch { return; }
     if (!user) return;
-
     if (user.is_paid || user.is_superuser) {
-        // Already on Premium — replace subscribe buttons
         document.querySelectorAll('.subscribe-btn').forEach(function (btn) {
             btn.textContent = 'You are already on Premium ✨';
             btn.disabled = true;
