@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Zodovia</title>
+    <meta name="description" content="Your Zodovia dashboard — daily horoscopes, birth chart, Ask the Stars, and compatibility reports. All tailored to your chart.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
+</head>
+<body class="page-dashboard">
+
+<nav class="navbar">
+    <div class="nav-inner">
+        <a class="logo" href="/">✨ Zodovia</a>
+        <div class="nav-links">
+            <span id="navUserName" class="nav-user"></span>
+            <a href="/chart" class="btn btn-ghost">My Chart</a>
+            <a href="/compatibility" class="btn btn-ghost">Compatibility</a>
+            <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
+            <a href="#" id="logoutBtn" class="btn btn-ghost">Sign Out</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Loading -->
+<div id="loadingState" class="loading-screen">
+    <div class="loader-star">✨</div>
+    <p>Aligning the stars…</p>
+</div>
+
+<!-- Post-payment activation banner -->
+<div id="activationBanner" class="hidden" style="background:rgba(var(--gold-rgb,212,175,55),0.12);border:1px solid var(--gold);border-radius:12px;padding:20px 24px;max-width:520px;margin:48px auto;text-align:center;">
+    <div style="font-size:1.8rem;margin-bottom:8px;">✨</div>
+    <p id="activationMsg" style="color:var(--text);font-weight:600;margin-bottom:4px;">Activating your Premium subscription…</p>
+    <p style="color:var(--text-muted);font-size:0.88rem;">This usually takes just a few seconds.</p>
+</div>
+
+<!-- Upgrade prompt for free users -->
+<div id="upgradePrompt" class="hidden">
+    <section class="section">
+        <div class="container container-sm">
+            <div class="paywall-card">
+                <div class="paywall-icon">🔮</div>
+                <h2>Welcome to Zodovia!</h2>
+                <p>Upgrade to Premium to unlock your personalised daily guidance, compatibility insights, Ask the Stars, and everything built around your unique blueprint.</p>
+                <div class="paywall-features">
+                    <span>🌟 Daily personalised guidance</span>
+                    <span>💑 Compatibility insights</span>
+                    <span>🔮 Ask any life question</span>
+                    <span>📧 Morning delivery to your inbox</span>
+                </div>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px;">
+                    <a href="/pricing" class="btn btn-outline">Monthly — $3.99/mo ✨</a>
+                    <a href="/pricing" class="btn btn-primary" id="dashUpgradeBtn">Yearly — $29.99/yr · Save 37% ✨</a>
+                </div>
+                <p style="text-align:center;font-size:0.8rem;color:var(--text-muted);margin-top:10px;">7-day money-back guarantee · cancel anytime</p>
+                <p class="paywall-note"><a href="/chart">View my full blueprint instead →</a></p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Trial banner for free users still within their trial allowance -->
+<div id="trialBanner" class="trial-banner hidden"></div>
+
+<!-- Dashboard content for paid users -->
+<div id="dashboardContent" class="hidden">
+
+    <section class="section section-hero-dash">
+        <div class="container">
+            <div class="dash-greeting">
+                <div>
+                    <p class="eyebrow" id="greetingDate"></p>
+                    <h1 id="greetingHeadline">Good morning ✨</h1>
+                    <p class="hero-sub" id="greetingSign"></p>
+                    <p id="streakLine" class="streak-line hidden"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Today's Horoscope -->
+    <section class="section">
+        <div class="container container-md">
+            <div class="dash-card horoscope-card">
+                <div class="dash-card-header">
+                    <h2>🌟 Today's Horoscope</h2>
+                    <span class="horoscope-date" id="horoscopeDate"></span>
+                </div>
+                <div id="horoscopeLoading" class="horoscope-loading">
+                    <span class="loader-dot"></span> Consulting the stars…
+                </div>
+                <div id="horoscopeContent" class="horoscope-body hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Today's Intention -->
+    <section class="section section-alt">
+        <div class="container container-md">
+            <div class="dash-card intention-card">
+                <div class="dash-card-header">
+                    <h2>🌱 Today's Intention</h2>
+                </div>
+                <div id="intentionLoading" class="horoscope-loading">
+                    <span class="loader-dot"></span> Setting your intention…
+                </div>
+                <div id="intentionContent" class="intention-body hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Weekly & Monthly Forecasts -->
+    <section class="section">
+        <div class="container container-md">
+            <h2 class="section-title">Your Forecasts</h2>
+            <div class="forecast-grid">
+
+                <!-- This Week -->
+                <div class="dash-card forecast-card">
+                    <div class="dash-card-header">
+                        <h2>📅 This Week's Guidance</h2>
+                        <button class="btn btn-outline btn-sm" id="weekForecastBtn">View →</button>
+                    </div>
+                    <p class="forecast-teaser">A personalised 7-day reading crafted from your unique chart.</p>
+                    <div id="weekForecastLoading" class="horoscope-loading hidden">
+                        <span class="loader-dot"></span> Reading the week ahead…
+                    </div>
+                    <div id="weekForecastContent" class="horoscope-body hidden"></div>
+                </div>
+
+                <!-- This Month -->
+                <div class="dash-card forecast-card">
+                    <div class="dash-card-header">
+                        <h2>🌕 This Month's Themes</h2>
+                        <button class="btn btn-outline btn-sm" id="monthForecastBtn">View →</button>
+                    </div>
+                    <p class="forecast-teaser">Explore the major themes, opportunities, and growth edges this month holds for you.</p>
+                    <div id="monthForecastLoading" class="horoscope-loading hidden">
+                        <span class="loader-dot"></span> Mapping the month ahead…
+                    </div>
+                    <div id="monthForecastContent" class="horoscope-body hidden"></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Tools -->
+    <section class="section section-alt">
+        <div class="container container-md">
+            <h2 class="section-title">Your Personal Tools</h2>
+            <div class="features-grid">
+
+                <!-- Compatibility Checker -->
+                <a href="/compatibility" class="feature-card feature-card-link">
+                    <div class="feature-card-icon">💑</div>
+                    <h3>Compatibility Insights</h3>
+                    <p>Understand the dynamic between you and anyone — romantic partner, family member, friend, or colleague.</p>
+                    <span class="feature-cta">Explore Now →</span>
+                </a>
+
+                <!-- Ask the Stars inline -->
+                <div class="feature-card" id="askStarsDash">
+                    <div class="feature-card-icon">🔮</div>
+                    <h3>Ask Any Question</h3>
+                    <p>Have a question about love, career, family, or a big decision? Your blueprint holds the answer.</p>
+                    <button class="btn btn-outline btn-sm" id="askToggleBtn">Ask a Question</button>
+                    <div id="dashAskForm" class="hidden" style="margin-top:14px">
+                        <textarea class="dash-ask-textarea" id="dashQuestion" placeholder="e.g. Is now the right time to leave my job? Why do I keep attracting the wrong partners?" rows="2" maxlength="600"></textarea>
+                        <div id="dashAskCounter" class="ask-counter">600 characters left</div>
+                        <button class="btn btn-primary btn-full" style="margin-top:8px;font-size:0.88rem" id="dashAskBtn">Ask ✨</button>
+                        <div id="dashAskLoading" class="hidden" style="padding:10px 0;color:var(--text-muted);font-size:0.85rem">
+                            <span class="loader-dot"></span> The stars are speaking…
+                        </div>
+                        <div id="dashAskResult" class="dash-ask-result hidden"></div>
+                    </div>
+                </div>
+
+                <!-- My Chart -->
+                <a href="/chart" class="feature-card feature-card-link">
+                    <div class="feature-card-icon">🗺️</div>
+                    <h3>Your Full Blueprint</h3>
+                    <p>Explore all 10 planetary positions and your complete personal reading — what each placement means for your life, growth, and relationships.</p>
+                    <span class="feature-cta">View Blueprint →</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="section">
+        <div class="container container-md">
+            <h2 class="section-title">Your Personal Profile</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">☀️ Sun Sign</div>
+                    <div class="stat-value" id="statSun"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">🌙 Moon Sign</div>
+                    <div class="stat-value" id="statMoon"></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">⬆️ Rising Sign</div>
+                    <div class="stat-value" id="statRising"></div>
+                </div>
+                <div class="stat-card stat-card-cta">
+                    <div class="stat-label">📊 Full Chart</div>
+                    <a href="/chart" class="btn btn-outline btn-sm">View →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div><!-- /dashboardContent -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/refund">Refund Policy</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="/static/js/dashboard.js?v=4"></script>
+</body>
+</html>

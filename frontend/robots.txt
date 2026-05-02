@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Allow: /pricing
+
+# Keep private pages out of search results
+Disallow: /admin
+Disallow: /dashboard
+Disallow: /chart
+Disallow: /compatibility
+Disallow: /api/
+
+Sitemap: https://zodovia.com/sitemap.xml

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zodovia — AI-Powered Personal Development & Wellness</title>
+    <meta name="description" content="Discover your unique life blueprint. Get deeply personalised guidance for personal growth, relationships, and wellbeing — powered by AI and your birth data. Free to start.">
+    <meta name="keywords" content="personal development, wellness, self-discovery, AI guidance, personal growth, relationship insights, life purpose, self-awareness">
+    <meta property="og:title" content="Zodovia — Know Yourself Deeply. Grow Intentionally.">
+    <meta property="og:description" content="Discover your unique blueprint. AI-powered personal guidance built around your birth data, goals, and exactly where you are in life right now.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zodovia.com/">
+    <meta property="og:image" content="https://zodovia.com/static/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Zodovia — Know Yourself Deeply. Grow Intentionally.">
+    <meta name="twitter:description" content="Discover your unique blueprint. Deeply personalised guidance for growth, relationships, and wellbeing — built just for you.">
+    <link rel="canonical" href="https://zodovia.com/">
+    <link rel="stylesheet" href="/static/css/style.css?v=5">
+</head>
+<body class="page-home">
+
+<!-- Nav -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a class="logo" href="/">✨ Zodovia</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#how-it-works">How It Works</a>
+            <a href="#pricing">Pricing</a>
+            <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
+            <a href="#" id="navLoginBtn" class="btn btn-ghost">Sign In</a>
+            <a href="#birth-form" class="btn btn-primary">Start My Journey</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <p class="hero-eyebrow">Free Personal Blueprint · AI-Powered Guidance · Built Around Your Goals</p>
+                <h1>Know Yourself Deeply.<br>Grow <em>Intentionally.</em></h1>
+                <p class="hero-sub">In minutes, receive deeply personalised guidance on growth, relationships, career, and wellbeing — built from your unique birth blueprint and what matters most to you right now.</p>
+                <a href="#birth-form" class="btn btn-primary btn-lg">Start My Journey ✨</a>
+                <div class="hero-social-proof">
+                    <span>⭐⭐⭐⭐⭐</span>
+                    <span>"This felt more accurate and meaningful than anything I've ever read about myself." — thousands of members agree</span>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="insight-cards">
+                    <div class="insight-card insight-card-1">
+                        <span class="insight-card-icon">🧠</span>
+                        <div>
+                            <div class="insight-card-label">Personality Profile</div>
+                            <div class="insight-card-value">Analytical Visionary</div>
+                        </div>
+                    </div>
+                    <div class="insight-card insight-card-2">
+                        <span class="insight-card-icon">💼</span>
+                        <div>
+                            <div class="insight-card-label">Career Strength</div>
+                            <div class="insight-card-value">Strategic Thinker</div>
+                        </div>
+                    </div>
+                    <div class="insight-card insight-card-3">
+                        <span class="insight-card-icon">💑</span>
+                        <div>
+                            <div class="insight-card-label">Relationship Style</div>
+                            <div class="insight-card-value">Deeply Empathetic</div>
+                        </div>
+                    </div>
+                    <div class="insight-card insight-card-4">
+                        <span class="insight-card-icon">🌱</span>
+                        <div>
+                            <div class="insight-card-label">Growth Focus</div>
+                            <div class="insight-card-value">Trust your instincts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Birth Data Form -->
+<section class="section" id="birth-form">
+    <div class="container container-sm">
+        <div class="card form-card">
+            <h2 class="card-title">✨ Discover Your Blueprint</h2>
+            <p class="card-sub">It's free. No credit card required.</p>
+
+            <form id="birthForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" placeholder="e.g. Sofia" required>
+                    </div>
+                </div>
+                <div class="form-row form-row-2">
+                    <div class="form-group">
+                        <label for="birthDate">Date of Birth</label>
+                        <input type="date" id="birthDate" name="birth_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthTime">Time of Birth</label>
+                        <input type="time" id="birthTime" name="birth_time" value="12:00" required>
+                        <div class="time-unknown-row">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="timeUnknown">
+                                I don't know my exact birth time
+                            </label>
+                        </div>
+                        <div id="timeUnknownNote" class="time-unknown-note hidden">
+                            Using 12:00 noon. Your Rising sign and house positions may be approximate.
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="birthCity">Birth City</label>
+                        <input type="text" id="birthCity" name="birth_city" placeholder="e.g. London, UK" required>
+                        <button type="button" id="coordToggleBtn" class="coord-toggle-link">📍 Use exact coordinates instead</button>
+                        <div id="coordInputs" class="hidden">
+                            <div class="coord-pair">
+                                <div class="form-group">
+                                    <label for="birthLat">Latitude</label>
+                                    <input type="number" id="birthLat" step="0.000001" min="-90" max="90" placeholder="e.g. 6.927079">
+                                </div>
+                                <div class="form-group">
+                                    <label for="birthLon">Longitude</label>
+                                    <input type="number" id="birthLon" step="0.000001" min="-180" max="180" placeholder="e.g. 79.861243">
+                                </div>
+                            </div>
+                            <p class="coord-hint">Open <strong>Google Maps</strong>, right-click your exact location → "What's here?" → copy the two numbers shown (latitude, longitude)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wellness Goals — visible by default, shapes the whole experience -->
+                <div class="wellness-section">
+                    <h3 class="wellness-title">What brings you here?</h3>
+                    <p class="wellness-sub">This shapes every insight you receive — your guidance will be built around your goals.</p>
+
+                    <div class="form-group">
+                        <label>My primary focus right now</label>
+                        <div class="focus-pills" id="wellnessPills">
+                            <button type="button" class="focus-pill active" data-value="personal_growth">🌱 Personal Growth</button>
+                            <button type="button" class="focus-pill" data-value="better_relationships">💑 Relationships</button>
+                            <button type="button" class="focus-pill" data-value="career_clarity">💼 Career &amp; Purpose</button>
+                            <button type="button" class="focus-pill" data-value="health_vitality">🌿 Health &amp; Energy</button>
+                            <button type="button" class="focus-pill" data-value="inner_peace">✨ Inner Peace</button>
+                            <button type="button" class="focus-pill" data-value="spiritual_connection">🌟 Spiritual Growth</button>
+                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                        </div>
+                        <input type="text" class="pill-custom-input hidden" id="wellnessGoalCustom" placeholder="Describe your own focus…" maxlength="80">
+                        <input type="hidden" id="wellnessGoal" value="personal_growth">
+                    </div>
+
+                    <div class="form-group" style="margin-top:14px">
+                        <label>Where I am right now</label>
+                        <div class="focus-pills" id="lifePhasePills">
+                            <button type="button" class="focus-pill active" data-value="exploring">🌅 Exploring</button>
+                            <button type="button" class="focus-pill" data-value="building">🏗️ Building</button>
+                            <button type="button" class="focus-pill" data-value="healing">🌊 Healing</button>
+                            <button type="button" class="focus-pill" data-value="transitioning">🦋 In Transition</button>
+                            <button type="button" class="focus-pill" data-value="thriving">🌟 Thriving</button>
+                            <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                        </div>
+                        <input type="text" class="pill-custom-input hidden" id="lifePhaseCustom" placeholder="Describe where you are right now…" maxlength="80">
+                        <input type="hidden" id="lifePhase" value="exploring">
+                    </div>
+
+                    <div class="form-group" style="margin-top:14px">
+                        <label for="primaryIntention">What do you hope to discover?</label>
+                        <textarea id="primaryIntention" placeholder="e.g. I want to understand why I keep repeating the same patterns… / I need clarity on my career direction… / I want to understand my relationship with my mother…" rows="2" maxlength="400"></textarea>
+                    </div>
+
+                    <div class="form-group" style="margin-top:16px">
+                        <label class="label-small">Anything we should be mindful of? <span class="label-optional">(optional)</span></label>
+                        <p class="sensitive-flags-intro">Tick anything that applies — your guidance will be more thoughtful and appropriate.</p>
+                        <div class="sensitive-flags-grid">
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="depression">
+                                <span class="flag-icon">🧠</span>
+                                <span class="flag-text">Mental health / depression</span>
+                                <span class="flag-check"></span>
+                            </label>
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="lgbtq">
+                                <span class="flag-icon">🌈</span>
+                                <span class="flag-text">LGBTQ+</span>
+                                <span class="flag-check"></span>
+                            </label>
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="health_issues">
+                                <span class="flag-icon">🌿</span>
+                                <span class="flag-text">Health challenges</span>
+                                <span class="flag-check"></span>
+                            </label>
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="relationship_struggles">
+                                <span class="flag-icon">💔</span>
+                                <span class="flag-text">Relationship struggles</span>
+                                <span class="flag-check"></span>
+                            </label>
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="family_difficulties">
+                                <span class="flag-icon">🏠</span>
+                                <span class="flag-text">Family difficulties</span>
+                                <span class="flag-check"></span>
+                            </label>
+                            <label class="checkbox-flag-label">
+                                <input type="checkbox" class="sensitive-flag-cb" value="grief_loss">
+                                <span class="flag-icon">🕊️</span>
+                                <span class="flag-text">Grief or loss</span>
+                                <span class="flag-check"></span>
+                            </label>
+                        </div>
+                        <div id="sensitiveContextBox" class="sensitive-context-box hidden">
+                            <p class="sensitive-context-prompt">Thank you for sharing. Would you like to tell us a little more? <span class="label-optional">(optional — helps us respond with greater care)</span></p>
+                            <textarea id="sensitiveContext" rows="3" maxlength="600" placeholder="e.g. I've been struggling with anxiety for the past year… / I recently lost someone close to me… / Things at home have been very difficult lately…"></textarea>
+                            <p class="sensitive-context-note">💙 Your guidance will be written with sensitivity. Where it may help, we'll gently suggest professional support alongside our insights.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="context-section">
+                    <button type="button" class="context-toggle" id="contextToggle">
+                        <span class="context-toggle-icon">✨</span>
+                        Personalise your reading
+                        <span class="context-arrow" id="contextArrow">▼</span>
+                    </button>
+                    <div class="context-body hidden" id="contextBody">
+                        <p class="context-intro">Tell us what's on your mind and your guidance will speak directly to your life — not just generic advice.</p>
+                        <div class="form-group">
+                            <label>What would you most like guidance on?</label>
+                            <div class="focus-pills" id="focusPills">
+                                <button type="button" class="focus-pill active" data-value="general">✨ Just exploring</button>
+                                <button type="button" class="focus-pill" data-value="love">💕 Love &amp; Relationships</button>
+                                <button type="button" class="focus-pill" data-value="career">💼 Career &amp; Finance</button>
+                                <button type="button" class="focus-pill" data-value="health">🌿 Health &amp; Wellbeing</button>
+                                <button type="button" class="focus-pill" data-value="family">👨‍👩‍👧 Family Dynamics</button>
+                                <button type="button" class="focus-pill" data-value="spiritual">🌟 Spiritual Growth</button>
+                                <button type="button" class="focus-pill focus-pill-other" data-value="__other__">＋ Other</button>
+                            </div>
+                            <input type="text" class="pill-custom-input hidden" id="readingFocusCustom" placeholder="Describe what you'd like guidance on…" maxlength="80">
+                            <input type="hidden" id="readingFocus" value="general">
+                        </div>
+                        <div class="form-group" style="margin-top:16px">
+                            <label for="lifeContext">Your situation or question</label>
+                            <textarea id="lifeContext" placeholder="e.g. I'm considering a big career change and wondering if the timing is right… or I keep attracting the same kind of partner and want to understand why…" rows="3"></textarea>
+                        </div>
+                        <div class="form-group" style="margin-top:14px">
+                            <label for="lifeEvent">Upcoming life event</label>
+                            <select id="lifeEvent">
+                                <option value="">None / not applicable</option>
+                                <option value="job_interview">Job interview or career move</option>
+                                <option value="new_relationship">New romantic interest</option>
+                                <option value="wedding">Wedding or serious commitment</option>
+                                <option value="moving">Moving or relocating</option>
+                                <option value="starting_business">Starting a business</option>
+                                <option value="health_journey">Health journey or recovery</option>
+                                <option value="family_change">Family change (baby, divorce, etc.)</option>
+                                <option value="other">Other major life event</option>
+                            </select>
+                            <div id="otherEventGroup" style="display:none;margin-top:10px">
+                                <textarea id="otherEventDesc" rows="2"
+                                    placeholder="Tell us what's happening — e.g. I'm about to make a big decision about my living situation…"
+                                    style="width:100%;resize:vertical"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="context-section">
+                    <button type="button" class="context-toggle" id="demoToggle">
+                        <span class="context-toggle-icon">👤</span>
+                        Tell us a little about yourself
+                        <span class="context-arrow" id="demoArrow">▼</span>
+                    </button>
+                    <div class="context-body hidden" id="demoBody">
+                        <p class="context-intro">The more we know about your life, the more your guidance will speak directly to you — personalised to who you really are.</p>
+
+                        <div class="form-row form-row-2">
+                            <div class="form-group">
+                                <label for="demoGender">I identify as</label>
+                                <select id="demoGender">
+                                    <option value="">Prefer not to say</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                    <option value="non_binary">Non-binary</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="demoMarital">Relationship status</label>
+                                <select id="demoMarital">
+                                    <option value="">Prefer not to say</option>
+                                    <option value="single">Single</option>
+                                    <option value="in_relationship">In a relationship</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row form-row-2">
+                            <div class="form-group">
+                                <label for="demoJobType">Work situation</label>
+                                <select id="demoJobType">
+                                    <option value="">Prefer not to say</option>
+                                    <option value="employed">Employed</option>
+                                    <option value="self_employed">Self-employed / Freelance</option>
+                                    <option value="business_owner">Business owner</option>
+                                    <option value="student">Student</option>
+                                    <option value="homemaker">Homemaker</option>
+                                    <option value="retired">Retired</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="demoEducation">Education</label>
+                                <select id="demoEducation">
+                                    <option value="">Prefer not to say</option>
+                                    <option value="high_school">High school</option>
+                                    <option value="vocational">Vocational / Trade</option>
+                                    <option value="undergraduate">Undergraduate degree</option>
+                                    <option value="postgraduate">Postgraduate degree</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demoOccupation">Your role or field</label>
+                                <input type="text" id="demoOccupation" placeholder="e.g. Teacher, Software Engineer, Artist, Nurse…">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="demoLocation">Where you live now</label>
+                                <input type="text" id="demoLocation" placeholder="e.g. London, UK or Sydney, Australia">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Auth section — shown to guests -->
+                <div id="authSection">
+                    <hr class="divider">
+                    <p class="auth-note">Create a free account to save your profile and access daily personalised guidance.</p>
+                    <div class="form-row form-row-2">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" placeholder="min 8 characters" autocomplete="new-password">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formError" class="form-error hidden"></div>
+
+                <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn" style="margin-top:8px">
+                    Reveal My Insights ✨
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section section-alt" id="how-it-works">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-icon">🌱</div>
+                <h3>Tell Us About Yourself</h3>
+                <p>Share your birth details and growth goals — what you're focused on, where you are in life, and what you hope to discover.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">🌌</div>
+                <h3>We Build Your Blueprint</h3>
+                <p>AI builds your unique profile from your birth data, personal background, and the context you've shared — no two profiles are alike.</p>
+            </div>
+            <div class="step">
+                <div class="step-icon">✨</div>
+                <h3>Receive Personal Guidance</h3>
+                <p>Get deeply personalised insights for growth, relationships, career, and wellbeing — written as if it knows exactly who you are.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing -->
+<section class="section" id="pricing">
+    <div class="container">
+        <h2 class="section-title">Simple, Honest Pricing</h2>
+        <p style="text-align:center;color:var(--text-muted);margin:-16px auto 32px;max-width:480px;font-size:1.05rem;">Start free or go Premium from day one.</p>
+        <div class="pricing-grid-3">
+
+            <!-- Free -->
+            <div class="pricing-card">
+                <div class="plan-badge-wrap"></div>
+                <div class="pricing-tier">Free</div>
+                <div class="pricing-price">$0</div>
+                <p class="plan-label">Forever free · No credit card required.</p>
+                <ul class="pricing-features">
+                    <li>✅ Full birth chart (10 planets)</li>
+                    <li>✅ Sun, Moon &amp; Rising profile</li>
+                    <li>✅ AI-powered personality overview</li>
+                    <li>✅ All planetary house positions</li>
+                    <li>✅ 10 free compatibility readings</li>
+                    <li>✅ 5 trial previews of Premium features</li>
+                    <li>❌ Personalised daily guidance</li>
+                    <li>❌ Weekly &amp; monthly forecasts</li>
+                    <li>❌ Ask any life question</li>
+                </ul>
+                <a href="#birth-form" class="btn btn-outline btn-full" style="margin-top:16px;">Start Free →</a>
+            </div>
+
+            <!-- Monthly -->
+            <div class="pricing-card pricing-card-featured">
+                <div class="plan-badge-wrap">
+                    <span class="badge-popular">Most Popular</span>
+                </div>
+                <div class="pricing-tier">Monthly</div>
+                <div class="pricing-price">$3.99<span>/month</span></div>
+                <p class="plan-label">Billed monthly · cancel anytime.<br>7-day money-back guarantee.</p>
+                <ul class="pricing-features">
+                    <li>✅ Everything in Free</li>
+                    <li>✅ Personalised daily guidance</li>
+                    <li>✅ Built from your exact blueprint</li>
+                    <li>✅ Weekly &amp; monthly forecasts</li>
+                    <li>✅ Daily delivery to your inbox</li>
+                    <li>✅ Compatibility insights</li>
+                    <li>✅ Ask any life question</li>
+                    <li>✅ Priority support</li>
+                </ul>
+                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;">Get Monthly ✨</a>
+            </div>
+
+            <!-- Yearly -->
+            <div class="pricing-card">
+                <div class="plan-badge-wrap">
+                    <span class="badge-value">Best Value</span>
+                    <span class="badge-save">Save 37%</span>
+                </div>
+                <div class="pricing-tier">Yearly</div>
+                <div class="pricing-price">$29.99<span>/year</span></div>
+                <p class="plan-label">Just $2.50/month · cancel anytime.<br>7-day money-back guarantee.</p>
+                <ul class="pricing-features">
+                    <li>✅ Everything in Free</li>
+                    <li>✅ Personalised daily guidance</li>
+                    <li>✅ Built from your exact blueprint</li>
+                    <li>✅ Weekly &amp; monthly forecasts</li>
+                    <li>✅ Daily delivery to your inbox</li>
+                    <li>✅ Compatibility insights</li>
+                    <li>✅ Ask any life question</li>
+                    <li>✅ Priority support</li>
+                </ul>
+                <a href="/pricing" class="btn btn-primary btn-full" style="margin-top:16px;">Get Yearly ✨</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p class="footer-logo">✨ Zodovia</p>
+        <p class="footer-tagline">Your personal guide to growth and self-discovery.</p>
+        <div class="footer-links">
+            <a href="/pricing">Pricing</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/refund">Refund Policy</a>
+            <a href="mailto:contact@zodovia.com">Contact</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal hidden">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-box">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <h2>Sign In</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" id="loginEmail" required placeholder="you@example.com" autocomplete="email">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required placeholder="Your password" autocomplete="current-password">
+            </div>
+            <div id="loginError" class="form-error hidden"></div>
+            <button type="submit" class="btn btn-primary btn-full">Sign In</button>
+        </form>
+        <p style="text-align:center;margin-top:14px;font-size:0.85rem;">
+            <a href="/forgot-password" style="color:var(--text-muted);">Forgot your password?</a>
+        </p>
+        <p style="text-align:center;margin-top:8px;font-size:0.85rem;color:var(--text-muted)">
+            New here? <a href="#birth-form" onclick="document.getElementById('loginModal').classList.add('hidden')">Get your free profile</a> to create an account.
+        </p>
+    </div>
+</div>
+
+<script src="/static/js/main.js?v=5"></script>
+<script>
+(function(){
+    fetch('/api/config').then(function(r){return r.json();}).then(function(c){
+        if(!c.google_maps_api_key) return;
+        var s=document.createElement('script');
+        s.src='https://maps.googleapis.com/maps/api/js?key='+c.google_maps_api_key+'&libraries=places&callback=initGooglePlaces';
+        s.async=true; s.defer=true;
+        document.head.appendChild(s);
+    }).catch(function(){});
+})();
+</script>
+</body>
+</html>

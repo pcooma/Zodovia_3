@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Birth Chart — Zodovia</title>
+    <meta name="description" content="View your personalised natal chart — Sun, Moon, and Rising signs with a deep AI-powered reading based on your exact planetary placements.">
+    <meta property="og:title" content="Your Birth Chart — Zodovia">
+    <meta property="og:description" content="Your natal chart wheel, planetary positions, and a personalised astrological reading crafted just for you.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zodovia.com/chart">
+    <meta property="og:image" content="https://zodovia.com/static/og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="canonical" href="https://zodovia.com/chart">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
+</head>
+<body class="page-chart">
+
+<nav class="navbar navbar-dark">
+    <div class="nav-inner">
+        <a class="logo" href="/">✨ Zodovia</a>
+        <div class="nav-links">
+            <a href="/dashboard" id="dashboardLink" class="btn btn-ghost hidden">Dashboard</a>
+            <a href="/compatibility" id="compatibilityLink" class="btn btn-ghost hidden">Compatibility</a>
+            <a href="/admin" id="adminLink" class="btn btn-ghost hidden">Admin</a>
+            <a href="#" id="logoutBtn" class="btn btn-ghost">Sign Out</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Loading state -->
+<div id="loadingState" class="loading-screen">
+    <div class="loader-star">✨</div>
+    <p>The cosmos is preparing your reading…</p>
+</div>
+
+<!-- Error state -->
+<div id="errorState" class="loading-screen hidden">
+    <div style="font-size:2.5rem">⚠️</div>
+    <p id="errorMessage" style="color:#ff8080;text-align:center;max-width:400px"></p>
+    <a href="/" class="btn btn-outline" style="margin-top:8px">Go Home</a>
+</div>
+
+<!-- Chart content (hidden until loaded) -->
+<div id="chartContent" class="hidden">
+
+    <!-- Big Three -->
+    <section class="section section-hero-chart">
+        <div class="container container-sm">
+            <p class="eyebrow" id="chartUserName"></p>
+            <h1>Your Cosmic Blueprint</h1>
+            <div class="big-three">
+                <div class="sign-card">
+                    <div class="sign-label">☀️ Sun</div>
+                    <div class="sign-name" id="sunSign"></div>
+                    <div class="sign-note">Your core identity</div>
+                </div>
+                <div class="sign-card sign-card-center">
+                    <div class="sign-label">🌙 Moon</div>
+                    <div class="sign-name" id="moonSign"></div>
+                    <div class="sign-note">Your emotional self</div>
+                </div>
+                <div class="sign-card">
+                    <div class="sign-label">⬆️ Rising</div>
+                    <div class="sign-name" id="risingSign"></div>
+                    <div class="sign-note">How the world sees you</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading -->
+    <section class="section">
+        <div class="container container-sm">
+            <div class="reading-card">
+                <h2 id="readingTitle">✨ Your Personal Reading</h2>
+                <div class="reading-body" id="readingBody"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Natal Chart Wheel -->
+    <section class="section section-alt">
+        <div class="container container-sm">
+            <h2 class="section-title">🔮 Your Natal Chart Wheel</h2>
+            <p class="section-sub">Every planet placed at its exact degree — the sky frozen at the moment of your birth</p>
+            <div class="wheel-wrapper">
+                <svg id="chartWheel" class="chart-wheel-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
+                <div class="wheel-legend">
+                    <span class="legend-item"><span class="legend-dot" style="background:#ff6040"></span>Fire</span>
+                    <span class="legend-item"><span class="legend-dot" style="background:#7ab648"></span>Earth</span>
+                    <span class="legend-item"><span class="legend-dot" style="background:#e8c040"></span>Air</span>
+                    <span class="legend-item"><span class="legend-dot" style="background:#4a9ecc"></span>Water</span>
+                    <span class="legend-item"><span class="retro-legend">℞</span> Retrograde</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ascendant / Rising Sign Spotlight -->
+    <section class="section">
+        <div class="container container-sm">
+            <div class="rising-card">
+                <div class="rising-header">
+                    <div class="rising-glyph-wrap">
+                        <span class="rising-glyph" id="risingGlyph"></span>
+                    </div>
+                    <div>
+                        <p class="rising-eyebrow">Your Ascendant</p>
+                        <h2 class="rising-title"><span id="risingSignTitle"></span> Rising</h2>
+                        <p class="rising-degree-label" id="risingDegreeLabel"></p>
+                    </div>
+                </div>
+                <div class="rising-what-is">
+                    The <strong>Ascendant</strong> (Rising Sign) is the zodiac sign that was ascending on the <strong>eastern horizon</strong> at the exact moment and place of your birth. Unlike your Sun sign (~30 days per sign) or Moon sign (~2.5 days), the Ascendant shifts every <strong>~2 hours</strong> — making it the most time-precise point in your entire chart and the lens through which your soul meets the world.
+                </div>
+                <p class="rising-intro" id="risingIntro"></p>
+                <div class="rising-pillars">
+                    <div class="rising-pillar">
+                        <div class="pillar-icon">🎭</div>
+                        <h4>First Impression</h4>
+                        <p id="pillar1"></p>
+                    </div>
+                    <div class="rising-pillar">
+                        <div class="pillar-icon">🌅</div>
+                        <h4>Your Presence</h4>
+                        <p id="pillar2"></p>
+                    </div>
+                    <div class="rising-pillar">
+                        <div class="pillar-icon">🗺️</div>
+                        <h4>Life Approach</h4>
+                        <p id="pillar3"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planetary Table -->
+    <section class="section section-alt">
+        <div class="container container-sm">
+            <h2 class="section-title">🪐 All Planetary Positions</h2>
+            <div class="planet-grid" id="planetGrid"></div>
+        </div>
+    </section>
+
+    <!-- Ask the Stars — paid users -->
+    <section class="section" id="askStarsSection" style="display:none">
+        <div class="container container-sm">
+            <div class="ask-stars-card">
+                <div class="ask-stars-header">
+                    <span class="ask-stars-icon">🔮</span>
+                    <div>
+                        <h2>Ask the Stars</h2>
+                        <p class="ask-stars-sub">Ask any question about love, career, family, or life decisions. Your chart holds the answer.</p>
+                    </div>
+                </div>
+                <div class="ask-stars-form">
+                    <textarea id="starsQuestion" placeholder="e.g. Why do I keep attracting the same type of person? / Is now a good time to start my business? / How do I improve my relationship with my mother?" rows="3" maxlength="600"></textarea>
+                    <div id="starsCounter" class="ask-counter">600 characters left</div>
+                    <button type="button" class="btn btn-primary" id="askStarsBtn">Ask the Stars ✨</button>
+                </div>
+                <div id="starsLoading" class="hidden" style="text-align:center;padding:20px;color:var(--text-muted)">
+                    <span class="loader-dot"></span> The stars are consulting…
+                </div>
+                <div id="starsAnswer" class="stars-answer hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ask the Stars teaser — free users -->
+    <section class="section" id="askStarsTeaser" style="display:none">
+        <div class="container container-sm">
+            <div class="ask-stars-card ask-stars-locked">
+                <div class="ask-stars-header">
+                    <span class="ask-stars-icon">🔮</span>
+                    <div>
+                        <h2>Ask the Stars</h2>
+                        <p class="ask-stars-sub">Premium members can ask any life question and get a deeply personalised astrological answer based on their exact chart.</p>
+                    </div>
+                </div>
+                <div class="ask-stars-example">
+                    <p class="ask-stars-example-q">"Why do I keep falling for the same type of person?"</p>
+                    <p class="ask-stars-example-a">With Venus in Scorpio and your 7th house ruled by Neptune, you're drawn to intensity and mystery — but your Moon in Pisces means you idealise partners before seeing them clearly. The answer lies in your…</p>
+                </div>
+                <a href="#paywallSection" class="btn btn-primary btn-full" style="margin-top:16px">🔒 Unlock Full Answers — Upgrade to Premium</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paywall (free users only) -->
+    <section class="section paywall-section" id="paywallSection">
+        <div class="container container-sm">
+            <div class="paywall-card">
+                <div class="paywall-icon">🔮</div>
+                <h2>Unlock Your Full Blueprint</h2>
+                <p>Get your complete personal reading, daily guidance, weekly &amp; monthly forecasts, and the ability to ask any life question — all tailored to your exact blueprint.</p>
+                <div class="paywall-features">
+                    <span>✨ Complete deep-dive reading</span>
+                    <span>🔮 Ask any life question</span>
+                    <span>💑 Compatibility insights</span>
+                    <span>📧 Daily guidance by email</span>
+                </div>
+                <div class="paywall-price">
+                    Only <strong>$3.99/month</strong> — or $29.99/year
+                </div>
+                <div class="paywall-actions">
+                    <a href="/pricing" class="btn btn-primary btn-lg" id="upgradeMonthlyBtn">
+                        Upgrade Monthly — $3.99
+                    </a>
+                    <a href="/pricing" class="btn btn-outline" id="upgradeYearlyBtn">
+                        Upgrade Yearly — $29.99 (save 37%)
+                    </a>
+                </div>
+                <p class="paywall-note">Cancel anytime. Secure payments by PayPal.</p>
+            </div>
+        </div>
+    </section>
+
+</div><!-- /chartContent -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/refund">Refund Policy</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Zodovia. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="/static/js/chart.js?v=4"></script>
+</body>
+</html>
