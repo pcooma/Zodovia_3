@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
+import datetime
+
+from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from typing import List
 from .. import gas_client
 from ..gas_client import UserRecord
@@ -73,3 +75,69 @@ async def get_user_detail(
 @router.get("/stats")
 async def get_stats(_su: UserRecord = Depends(_require_superuser)):
     return await gas_client.get_stats()
+
+
+@router.get("/payments")
+async def list_payment_records(
+    status: str = Query(default="pending"),
+    _su: UserRecord = Depends(_require_superuser),
+):
+    records = await gas_client.get_all_payment_records(status=status)
+    return [
+        {
+            "id": r.id,
+            "user_id": r.user_id,
+            "user_email": r.user_email,
+            "plan": r.plan,
+            "amount_lkr": r.amount_lkr,
+            "slip_view_url": r.slip_view_url,
+            "slip_filename": r.slip_filename,
+            "extracted_name": r.extracted_name,
+            "extracted_bank": r.extracted_bank,
+            "extracted_reference": r.extracted_reference,
+            "extracted_amount": r.extracted_amount,
+            "extracted_date": r.extracted_date,
+            "extracted_currency": r.extracted_currency,
+            "status": r.status,
+            "admin_notes": r.admin_notes,
+            "reviewed_at": r.reviewed_at,
+            "created_at": r.created_at,
+        }
+        for r in records
+    ]
+
+
+@router.post("/payments/{record_id}/approve")
+async def approve_payment(
+    record_id: int,
+    _su: UserRecord = Depends(_require_superuser),
+):
+    now = datetime.datetime.utcnow().isoformat()
+    record = await gas_client.update_payment_record(record_id, status="approved", reviewed_at=now)
+    if not record:
+        raise HTTPException(404, "Payment record not found")
+
+    if record.user_id:
+        plan = record.plan or "one_time"
+        await gas_client.update_user(
+            int(record.user_id),
+            is_paid=True,
+            subscription_plan=plan,
+            subscription_status="active",
+        )
+    return {"ok": True}
+
+
+@router.post("/payments/{record_id}/reject")
+async def reject_payment(
+    record_id: int,
+    notes: str = Body(default="", embed=True),
+    _su: UserRecord = Depends(_require_superuser),
+):
+    now = datetime.datetime.utcnow().isoformat()
+    record = await gas_client.update_payment_record(
+        record_id, status="rejected", admin_notes=notes, reviewed_at=now
+    )
+    if not record:
+        raise HTTPException(404, "Payment record not found")
+    return {"ok": True}

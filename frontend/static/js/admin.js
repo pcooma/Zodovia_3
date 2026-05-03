@@ -11,6 +11,8 @@ let allUsers = [];
 let currentFilter = 'all';
 let expandedUserId = null;
 
+let currentPaymentFilter = 'pending';
+
 document.addEventListener('DOMContentLoaded', async () => {
     const token = getToken();
     const user  = getUser();
@@ -35,7 +37,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         document.getElementById('adminContent').classList.remove('hidden');
 
-        // Populate stats
         document.getElementById('statTotal').textContent  = stats.total_users;
         document.getElementById('statPaid').textContent   = stats.paid_users;
         document.getElementById('statFree').textContent   = stats.free_users;
@@ -46,10 +47,109 @@ document.addEventListener('DOMContentLoaded', async () => {
         renderTable(allUsers);
         setupFilters();
 
+        // Load pending payment count for stat card
+        loadPendingCount(token);
+
     } catch (err) {
         document.getElementById('accessDenied').classList.remove('hidden');
     }
 });
+
+async function loadPendingCount(token) {
+    try {
+        const records = await apiFetch('/api/admin/payments?status=pending', 'GET', null, token);
+        document.getElementById('statPendingPayments').textContent = records.length;
+    } catch { /* non-critical */ }
+}
+
+// ── Admin tab switching ────────────────────────────────────────
+
+function switchAdminTab(tab) {
+    ['users', 'payments'].forEach(t => {
+        document.getElementById('section-' + t).classList.toggle('visible', t === tab);
+        document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    });
+    if (tab === 'payments') loadPayments(currentPaymentFilter);
+}
+
+// ── Payments section ──────────────────────────────────────────
+
+async function loadPayments(status) {
+    currentPaymentFilter = status;
+    ['pending','approved','rejected','all'].forEach(s => {
+        const el = document.getElementById('pf-' + s);
+        if (el) el.classList.toggle('active', s === status);
+    });
+
+    const tbody = document.getElementById('paymentTableBody');
+    tbody.innerHTML = '<tr class="loading-row"><td colspan="13">Loading…</td></tr>';
+
+    const token = getToken();
+    try {
+        const records = await apiFetch('/api/admin/payments?status=' + status, 'GET', null, token);
+        renderPayments(records);
+    } catch (err) {
+        tbody.innerHTML = `<tr class="loading-row"><td colspan="13" style="color:#f87171;">${esc(err.message)}</td></tr>`;
+    }
+}
+
+function renderPayments(records) {
+    const tbody = document.getElementById('paymentTableBody');
+    if (!records.length) {
+        tbody.innerHTML = '<tr class="loading-row"><td colspan="13" class="no-data">No records.</td></tr>';
+        return;
+    }
+    tbody.innerHTML = records.map(r => {
+        const statusClass = { pending: 'badge-pending', approved: 'badge-approved', rejected: 'badge-rejected' }[r.status] || '';
+        const planLabel   = { one_time: 'One-Time', monthly: 'Monthly', yearly: 'Yearly' }[r.plan] || r.plan || '—';
+        const slipLink    = r.slip_view_url
+            ? `<a class="slip-link" href="${esc(r.slip_view_url)}" target="_blank" rel="noopener">View 🔗</a>`
+            : '—';
+        const actions = r.status === 'pending'
+            ? `<button class="btn-sm btn-approve" onclick="approvePayment(${r.id})">✅ Approve</button>
+               <button class="btn-sm btn-reject"  onclick="rejectPayment(${r.id})" style="margin-left:4px;">❌ Reject</button>`
+            : (r.admin_notes ? `<span style="font-size:0.78rem;color:#9985b0;">${esc(r.admin_notes)}</span>` : '—');
+        return `<tr>
+            <td class="text-muted">${r.id}</td>
+            <td style="font-size:0.82rem;">${esc(r.user_email || '—')}</td>
+            <td>${planLabel}</td>
+            <td style="color:var(--gold);">LKR ${r.amount_lkr || '—'}</td>
+            <td>${esc(r.extracted_name || '—')}</td>
+            <td style="font-size:0.8rem;">${esc(r.extracted_bank || '—')}</td>
+            <td style="font-size:0.8rem;">${esc(r.extracted_reference || '—')}</td>
+            <td style="font-size:0.8rem;">${esc(r.extracted_amount || '—')} ${esc(r.extracted_currency || '')}</td>
+            <td style="font-size:0.8rem;">${esc(r.extracted_date || '—')}</td>
+            <td>${slipLink}</td>
+            <td><span class="badge ${statusClass}">${r.status}</span></td>
+            <td class="text-muted" style="font-size:0.78rem;">${esc((r.created_at || '').slice(0, 16))}</td>
+            <td>${actions}</td>
+        </tr>`;
+    }).join('');
+}
+
+async function approvePayment(id) {
+    if (!confirm('Approve this payment and activate the user?')) return;
+    const token = getToken();
+    try {
+        await apiFetch(`/api/admin/payments/${id}/approve`, 'POST', null, token);
+        loadPayments(currentPaymentFilter);
+        loadPendingCount(token);
+    } catch (err) {
+        alert('Error: ' + err.message);
+    }
+}
+
+async function rejectPayment(id) {
+    const notes = prompt('Rejection reason (optional):') ?? '';
+    const token = getToken();
+    try {
+        await apiFetch(`/api/admin/payments/${id}/reject`, 'POST', { notes }, token);
+        loadPayments(currentPaymentFilter);
+        loadPendingCount(token);
+    } catch (err) {
+        alert('Error: ' + err.message);
+    }
+}
 
 // --- Table rendering ---
 
@@ -88,9 +188,9 @@ function signs(u) {
 
 function setupFilters() {
     document.getElementById('searchInput').addEventListener('input', applyFilters);
-    document.querySelectorAll('.filter-tab').forEach(btn => {
+    document.querySelectorAll('#section-users .filter-tab').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('#section-users .filter-tab').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentFilter = btn.dataset.filter;
             applyFilters();

@@ -133,6 +133,30 @@ class DailyRecord:
         self.created_at = d.get("created_at")
 
 
+class PaymentRecord:
+    def __init__(self, data: dict):
+        d = data or {}
+        self.id                  = d.get("id")
+        self.user_id             = d.get("user_id")
+        self.user_email          = d.get("user_email")
+        self.plan                = d.get("plan")
+        self.amount_lkr          = d.get("amount_lkr")
+        self.slip_drive_id       = d.get("slip_drive_id")
+        self.slip_view_url       = d.get("slip_view_url")
+        self.slip_filename       = d.get("slip_filename")
+        self.extracted_name      = d.get("extracted_name")
+        self.extracted_bank      = d.get("extracted_bank")
+        self.extracted_reference = d.get("extracted_reference")
+        self.extracted_amount    = d.get("extracted_amount")
+        self.extracted_date      = d.get("extracted_date")
+        self.extracted_currency  = d.get("extracted_currency")
+        self.raw_extraction      = d.get("raw_extraction")
+        self.status              = d.get("status", "pending")
+        self.admin_notes         = d.get("admin_notes")
+        self.reviewed_at         = d.get("reviewed_at")
+        self.created_at          = d.get("created_at")
+
+
 # ── Users ──────────────────────────────────────────────────────────
 
 async def get_user_by_email(email: str) -> Optional[UserRecord]:
@@ -300,3 +324,24 @@ async def delete_daily_horoscope(user_id: int, date: str) -> dict:
 async def get_paid_users_for_daily() -> list[UserRecord]:
     rows = await _get("get_paid_users_for_daily") or []
     return [UserRecord(r) for r in rows]
+
+
+# ── Payment Records ────────────────────────────────────────────────
+
+async def save_payment_slip_to_drive(base64_data: str, mime_type: str, filename: str) -> dict:
+    return await _post("save_payment_slip", base64=base64_data, mime_type=mime_type, filename=filename)
+
+
+async def create_payment_record(**kwargs) -> PaymentRecord:
+    data = await _post("create_payment_record", **kwargs)
+    return PaymentRecord(data)
+
+
+async def get_all_payment_records(status: str = "all") -> list:
+    rows = await _get("get_all_payment_records", status=status) or []
+    return [PaymentRecord(r) for r in rows]
+
+
+async def update_payment_record(record_id: int, **fields) -> Optional[PaymentRecord]:
+    data = await _post("update_payment_record", id=record_id, fields=fields)
+    return PaymentRecord(data) if data else None

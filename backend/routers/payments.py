@@ -1,13 +1,15 @@
+import base64
 import hashlib
 import hmac
+import json
 import logging
 import os
 import time
 import urllib.parse
 
+import anthropic
 import httpx
-from fastapi import APIRouter, Depends, Request
-from starlette.concurrency import run_in_threadpool
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile
 
 from .. import gas_client
 from ..gas_client import UserRecord
@@ -31,10 +33,128 @@ PAYHERE_RETURN_URL      = os.getenv("PAYHERE_RETURN_URL",  "https://zodovia.com/
 PAYHERE_CANCEL_URL      = os.getenv("PAYHERE_CANCEL_URL",  "https://zodovia.com/pricing")
 
 _PLAN_LKR = {
-    "monthly": {"amount": "990.00",  "recurrence": "1 Month", "items": "Zodovia Premium Monthly"},
-    "yearly":  {"amount": "4990.00", "recurrence": "1 Year",  "items": "Zodovia Premium Yearly"},
+    "one_time": {"amount": "300.00",  "recurrence": None,      "items": "Zodovia One-Time Premium"},
+    "monthly":  {"amount": "990.00",  "recurrence": "1 Month", "items": "Zodovia Premium Monthly"},
+    "yearly":   {"amount": "4990.00", "recurrence": "1 Year",  "items": "Zodovia Premium Yearly"},
 }
 _EXPECTED_USD = {"monthly": 3.99, "yearly": 29.99}
+
+BANK_DETAILS = {
+    "name":           "Pramuditha Coomasaru",
+    "bank":           "Bank of Ceylon (BOC)",
+    "branch":         "Kalutara",
+    "account_number": "9379707",
+    "whatsapp":       "+94741251212",
+    "whatsapp_link":  "https://wa.me/94741251212",
+}
+
+PLAN_AMOUNTS = {
+    "one_time": {"amount": 300,  "label": "One-Time Premium Access"},
+    "monthly":  {"amount": 990,  "label": "Monthly Premium"},
+    "yearly":   {"amount": 4990, "label": "Yearly Premium"},
+}
+
+_ALLOWED_MIME = {"image/jpeg", "image/png", "image/gif", "image/webp"}
+_MAX_FILE_BYTES = 5 * 1024 * 1024  # 5 MB
+
+
+@router.get("/bank-details")
+async def get_bank_details():
+    return {**BANK_DETAILS, "plans": PLAN_AMOUNTS}
+
+
+@router.post("/bank-slip")
+async def submit_bank_slip(
+    file: UploadFile = File(...),
+    plan: str = Form("one_time"),
+    current_user: UserRecord = Depends(get_current_user),
+):
+    if plan not in PLAN_AMOUNTS:
+        plan = "one_time"
+
+    content_type = (file.content_type or "image/jpeg").split(";")[0].strip()
+    if content_type not in _ALLOWED_MIME:
+        raise HTTPException(400, "Only JPEG, PNG, GIF or WEBP images are accepted")
+
+    file_bytes = await file.read()
+    if len(file_bytes) > _MAX_FILE_BYTES:
+        raise HTTPException(400, "File too large. Maximum size is 5 MB")
+
+    # Analyze slip with Claude (fail-safe — proceed even if analysis fails)
+    extracted: dict = {}
+    try:
+        extracted = await _analyze_slip(file_bytes, content_type)
+    except Exception as exc:
+        logger.warning(f"Slip analysis failed for user {current_user.id}: {exc}")
+
+    # Upload image to Google Drive via GAS
+    b64 = base64.b64encode(file_bytes).decode()
+    drive_result = await gas_client.save_payment_slip_to_drive(
+        b64, content_type, file.filename or "slip.jpg"
+    )
+
+    # Persist payment record
+    plan_info = PLAN_AMOUNTS[plan]
+    record = await gas_client.create_payment_record(
+        user_id=current_user.id,
+        user_email=current_user.email,
+        plan=plan,
+        amount_lkr=plan_info["amount"],
+        slip_drive_id=drive_result.get("drive_id", ""),
+        slip_view_url=drive_result.get("view_url", ""),
+        slip_filename=file.filename or "slip",
+        extracted_name=extracted.get("payer_name", ""),
+        extracted_bank=extracted.get("bank_name", ""),
+        extracted_reference=extracted.get("transaction_reference", ""),
+        extracted_amount=str(extracted.get("amount", "")),
+        extracted_date=str(extracted.get("date", "")),
+        extracted_currency=extracted.get("currency", "LKR"),
+        raw_extraction=extracted,
+    )
+
+    return {
+        "record_id": record.id,
+        "status": "pending",
+        "extracted": extracted,
+        "whatsapp": BANK_DETAILS["whatsapp_link"],
+        "message": (
+            "Slip received! Your account will be activated within 2 business hours "
+            "(9 AM – 6 PM, Mon–Sat). You can also WhatsApp us for faster activation."
+        ),
+    }
+
+
+async def _analyze_slip(image_bytes: bytes, mime_type: str) -> dict:
+    client = anthropic.AsyncAnthropic()
+    b64 = base64.b64encode(image_bytes).decode()
+    msg = await client.messages.create(
+        model="claude-haiku-4-5-20251001",
+        max_tokens=512,
+        messages=[{
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {"type": "base64", "media_type": mime_type, "data": b64},
+                },
+                {
+                    "type": "text",
+                    "text": (
+                        "Extract payment details from this bank transfer slip. "
+                        "Return ONLY a JSON object with these fields: "
+                        "payer_name, bank_name, branch, transaction_reference, amount, "
+                        "currency, date, beneficiary_name, beneficiary_account. "
+                        "Use null for fields you cannot determine. No markdown, no explanation."
+                    ),
+                },
+            ],
+        }],
+    )
+    text = msg.content[0].text.strip()
+    if text.startswith("```"):
+        text = "\n".join(text.split("\n")[1:])
+        text = text.rstrip("`").strip()
+    return json.loads(text)
 
 
 @router.get("/checkout-url")

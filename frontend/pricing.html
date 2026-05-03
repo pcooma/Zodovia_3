@@ -164,7 +164,7 @@
         <a class="logo" href="/">✨ Zodovia</a>
         <div class="nav-links">
             <a href="/" data-i18n="nav_home">Home</a>
-            <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--text-muted)">💬 WhatsApp</a>
+            <a href="https://wa.me/94741251212" target="_blank" rel="noopener" style="color:var(--text-muted)">💬 WhatsApp</a>
             <a href="/" class="btn btn-primary" data-i18n="nav_get_started">Get Started Free</a>
             <button class="lang-toggle" onclick="toggleLang()" title="Switch to English">EN</button>
         </div>
@@ -282,33 +282,102 @@
 
         <!-- Bank Transfer section -->
         <div id="section-bank" class="pricing-section" style="display:none;">
+
+            <!-- Plan selection cards -->
+            <div class="pricing-grid-3" style="margin-bottom:40px;">
+
+                <div class="pricing-card pricing-card-featured" id="bankCard-one_time" style="cursor:pointer;" onclick="selectBankPlan('one_time')">
+                    <div class="plan-badge-wrap"><span class="badge-popular">One-Time</span></div>
+                    <div class="pricing-tier">Premium Access</div>
+                    <div class="pricing-price">LKR 300</div>
+                    <p class="plan-label">Single access · no subscription.<br>Great for trying Premium.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Full personalised guidance</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Compatibility insights</li>
+                        <li>✅ Ask any life question</li>
+                    </ul>
+                    <div id="indicator-one_time" style="margin-top:14px;padding:8px;background:rgba(139,92,246,0.18);border-radius:8px;text-align:center;font-size:0.85rem;color:var(--accent);display:none;">✔ Selected — Transfer LKR 300</div>
+                </div>
+
+                <div class="pricing-card" id="bankCard-monthly" style="cursor:pointer;" onclick="selectBankPlan('monthly')">
+                    <div class="plan-badge-wrap"></div>
+                    <div class="pricing-tier">Monthly</div>
+                    <div class="pricing-price">LKR 990<span>/month</span></div>
+                    <p class="plan-label">Billed monthly · cancel anytime.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Daily personalised guidance</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Compatibility insights</li>
+                        <li>✅ Ask any life question</li>
+                    </ul>
+                    <div id="indicator-monthly" style="margin-top:14px;padding:8px;background:rgba(139,92,246,0.18);border-radius:8px;text-align:center;font-size:0.85rem;color:var(--accent);display:none;">✔ Selected — Transfer LKR 990</div>
+                </div>
+
+                <div class="pricing-card" id="bankCard-yearly" style="cursor:pointer;" onclick="selectBankPlan('yearly')">
+                    <div class="plan-badge-wrap"><span class="badge-value">Best Value</span><span class="badge-save">Save 58%</span></div>
+                    <div class="pricing-tier">Yearly</div>
+                    <div class="pricing-price">LKR 4,990<span>/year</span></div>
+                    <p class="plan-label">Just LKR 416/month · cancel anytime.</p>
+                    <ul class="pricing-features">
+                        <li>✅ Everything in Free</li>
+                        <li>✅ Daily personalised guidance</li>
+                        <li>✅ Weekly &amp; monthly forecasts</li>
+                        <li>✅ Compatibility insights</li>
+                        <li>✅ Ask any life question</li>
+                    </ul>
+                    <div id="indicator-yearly" style="margin-top:14px;padding:8px;background:rgba(139,92,246,0.18);border-radius:8px;text-align:center;font-size:0.85rem;color:var(--accent);display:none;">✔ Selected — Transfer LKR 4,990</div>
+                </div>
+            </div>
+
             <div class="bank-transfer-box">
-                <h3 data-i18n="bank_section_title">💳 Pay via Bank Transfer (LKR)</h3>
-                <p data-i18n-html="bank_intro_html">Transfer your subscription payment directly to our bank account and email us proof. We will activate your Premium access within <strong>2 business hours</strong> (9 AM – 6 PM, Monday–Saturday).</p>
+                <h3>🏦 Bank Transfer Details</h3>
+                <p style="color:var(--text-muted);margin-bottom:20px;">
+                    Choose a plan above, transfer the amount to the account below, then upload your slip here.
+                    Account will be activated within <strong>2 business hours</strong> (9 AM – 6 PM, Mon–Sat).
+                </p>
 
                 <table class="bank-details-table">
-                    <tr><td data-i18n="bank_col_bank">Bank</td><td><!-- INSERT YOUR BANK NAME --></td></tr>
-                    <tr><td data-i18n="bank_col_name">Account Name</td><td><!-- INSERT ACCOUNT NAME --></td></tr>
-                    <tr><td data-i18n="bank_col_number">Account No.</td><td><!-- INSERT ACCOUNT NUMBER --></td></tr>
-                    <tr><td data-i18n="bank_col_branch">Branch</td><td><!-- INSERT BRANCH --></td></tr>
+                    <tr><td>Bank</td><td><strong>Bank of Ceylon (BOC)</strong></td></tr>
+                    <tr><td>Account Name</td><td><strong>Pramuditha Coomasaru</strong></td></tr>
+                    <tr><td>Account No.</td><td><strong style="font-size:1.1rem;letter-spacing:0.06em;">9379707</strong></td></tr>
+                    <tr><td>Branch</td><td><strong>Kalutara</strong></td></tr>
                 </table>
 
-                <p><strong data-i18n="bank_how_much">How much to transfer:</strong></p>
-                <ul style="color:var(--text-muted);padding-left:20px;margin-bottom:20px;font-size:0.9rem;line-height:1.8;">
-                    <li data-i18n-html="bank_amount_monthly_html"><strong style="color:var(--gold)">Monthly plan:</strong> LKR 990</li>
-                    <li data-i18n-html="bank_amount_yearly_html"><strong style="color:var(--gold)">Yearly plan:</strong> LKR 4,990</li>
-                </ul>
+                <!-- Slip upload form -->
+                <div style="margin-top:28px;">
+                    <h4 style="font-size:1rem;margin-bottom:10px;color:var(--text);">📎 Upload Your Payment Slip</h4>
+                    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:14px;">
+                        After transferring, upload your bank receipt or screenshot for instant review.
+                    </p>
 
-                <ol class="bank-transfer-steps">
-                    <li data-i18n-html="bank_step_1_html">Transfer <strong>LKR 990</strong> (monthly) or <strong>LKR 4,990</strong> (yearly) to the account above.</li>
-                    <li data-i18n="bank_step_2">Take a screenshot or photo of your transfer confirmation.</li>
-                    <li data-i18n-html="bank_step_3_html">Email it to <strong>contact@zodovia.com</strong> with your <strong>Zodovia registered email address</strong> in the message.</li>
-                    <li data-i18n-html="bank_step_4_html">We will activate your Premium access and reply within <strong>2 business hours</strong>.</li>
-                </ol>
+                    <div id="uploadDropzone" onclick="document.getElementById('slipFileInput').click()"
+                         style="border:2px dashed rgba(139,92,246,0.4);border-radius:12px;padding:26px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-bottom:14px;background:rgba(139,92,246,0.04);">
+                        <div style="font-size:2.2rem;margin-bottom:6px;">📷</div>
+                        <div style="color:var(--text-muted);font-size:0.9rem;">Click to select your slip<br>
+                            <small>JPEG, PNG or screenshot · Max 5 MB</small></div>
+                        <div id="selectedFileName" style="margin-top:10px;color:var(--gold);font-size:0.85rem;display:none;"></div>
+                    </div>
+                    <input type="file" id="slipFileInput" accept="image/*" style="display:none;" onchange="onSlipFileSelected(this)">
 
-                <p style="margin-top:20px;font-size:0.82rem;color:var(--text-muted);" data-i18n-html="bank_whatsapp_note_html">
-                    For faster activation, you can also WhatsApp the transfer proof to us at
-                    <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--gold);">+94 700 000 000</a>.
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <button class="btn btn-primary" id="uploadSlipBtn" onclick="uploadPaymentSlip()" disabled
+                                style="flex:1;min-width:160px;">Submit Slip for Review</button>
+                        <a href="https://wa.me/94741251212" target="_blank" rel="noopener"
+                           class="btn btn-outline" style="flex:1;min-width:160px;text-align:center;">
+                            💬 WhatsApp Instead
+                        </a>
+                    </div>
+
+                    <div id="slipUploadStatus" style="display:none;margin-top:16px;padding:14px 16px;border-radius:10px;font-size:0.9rem;line-height:1.6;"></div>
+                </div>
+
+                <p style="margin-top:24px;font-size:0.82rem;color:var(--text-muted);">
+                    Or WhatsApp your slip directly to
+                    <a href="https://wa.me/94741251212" target="_blank" rel="noopener" style="color:var(--gold);">+94 741 251 212</a>
+                    for the fastest activation.
                 </p>
             </div>
         </div>
@@ -420,7 +489,7 @@
             </div>
             <div class="sl-trust-grid">
                 <div class="sl-trust-item"><span class="sl-trust-icon">💳</span><div><strong data-i18n="trust_lkr">Pay in LKR</strong><br><span data-i18n="trust_lkr_sub">Monthly or yearly plans in Sri Lankan Rupees</span></div></div>
-                <div class="sl-trust-item"><span class="sl-trust-icon">💬</span><div><strong data-i18n="trust_wa">WhatsApp Support</strong><br><span data-i18n-html="trust_wa_pricing_html"><a href="https://wa.me/94700000000" target="_blank" rel="noopener">Chat with us</a> — quick, friendly help</span></div></div>
+                <div class="sl-trust-item"><span class="sl-trust-icon">💬</span><div><strong data-i18n="trust_wa">WhatsApp Support</strong><br><span data-i18n-html="trust_wa_pricing_html"><a href="https://wa.me/94741251212" target="_blank" rel="noopener">Chat with us</a> — quick, friendly help</span></div></div>
                 <div class="sl-trust-item"><span class="sl-trust-icon">🔒</span><div><strong data-i18n="trust_privacy">Your Data is Private</strong><br><span data-i18n="trust_privacy_sub">Birth data used only for your readings. Never sold.</span></div></div>
                 <div class="sl-trust-item"><span class="sl-trust-icon">↩️</span><div><strong data-i18n="trust_refund">7-Day Money-Back</strong><br><span data-i18n="trust_refund_sub">Not happy? Full refund — no questions asked</span></div></div>
             </div>
@@ -429,7 +498,7 @@
         <!-- Auto-renewal info -->
         <div class="autorenew-box" data-i18n-html="autorenew_html">
             <strong>Cancellation &amp; renewals:</strong>
-            <strong>PayHere subscriptions</strong> — Cancel anytime by contacting us at <a href="mailto:contact@zodovia.com" style="color:var(--gold)">contact@zodovia.com</a> or via <a href="https://wa.me/94700000000" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a>. You keep full access until the end of your current billing period.
+            <strong>PayHere subscriptions</strong> — Cancel anytime by contacting us at <a href="mailto:contact@zodovia.com" style="color:var(--gold)">contact@zodovia.com</a> or via <a href="https://wa.me/94741251212" target="_blank" rel="noopener" style="color:var(--gold)">WhatsApp</a>. You keep full access until the end of your current billing period.
             <strong>Bank transfer plans</strong> — simply do not re-transfer on renewal — access stops at end of billing period.
             <strong>PayPal subscriptions</strong> — log into your PayPal account → Settings → Payments → Manage automatic payments, find Zodovia and cancel.
             We offer a <strong>7-day money-back guarantee</strong> on your first charge regardless of payment method.
@@ -481,14 +550,14 @@
             <a href="/privacy" data-i18n="footer_privacy">Privacy Policy</a>
             <a href="/refund" data-i18n="footer_refund">Refund Policy</a>
             <a href="mailto:contact@zodovia.com" data-i18n="footer_email">Email Support</a>
-            <a href="https://wa.me/94700000000" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
+            <a href="https://wa.me/94741251212" target="_blank" rel="noopener" data-i18n="footer_wa">WhatsApp</a>
         </div>
         <p class="footer-copy" data-i18n="footer_copy">&copy; 2026 Zodovia. All rights reserved. | For entertainment &amp; self-reflection purposes only.</p>
     </div>
 </footer>
 
 <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/94700000000" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/94741251212" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
     </svg>
@@ -574,6 +643,89 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+// ── Bank Transfer: plan selection ──────────────────────────────
+var selectedBankPlan = 'one_time';
+selectBankPlan('one_time');
+
+function selectBankPlan(plan) {
+    selectedBankPlan = plan;
+    ['one_time','monthly','yearly'].forEach(function(p) {
+        var card = document.getElementById('bankCard-' + p);
+        var ind  = document.getElementById('indicator-' + p);
+        if (!card) return;
+        card.style.outline = p === plan ? '2px solid var(--accent, #8b5cf6)' : '';
+        if (ind) ind.style.display = p === plan ? '' : 'none';
+    });
+    // Re-enable upload button if file is already selected
+    var fileInput = document.getElementById('slipFileInput');
+    var btn = document.getElementById('uploadSlipBtn');
+    if (btn && fileInput && fileInput.files && fileInput.files.length > 0) {
+        btn.disabled = false;
+    }
+}
+
+// ── Bank Transfer: file selection ──────────────────────────────
+function onSlipFileSelected(input) {
+    var fname = document.getElementById('selectedFileName');
+    var btn   = document.getElementById('uploadSlipBtn');
+    var dz    = document.getElementById('uploadDropzone');
+    if (input.files && input.files.length > 0) {
+        var f = input.files[0];
+        if (fname) { fname.textContent = '✅ ' + f.name + ' (' + (f.size / 1024).toFixed(0) + ' KB)'; fname.style.display = ''; }
+        if (btn)   { btn.disabled = false; }
+        if (dz)    { dz.style.borderColor = 'var(--accent, #8b5cf6)'; }
+    } else {
+        if (fname) fname.style.display = 'none';
+        if (btn)   btn.disabled = true;
+    }
+}
+
+// ── Bank Transfer: submit slip ─────────────────────────────────
+async function uploadPaymentSlip() {
+    var token = localStorage.getItem('zodovia_token');
+    if (!token) { window.location.href = '/?plan=bank'; return; }
+
+    var fileInput = document.getElementById('slipFileInput');
+    var btn       = document.getElementById('uploadSlipBtn');
+    var statusDiv = document.getElementById('slipUploadStatus');
+    if (!fileInput || !fileInput.files || !fileInput.files.length) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Uploading… ⌛';
+    statusDiv.style.display = 'none';
+
+    var formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('plan', selectedBankPlan);
+
+    try {
+        var resp = await fetch('/api/payments/bank-slip', {
+            method: 'POST',
+            headers: { 'Authorization': 'Bearer ' + token },
+            body: formData,
+        });
+        var data = await resp.json();
+        if (!resp.ok) throw new Error(data.detail || 'Upload failed');
+
+        statusDiv.style.background = 'rgba(74,222,128,0.12)';
+        statusDiv.style.border = '1px solid rgba(74,222,128,0.3)';
+        statusDiv.style.color = '#4ade80';
+        statusDiv.innerHTML = '<strong>✅ Slip submitted!</strong><br>' + data.message +
+            '<br><br>Reference ID: <strong>#' + data.record_id + '</strong>' +
+            '<br><a href="' + data.whatsapp + '" target="_blank" rel="noopener" style="color:#4ade80;">💬 WhatsApp us</a> if you need faster confirmation.';
+        statusDiv.style.display = '';
+        btn.textContent = 'Submitted ✓';
+    } catch (err) {
+        statusDiv.style.background = 'rgba(248,113,113,0.12)';
+        statusDiv.style.border = '1px solid rgba(248,113,113,0.3)';
+        statusDiv.style.color = '#f87171';
+        statusDiv.innerHTML = '<strong>❌ ' + err.message + '</strong><br>Please try again or <a href="https://wa.me/94741251212" target="_blank" rel="noopener" style="color:#f87171;">WhatsApp us</a> your slip directly.';
+        statusDiv.style.display = '';
+        btn.disabled = false;
+        btn.textContent = 'Submit Slip for Review';
+    }
+}
 </script>
 </body>
 </html>

@@ -23,6 +23,7 @@ const S = {
   DAILY:    'daily_horoscopes',
   REG_IPS:  'registration_ips',
   PW_RESETS:'password_reset_tokens',
+  PAYMENTS: 'payment_records',
 };
 
 const COLS = {
@@ -46,6 +47,12 @@ const COLS = {
   daily_horoscopes: ['id','user_id','date','content','intention','email_sent','created_at'],
   registration_ips: ['id','ip_address','user_id','created_at'],
   password_reset_tokens: ['id','user_id','token','expires_at','used','created_at'],
+  payment_records: [
+    'id','user_id','user_email','plan','amount_lkr','slip_drive_id','slip_view_url',
+    'slip_filename','extracted_name','extracted_bank','extracted_reference',
+    'extracted_amount','extracted_date','extracted_currency','raw_extraction',
+    'status','admin_notes','reviewed_at','created_at'
+  ],
 };
 
 // ================================================================
@@ -75,6 +82,8 @@ function doGet(e) {
       case 'get_paid_users_for_daily': return respond(getPaidUsersForDaily());
       case 'get_pw_reset':             return respond(getPwReset(p.token));
       case 'get_reg_ip_count':         return respond({count: getRegIpCount(p.ip, +(p.days||14))});
+      case 'get_payment_record':       return respond(getPaymentRecord(+p.id));
+      case 'get_all_payment_records':  return respond(getAllPaymentRecords(p.status));
       default: return respondError('Unknown action: ' + action);
     }
   } catch (err) {
@@ -112,7 +121,10 @@ function doPost(e) {
       case 'delete_forecasts':      return respond(deleteForecasts(+body.user_id, body.period_keys));
       case 'save_daily':            return respond(saveDailyHoroscope(body));
       case 'update_daily':          return respond(updateDailyHoroscope(+body.user_id, body.date, body.fields));
-      case 'delete_daily':          return respond(deleteDailyHoroscope(+body.user_id, body.date));
+      case 'delete_daily':           return respond(deleteDailyHoroscope(+body.user_id, body.date));
+      case 'create_payment_record':  return respond(createPaymentRecord(body));
+      case 'update_payment_record':  return respond(updatePaymentRecord(+body.id, body.fields));
+      case 'save_payment_slip':      return respond(savePaymentSlip(body.base64, body.mime_type, body.filename));
       default: return respondError('Unknown action: ' + action);
     }
   } catch (err) {
@@ -655,4 +667,73 @@ function getPaidUsersForDaily() {
   return getAllRows(getSheet(S.USERS))
     .filter(u => u.is_paid === true && u.birth_date)
     .map(_stripSensitive);
+}
+
+// ================================================================
+// PAYMENT RECORDS
+// ================================================================
+
+function getPaymentSlipsFolder() {
+  const main = DriveApp.getFolderById(FOLDER_ID);
+  const iter = main.getFoldersByName('Payment_Slips');
+  if (iter.hasNext()) return iter.next();
+  return main.createFolder('Payment_Slips');
+}
+
+function savePaymentSlip(base64Data, mimeType, filename) {
+  const bytes  = Utilities.base64Decode(base64Data);
+  const blob   = Utilities.newBlob(bytes, mimeType || 'image/jpeg', filename || 'slip.jpg');
+  const folder = getPaymentSlipsFolder();
+  const file   = folder.createFile(blob);
+  file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  return {
+    drive_id: file.getId(),
+    view_url: 'https://drive.google.com/file/d/' + file.getId() + '/view',
+  };
+}
+
+function createPaymentRecord(data) {
+  const sheet = getSheet(S.PAYMENTS);
+  const now   = new Date().toISOString();
+  const id    = appendRowWithId(sheet, (id) => [
+    id,
+    data.user_id      || '',
+    data.user_email   || '',
+    data.plan         || '',
+    data.amount_lkr   || '',
+    data.slip_drive_id  || '',
+    data.slip_view_url  || '',
+    data.slip_filename  || '',
+    data.extracted_name      || '',
+    data.extracted_bank      || '',
+    data.extracted_reference || '',
+    data.extracted_amount    || '',
+    data.extracted_date      || '',
+    data.extracted_currency  || '',
+    data.raw_extraction ? JSON.stringify(data.raw_extraction) : '',
+    'pending',
+    '',
+    '',
+    now,
+  ]);
+  return getPaymentRecord(id);
+}
+
+function getPaymentRecord(id) {
+  return findFirst(getSheet(S.PAYMENTS), r => r.id === id);
+}
+
+function getAllPaymentRecords(status) {
+  const rows = getAllRows(getSheet(S.PAYMENTS));
+  rows.sort((a, b) => (b.id || 0) - (a.id || 0));
+  if (!status || status === 'all') return rows;
+  return rows.filter(r => r.status === status);
+}
+
+function updatePaymentRecord(id, fields) {
+  const sheet  = getSheet(S.PAYMENTS);
+  const rowNum = findRowNumber(sheet, r => r.id === id);
+  if (rowNum < 0) return null;
+  Object.entries(fields).forEach(([k, v]) => setField(sheet, rowNum, k, v));
+  return getPaymentRecord(id);
 }
