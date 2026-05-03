@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: zodovia
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        sync: false
+      - key: GAS_URL
+        sync: false
+      - key: GAS_API_KEY
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NAME
+        sync: false
+      - key: PAYMENT_PROVIDER
+        value: payhere
+      - key: PAYHERE_MERCHANT_ID
+        sync: false
+      - key: PAYHERE_MERCHANT_SECRET
+        sync: false
+      - key: PAYHERE_SANDBOX
+        value: "false"
+      - key: PAYHERE_NOTIFY_URL
+        value: https://zodovia.com/api/payments/webhook
+      - key: PAYHERE_RETURN_URL
+        value: https://zodovia.com/dashboard?activated=1
+      - key: PAYHERE_CANCEL_URL
+        value: https://zodovia.com/pricing
