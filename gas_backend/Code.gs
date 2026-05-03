@@ -4,11 +4,12 @@
 //
 // DEPLOYMENT:
 //   1. Open script.google.com → New project → paste this file
-//   2. Extensions → Script Properties → add GAS_API_KEY (any strong secret)
-//   3. Deploy → New deployment → Web App
+//   2. Project Settings → Script Properties → add GAS_API_KEY (strong secret)
+//   3. Select 'setup' in dropdown → Run once to create spreadsheet
+//   4. Deploy → New deployment → Web App
 //      Execute as: Me  |  Who can access: Anyone
-//   4. Copy the /exec URL → set GAS_URL env var in Railway
-//   5. Copy the GAS_API_KEY → set GAS_API_KEY env var in Railway
+//   5. Copy /exec URL → GAS_URL env var on Render
+//   6. Copy GAS_API_KEY value → GAS_API_KEY env var on Render
 // ================================================================
 
 const FOLDER_ID = '1ghTe487RyHirRZYx9A9Sd1dVHJWjItAm';
@@ -52,30 +53,33 @@ const COLS = {
 // ================================================================
 
 function doGet(e) {
+  if (!e || !e.parameter) {
+    return respondError('No request parameters — call via HTTP, not Run button. Use setup() to initialise.');
+  }
   if (!validateApiKey(e.parameter.api_key)) {
-    return respond({error: 'Unauthorized'});
+    return respondError('Unauthorized');
   }
   const action = e.parameter.action || '';
   try {
     const p = e.parameter;
     switch (action) {
-      case 'get_user_by_email':      return respond(getUserByEmail(p.email));
-      case 'get_user_by_id':         return respond(getUserById(+p.id));
-      case 'get_user_by_sub_id':     return respond(getUserBySubId(p.sub_id));
-      case 'get_all_users':          return respond(getAllUsers(+(p.limit||500), +(p.offset||0)));
-      case 'get_stats':              return respond(getStats());
-      case 'get_chart':              return respond(getChartByUserId(+p.user_id));
-      case 'count_compat':           return respond({count: countCompatReports(+p.user_id)});
-      case 'get_forecast':           return respond(getForecast(+p.user_id, p.period_type, p.period_key));
-      case 'get_daily':              return respond(getDailyHoroscope(+p.user_id, p.date));
+      case 'get_user_by_email':        return respond(getUserByEmail(p.email));
+      case 'get_user_by_id':           return respond(getUserById(+p.id));
+      case 'get_user_by_sub_id':       return respond(getUserBySubId(p.sub_id));
+      case 'get_all_users':            return respond(getAllUsers(+(p.limit||500), +(p.offset||0)));
+      case 'get_stats':                return respond(getStats());
+      case 'get_chart':                return respond(getChartByUserId(+p.user_id));
+      case 'count_compat':             return respond({count: countCompatReports(+p.user_id)});
+      case 'get_forecast':             return respond(getForecast(+p.user_id, p.period_type, p.period_key));
+      case 'get_daily':                return respond(getDailyHoroscope(+p.user_id, p.date));
       case 'get_paid_users_for_daily': return respond(getPaidUsersForDaily());
-      case 'get_pw_reset':           return respond(getPwReset(p.token));
-      case 'get_reg_ip_count':       return respond({count: getRegIpCount(p.ip, +(p.days||14))});
-      default: return respond({error: 'Unknown action: ' + action});
+      case 'get_pw_reset':             return respond(getPwReset(p.token));
+      case 'get_reg_ip_count':         return respond({count: getRegIpCount(p.ip, +(p.days||14))});
+      default: return respondError('Unknown action: ' + action);
     }
   } catch (err) {
-    Logger.log('[doGet] ' + action + ': ' + err + '\n' + err.stack);
-    return respond({error: err.message});
+    console.log('[doGet] ' + action + ': ' + err + '\n' + err.stack);
+    return respondError(err.message);
   }
 }
 
@@ -84,43 +88,36 @@ function doPost(e) {
   try {
     body = JSON.parse(e.postData.contents);
   } catch (err) {
-    return respond({error: 'Invalid JSON'});
+    return respondError('Invalid JSON');
   }
   if (!validateApiKey(body.api_key)) {
-    return respond({error: 'Unauthorized'});
+    return respondError('Unauthorized');
   }
   const action = body.action || '';
   try {
     switch (action) {
-      // Users
       case 'create_user':           return respond(createUser(body));
       case 'update_user':           return respond(updateUser(+body.id, body.fields));
       case 'delete_user':           return respond(deleteUser(+body.id));
-      // Password resets
       case 'create_pw_reset':       return respond(createPwReset(body));
       case 'invalidate_pw_resets':  return respond(invalidatePwResets(+body.user_id));
       case 'mark_pw_reset_used':    return respond(markPwResetUsed(body.token));
-      // Registration IPs
       case 'log_reg_ip':            return respond(logRegIp(body));
       case 'cleanup_reg_ips':       return respond(cleanupRegIps(body.cutoff));
-      // Birth charts
       case 'save_chart':            return respond(saveChart(body));
       case 'update_chart':          return respond(updateChart(+body.user_id, body.fields));
       case 'delete_chart':          return respond(deleteChart(+body.user_id));
-      // Compatibility
       case 'save_compat':           return respond(saveCompatReport(body));
-      // Forecasts
       case 'save_forecast':         return respond(saveForecast(body));
       case 'delete_forecasts':      return respond(deleteForecasts(+body.user_id, body.period_keys));
-      // Daily horoscopes
       case 'save_daily':            return respond(saveDailyHoroscope(body));
       case 'update_daily':          return respond(updateDailyHoroscope(+body.user_id, body.date, body.fields));
       case 'delete_daily':          return respond(deleteDailyHoroscope(+body.user_id, body.date));
-      default: return respond({error: 'Unknown action: ' + action});
+      default: return respondError('Unknown action: ' + action);
     }
   } catch (err) {
-    Logger.log('[doPost] ' + action + ': ' + err + '\n' + err.stack);
-    return respond({error: err.message});
+    console.log('[doPost] ' + action + ': ' + err + '\n' + err.stack);
+    return respondError(err.message);
   }
 }
 
@@ -129,13 +126,43 @@ function doPost(e) {
 // ================================================================
 
 function getSpreadsheet() {
-  const folder = DriveApp.getFolderById(FOLDER_ID);
-  const files  = folder.getFilesByName(DB_NAME);
-  if (files.hasNext()) {
-    return SpreadsheetApp.open(files.next());
+  const props  = PropertiesService.getScriptProperties();
+  const cached = props.getProperty('DB_SPREADSHEET_ID');
+
+  // Fast path: open by stored ID
+  if (cached) {
+    try { return SpreadsheetApp.openById(cached); } catch(e) { /* stale — fall through */ }
   }
-  const ss = SpreadsheetApp.create(DB_NAME);
-  DriveApp.getFileById(ss.getId()).moveTo(folder);
+
+  const folder = DriveApp.getFolderById(FOLDER_ID);
+
+  // Check target folder
+  const inFolder = folder.getFilesByName(DB_NAME);
+  if (inFolder.hasNext()) {
+    const ss = SpreadsheetApp.open(inFolder.next());
+    props.setProperty('DB_SPREADSHEET_ID', ss.getId());
+    return ss;
+  }
+
+  // Check My Drive root (in case a previous create landed there)
+  const inRoot = DriveApp.getRootFolder().getFilesByName(DB_NAME);
+  if (inRoot.hasNext()) {
+    const existing = inRoot.next();
+    folder.addFile(existing);
+    DriveApp.getRootFolder().removeFile(existing);
+    const ss = SpreadsheetApp.open(existing);
+    props.setProperty('DB_SPREADSHEET_ID', ss.getId());
+    console.log('Moved existing spreadsheet into target folder. ID: ' + ss.getId());
+    return ss;
+  }
+
+  // Create fresh in target folder
+  const ss   = SpreadsheetApp.create(DB_NAME);
+  const file = DriveApp.getFileById(ss.getId());
+  folder.addFile(file);
+  DriveApp.getRootFolder().removeFile(file);
+  props.setProperty('DB_SPREADSHEET_ID', ss.getId());
+  console.log('Created new spreadsheet. ID: ' + ss.getId());
   initAllSheets(ss);
   return ss;
 }
@@ -161,26 +188,61 @@ function initAllSheets(ss) {
   });
 }
 
-// Run this manually once to set up the spreadsheet
+// Run this manually once to initialise the spreadsheet
 function setup() {
   const ss = getSpreadsheet();
   initAllSheets(ss);
-  Logger.log('Setup complete. Spreadsheet ID: ' + ss.getId());
+  console.log('Setup complete. Spreadsheet ID: ' + ss.getId());
+}
+
+// Run this first if setup() produces no log output — diagnoses each step
+function debugSetup() {
+  try {
+    console.log('Step 1: Accessing folder ' + FOLDER_ID);
+    const folder = DriveApp.getFolderById(FOLDER_ID);
+    console.log('Step 2: Folder name = ' + folder.getName());
+
+    const inFolder = folder.getFilesByName(DB_NAME);
+    console.log('Step 3: File in target folder? ' + inFolder.hasNext());
+
+    const inRoot = DriveApp.getRootFolder().getFilesByName(DB_NAME);
+    console.log('Step 4: File in My Drive root? ' + inRoot.hasNext());
+
+    console.log('Step 5: Creating test spreadsheet...');
+    const ss   = SpreadsheetApp.create(DB_NAME + '_TEST');
+    console.log('Step 6: Created with ID = ' + ss.getId());
+
+    const file = DriveApp.getFileById(ss.getId());
+    console.log('Step 7: Got file object: ' + file.getName());
+
+    folder.addFile(file);
+    DriveApp.getRootFolder().removeFile(file);
+    console.log('Step 8: Moved to target folder successfully!');
+
+    const cleanup = folder.getFilesByName(DB_NAME + '_TEST');
+    if (cleanup.hasNext()) cleanup.next().setTrashed(true);
+    console.log('Step 9: Test file cleaned up. Ready to run setup().');
+  } catch (err) {
+    console.log('ERROR: ' + err.message);
+    console.log(err.stack);
+  }
 }
 
 // ================================================================
 // GENERIC HELPERS
 // ================================================================
 
-function getNextId(sheet) {
+// Atomically allocates the next ID and appends the row — prevents duplicate IDs
+function appendRowWithId(sheet, buildRow) {
   const lock = LockService.getScriptLock();
   lock.waitLock(15000);
   try {
     const last = sheet.getLastRow();
-    if (last <= 1) return 1;
-    const vals = sheet.getRange(2, 1, last - 1, 1).getValues();
-    const max  = vals.reduce((m, r) => Math.max(m, parseInt(r[0]) || 0), 0);
-    return max + 1;
+    const id   = last <= 1 ? 1 :
+      sheet.getRange(2, 1, last - 1, 1).getValues()
+           .reduce((m, r) => Math.max(m, parseInt(r[0]) || 0), 0) + 1;
+    sheet.appendRow(buildRow(id));
+    return id;
   } finally {
     lock.releaseLock();
   }
@@ -191,14 +253,11 @@ function rowToObj(cols, row) {
   cols.forEach((col, i) => {
     let val = row[i];
     if (val === '' || val === undefined) { obj[col] = null; return; }
-    // Boolean
     if (val === 'TRUE'  || val === true)  { obj[col] = true;  return; }
     if (val === 'FALSE' || val === false) { obj[col] = false; return; }
-    // JSON decode for complex fields
     if (typeof val === 'string' && (val.charAt(0) === '{' || val.charAt(0) === '[')) {
       try { obj[col] = JSON.parse(val); return; } catch(e) {}
     }
-    // Numeric coercion for known integer fields
     const intCols = ['id','user_id','profiling_stage','current_streak',
                      'longest_streak','total_active_days','free_uses','trial_uses'];
     if (intCols.includes(col) && val !== null) { obj[col] = parseInt(val) || 0; return; }
@@ -218,8 +277,7 @@ function getAllRows(sheet) {
 }
 
 function findFirst(sheet, predicate) {
-  const rows = getAllRows(sheet);
-  return rows.find(predicate) || null;
+  return getAllRows(sheet).find(predicate) || null;
 }
 
 function findRowNumber(sheet, predicate) {
@@ -228,8 +286,7 @@ function findRowNumber(sheet, predicate) {
   if (last <= 1) return -1;
   const data = sheet.getRange(2, 1, last - 1, cols.length).getValues();
   for (let i = 0; i < data.length; i++) {
-    const obj = rowToObj(cols, data[i]);
-    if (predicate(obj)) return i + 2; // 1-based sheet row
+    if (predicate(rowToObj(cols, data[i]))) return i + 2;
   }
   return -1;
 }
@@ -244,15 +301,28 @@ function setField(sheet, rowNum, fieldName, value) {
   sheet.getRange(rowNum, colIdx + 1).setValue(stored);
 }
 
+// Strip password_hash before returning user lists to callers that don't need it
+function _stripSensitive(user) {
+  const u = Object.assign({}, user);
+  delete u.password_hash;
+  return u;
+}
+
 function validateApiKey(key) {
   const stored = PropertiesService.getScriptProperties().getProperty('GAS_API_KEY');
-  if (!stored) return true; // Dev mode: key not configured → allow all
+  if (!stored) return false; // Deny all when key not configured
   return key === stored;
 }
 
 function respond(data) {
   return ContentService
     .createTextOutput(JSON.stringify({success: true, data: data}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function respondError(message) {
+  return ContentService
+    .createTextOutput(JSON.stringify({success: false, error: message}))
     .setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -277,38 +347,40 @@ function getUserBySubId(subId) {
 }
 
 function createUser(data) {
+  const norm = (data.email || '').toLowerCase().trim();
+  if (getUserByEmail(norm)) {
+    throw new Error('Email already registered: ' + norm);
+  }
   const sheet = getSheet(S.USERS);
-  const id    = getNextId(sheet);
-  const now   = new Date().toISOString();
   const cols  = COLS[S.USERS];
+  const now   = new Date().toISOString();
 
-  const defaults = {
-    id, email: (data.email || '').toLowerCase().trim(),
-    password_hash: data.password_hash || '',
-    name: data.name || '',
-    birth_date: '', birth_time: '', birth_city: '',
-    birth_lat: '', birth_lon: '', birth_timezone: '',
-    sun_sign: '', moon_sign: '', rising_sign: '',
-    reading_focus: '', life_context: '', life_event: '',
-    gender: '', marital_status: '', occupation: '',
-    job_type: '', education_level: '', current_location: '',
-    wellness_goal: '', life_phase: '', primary_intention: '',
-    sensitive_flags: '', profile_summary: '', profile_updated_at: '',
-    profiling_stage: 0, current_streak: 0, longest_streak: 0,
-    last_active_date: '', total_active_days: 0,
-    is_superuser: data.is_superuser || false,
-    free_uses: 0, trial_uses: 0,
-    is_paid: data.is_paid || false,
-    paypal_subscription_id: '',
-    subscription_status: data.subscription_status || 'free',
-    subscription_plan: data.subscription_plan || 'free',
-    created_at: now, last_login: '',
-  };
+  const id = appendRowWithId(sheet, (id) => {
+    const defaults = {
+      id, email: norm,
+      password_hash: data.password_hash || '',
+      name: data.name || '',
+      birth_date: '', birth_time: '', birth_city: '',
+      birth_lat: '', birth_lon: '', birth_timezone: '',
+      sun_sign: '', moon_sign: '', rising_sign: '',
+      reading_focus: '', life_context: '', life_event: '',
+      gender: '', marital_status: '', occupation: '',
+      job_type: '', education_level: '', current_location: '',
+      wellness_goal: '', life_phase: '', primary_intention: '',
+      sensitive_flags: '', profile_summary: '', profile_updated_at: '',
+      profiling_stage: 0, current_streak: 0, longest_streak: 0,
+      last_active_date: '', total_active_days: 0,
+      is_superuser: data.is_superuser || false,
+      free_uses: 0, trial_uses: 0,
+      is_paid: data.is_paid || false,
+      paypal_subscription_id: '',
+      subscription_status: data.subscription_status || 'free',
+      subscription_plan: data.subscription_plan || 'free',
+      created_at: now, last_login: '',
+    };
+    return cols.map(c => (defaults[c] === null || defaults[c] === undefined) ? '' : defaults[c]);
+  });
 
-  sheet.appendRow(cols.map(c => {
-    const v = defaults[c];
-    return (v === null || v === undefined) ? '' : v;
-  }));
   return getUserById(id);
 }
 
@@ -322,7 +394,6 @@ function updateUser(id, fields) {
 }
 
 function deleteUser(id) {
-  // Delete user + all related records
   [S.USERS, S.CHARTS, S.COMPAT, S.FORECASTS, S.DAILY, S.PW_RESETS].forEach(tbl => {
     const sheet  = getSheet(tbl);
     const field  = tbl === S.USERS ? 'id' : 'user_id';
@@ -339,20 +410,19 @@ function deleteUser(id) {
 }
 
 function getAllUsers(limit, offset) {
-  const sheet = getSheet(S.USERS);
-  const rows  = getAllRows(sheet);
+  const rows = getAllRows(getSheet(S.USERS));
   rows.sort((a, b) => (b.id || 0) - (a.id || 0));
-  return rows.slice(offset, offset + limit);
+  return rows.slice(offset, offset + limit).map(_stripSensitive);
 }
 
 function getStats() {
-  const users  = getAllRows(getSheet(S.USERS));
-  const paid   = users.filter(u => u.is_paid === true).length;
+  const users = getAllRows(getSheet(S.USERS));
+  const paid  = users.filter(u => u.is_paid === true).length;
   return {
-    total_users: users.length,
-    paid_users:  paid,
-    free_users:  users.length - paid,
-    charts_generated:     Math.max(0, getSheet(S.CHARTS).getLastRow() - 1),
+    total_users:           users.length,
+    paid_users:            paid,
+    free_users:            users.length - paid,
+    charts_generated:      Math.max(0, getSheet(S.CHARTS).getLastRow() - 1),
     compatibility_reports: Math.max(0, getSheet(S.COMPAT).getLastRow() - 1),
   };
 }
@@ -363,19 +433,25 @@ function getStats() {
 
 function createPwReset(data) {
   const sheet = getSheet(S.PW_RESETS);
-  const id    = getNextId(sheet);
-  sheet.appendRow([id, data.user_id, data.token, data.expires_at, false, new Date().toISOString()]);
+  const id    = appendRowWithId(sheet, (id) =>
+    [id, data.user_id, data.token, data.expires_at, false, new Date().toISOString()]
+  );
   return {id};
 }
 
 function getPwReset(token) {
-  return findFirst(getSheet(S.PW_RESETS), r => r.token === token && r.used === false);
+  const now = new Date();
+  return findFirst(getSheet(S.PW_RESETS), r =>
+    r.token === token &&
+    r.used  === false &&
+    new Date(r.expires_at) > now
+  );
 }
 
 function invalidatePwResets(userId) {
-  const sheet  = getSheet(S.PW_RESETS);
+  const sheet   = getSheet(S.PW_RESETS);
   const usedIdx = COLS[S.PW_RESETS].indexOf('used');
-  const last   = sheet.getLastRow();
+  const last    = sheet.getLastRow();
   if (last <= 1) return {updated: 0};
   const cols  = COLS[S.PW_RESETS];
   const data  = sheet.getRange(2, 1, last - 1, cols.length).getValues();
@@ -404,17 +480,17 @@ function markPwResetUsed(token) {
 
 function logRegIp(data) {
   const sheet = getSheet(S.REG_IPS);
-  const id    = getNextId(sheet);
-  sheet.appendRow([id, data.ip_address, data.user_id || '', new Date().toISOString()]);
+  const id    = appendRowWithId(sheet, (id) =>
+    [id, data.ip_address, data.user_id || '', new Date().toISOString()]
+  );
   return {id};
 }
 
 function getRegIpCount(ip, days) {
   const cutoff = new Date(Date.now() - days * 86400000).toISOString();
-  const rows   = getAllRows(getSheet(S.REG_IPS));
-  return rows.filter(r =>
-    r.ip_address === ip && r.user_id && r.created_at >= cutoff
-  ).length;
+  return getAllRows(getSheet(S.REG_IPS))
+    .filter(r => r.ip_address === ip && r.user_id && r.created_at >= cutoff)
+    .length;
 }
 
 function cleanupRegIps(cutoff) {
@@ -442,21 +518,22 @@ function getChartByUserId(userId) {
 function saveChart(data) {
   const sheet    = getSheet(S.CHARTS);
   const existing = findRowNumber(sheet, c => c.user_id === data.user_id);
-  const fields   = {};
-  if (data.chart_data   !== undefined) fields.chart_data   = data.chart_data;
-  if (data.free_reading !== undefined) fields.free_reading = data.free_reading;
-  if (data.full_reading !== undefined) fields.full_reading = data.full_reading;
 
   if (existing > 0) {
+    const fields = {};
+    if (data.chart_data   !== undefined) fields.chart_data   = data.chart_data;
+    if (data.free_reading !== undefined) fields.free_reading = data.free_reading;
+    if (data.full_reading !== undefined) fields.full_reading = data.full_reading;
     Object.entries(fields).forEach(([k, v]) => setField(sheet, existing, k, v));
     return getChartByUserId(data.user_id);
   }
 
-  const id  = getNextId(sheet);
-  const cdStr = (data.chart_data && typeof data.chart_data === 'object')
-    ? JSON.stringify(data.chart_data) : (data.chart_data || '');
-  sheet.appendRow([id, data.user_id, cdStr,
-    data.free_reading || '', data.full_reading || '', new Date().toISOString()]);
+  appendRowWithId(sheet, (id) => {
+    const cdStr = (data.chart_data && typeof data.chart_data === 'object')
+      ? JSON.stringify(data.chart_data) : (data.chart_data || '');
+    return [id, data.user_id, cdStr,
+      data.free_reading || '', data.full_reading || '', new Date().toISOString()];
+  });
   return getChartByUserId(data.user_id);
 }
 
@@ -482,8 +559,7 @@ function deleteChart(userId) {
 
 function saveCompatReport(data) {
   const sheet = getSheet(S.COMPAT);
-  const id    = getNextId(sheet);
-  sheet.appendRow([
+  const id    = appendRowWithId(sheet, (id) => [
     id, data.user_id, data.person2_name, data.person2_birth_date,
     data.person2_birth_time, data.person2_birth_city || '',
     data.person2_sun_sign || '', data.relationship_type,
@@ -508,16 +584,16 @@ function getForecast(userId, periodType, periodKey) {
 
 function saveForecast(data) {
   const sheet = getSheet(S.FORECASTS);
-  const id    = getNextId(sheet);
-  sheet.appendRow([id, data.user_id, data.period_type, data.period_key,
-    data.content, new Date().toISOString()]);
-  return {id};
+  appendRowWithId(sheet, (id) =>
+    [id, data.user_id, data.period_type, data.period_key,
+     data.content, new Date().toISOString()]
+  );
+  return getForecast(data.user_id, data.period_type, data.period_key);
 }
 
 function deleteForecasts(userId, periodKeys) {
   const sheet  = getSheet(S.FORECASTS);
   const cols   = COLS[S.FORECASTS];
-  const uidIdx = cols.indexOf('user_id');
   const keyIdx = cols.indexOf('period_key');
   const last   = sheet.getLastRow();
   if (last <= 1) return {deleted: 0};
@@ -539,9 +615,7 @@ function deleteForecasts(userId, periodKeys) {
 // ================================================================
 
 function getDailyHoroscope(userId, date) {
-  return findFirst(getSheet(S.DAILY),
-    h => h.user_id === userId && h.date === date
-  );
+  return findFirst(getSheet(S.DAILY), h => h.user_id === userId && h.date === date);
 }
 
 function saveDailyHoroscope(data) {
@@ -554,9 +628,10 @@ function saveDailyHoroscope(data) {
     return updateDailyHoroscope(data.user_id, data.date, fields);
   }
   const sheet = getSheet(S.DAILY);
-  const id    = getNextId(sheet);
-  sheet.appendRow([id, data.user_id, data.date,
-    data.content || '', data.intention || '', false, new Date().toISOString()]);
+  appendRowWithId(sheet, (id) =>
+    [id, data.user_id, data.date,
+     data.content || '', data.intention || '', false, new Date().toISOString()]
+  );
   return getDailyHoroscope(data.user_id, data.date);
 }
 
@@ -577,5 +652,7 @@ function deleteDailyHoroscope(userId, date) {
 }
 
 function getPaidUsersForDaily() {
-  return getAllRows(getSheet(S.USERS)).filter(u => u.is_paid === true && u.birth_date);
+  return getAllRows(getSheet(S.USERS))
+    .filter(u => u.is_paid === true && u.birth_date)
+    .map(_stripSensitive);
 }
