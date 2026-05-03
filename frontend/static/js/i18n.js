@@ -451,6 +451,80 @@
             compat_free_used_some_html: "You've used <strong>{used} of {limit}</strong> free readings. <a href=\"/pricing\" style=\"color:var(--accent)\">Upgrade for unlimited access →</a>",
             compat_free_used_all_html: "You've used all {limit} free readings. <a href=\"/pricing\" style=\"color:#ef4444;font-weight:600\">Upgrade to continue →</a>",
             compat_modal_body: "Upgrade to Premium for unlimited compatibility checks, daily horoscopes, and deeper readings — all for $3.99/month.",
+
+            /* ── Pricing page — plan cards ── */
+            feat_no_email: "❌ Daily email delivery",
+            feat_priority_support: "✅ Priority support",
+            pricing_monthly_label_html: "Billed monthly · cancel anytime.<br>7-day money-back guarantee.",
+            pricing_yearly_label_lkr_html: "Just LKR 416/month · cancel anytime.<br>7-day money-back guarantee.",
+            pricing_free_label_usd: "Forever free · No credit card required.",
+            pricing_monthly_label_usd_html: "Billed monthly · auto-renews · cancel anytime.<br>7-day money-back guarantee.",
+            pricing_yearly_label_usd_html: "Just $2.50/month · auto-renews yearly · cancel anytime.<br>7-day money-back guarantee.",
+            payhere_renewal_note_html: "🔒 Secure payments via <strong>PayHere</strong> (Sri Lanka)<br>Visa / Mastercard / Amex / eZ Cash / mCash accepted",
+            paypal_renewal_note_html: "🔒 Secure payments via <strong>PayPal</strong><br>Use the <strong>same email</strong> you registered with on Zodovia.",
+            payhere_about_html: "<strong>About PayHere:</strong> PayHere is Sri Lanka's leading payment gateway, licensed by the Central Bank of Sri Lanka. Your card details are processed securely by PayHere — Zodovia never stores your payment information. Subscriptions can be cancelled at any time from your PayHere account or by contacting us.",
+            pricing_already_premium: "You are already on Premium ✨",
+            pricing_loading_btn: "Loading... ⌛",
+            pricing_checkout_err: "Could not start checkout. Please try again or contact us on WhatsApp.",
+
+            /* ── Pricing page — bank transfer ── */
+            bank_section_title: "💳 Pay via Bank Transfer (LKR)",
+            bank_intro_html: "Transfer your subscription payment directly to our bank account and email us proof. We will activate your Premium access within <strong>2 business hours</strong> (9 AM – 6 PM, Monday–Saturday).",
+            bank_col_bank: "Bank",
+            bank_col_name: "Account Name",
+            bank_col_number: "Account No.",
+            bank_col_branch: "Branch",
+            bank_how_much: "How much to transfer:",
+            bank_amount_monthly_html: "<strong style=\"color:var(--gold)\">Monthly plan:</strong> LKR 990",
+            bank_amount_yearly_html: "<strong style=\"color:var(--gold)\">Yearly plan:</strong> LKR 4,990",
+            bank_step_1_html: "Transfer <strong>LKR 990</strong> (monthly) or <strong>LKR 4,990</strong> (yearly) to the account above.",
+            bank_step_2: "Take a screenshot or photo of your transfer confirmation.",
+            bank_step_3_html: "Email it to <strong>contact@zodovia.com</strong> with your <strong>Zodovia registered email address</strong> in the message.",
+            bank_step_4_html: "We will activate your Premium access and reply within <strong>2 business hours</strong>.",
+            bank_whatsapp_note_html: "For faster activation, you can also WhatsApp the transfer proof to us at <a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold);\">+94 700 000 000</a>.",
+
+            /* ── Pricing page — trust block & misc ── */
+            trust_wa_pricing_html: "<a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\">Chat with us</a> — quick, friendly help",
+            autorenew_html: "<strong>Cancellation &amp; renewals:</strong> <strong>PayHere subscriptions</strong> — Cancel anytime by contacting us at <a href=\"mailto:contact@zodovia.com\" style=\"color:var(--gold)\">contact@zodovia.com</a> or via <a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold)\">WhatsApp</a>. You keep full access until the end of your current billing period. <strong>Bank transfer plans</strong> — simply do not re-transfer on renewal — access stops at end of billing period. <strong>PayPal subscriptions</strong> — log into your PayPal account → Settings → Payments → Manage automatic payments, find Zodovia and cancel. We offer a <strong>7-day money-back guarantee</strong> on your first charge regardless of payment method.",
+            whatsapp_float_label: "Chat with us",
+
+            /* ── Pricing page — FAQ ── */
+            faq_q1: "Can I pay in Sri Lankan Rupees?",
+            faq_a1: "Yes. Choose \"Pay in LKR (PayHere)\" above to pay in LKR using your local debit or credit card, or use the \"Bank Transfer\" option to pay directly to our bank account. International users can use PayPal in USD.",
+            faq_q2: "How does bank transfer activation work?",
+            faq_a2_html: "Transfer LKR 990 (monthly) or LKR 4,990 (yearly) to our bank account, then email the transfer proof to <strong>contact@zodovia.com</strong> with your Zodovia registered email. We activate your account within 2 business hours (9 AM – 6 PM, Mon–Sat).",
+            faq_q3: "Can I go straight to a paid plan without starting free?",
+            faq_a3: "Yes. Click any Subscribe button — if you don't have an account yet, you'll be asked to create one first (takes 30 seconds), then taken straight to checkout.",
+            faq_q4: "What makes Zodovia different from generic horoscopes?",
+            faq_a4: "Every insight is built from your unique birth blueprint — your Lagna, planetary positions, and your personal goals and life situation. Nothing is shared with millions of others — it is yours alone.",
+            faq_q5: "How do I cancel my subscription?",
+            faq_a5_html: "Contact us at <strong>contact@zodovia.com</strong> or WhatsApp us. For PayPal, log into PayPal → Settings → Manage automatic payments → find Zodovia and cancel. Your access continues until the end of the billing period.",
+            faq_q6: "Is there a free trial?",
+            faq_a6: "The free tier is always free and includes 5 trial previews of Premium features. We also offer a 7-day money-back guarantee on all paid plans.",
+            faq_q7: "Is my birth data private?",
+            faq_a7_html: "Yes. Your birth data is used only to calculate your chart and generate your readings. We never sell your data. See our <a href=\"/privacy\">Privacy Policy</a> for details.",
+
+            /* ── Chart page — wheel legend & ascendant ── */
+            wheel_fire: "Fire",
+            wheel_earth: "Earth",
+            wheel_air: "Air",
+            wheel_water: "Water",
+            wheel_retro: "Retrograde",
+            ascendant_what_is_html: "The <strong>Ascendant</strong> (Rising Sign) is the zodiac sign that was ascending on the <strong>eastern horizon</strong> at the exact moment and place of your birth. Unlike your Sun sign (~30 days per sign) or Moon sign (~2.5 days), the Ascendant shifts every <strong>~2 hours</strong> — making it the most time-precise point in your entire chart and the lens through which your soul meets the world.",
+
+            /* ── Forgot-password page — JS strings ── */
+            forgot_success_msg: "If that email is registered, you'll receive a reset link within a minute. Check your inbox (and spam folder).",
+            forgot_link_sent_btn: "Link Sent ✓",
+            forgot_error_msg: "Something went wrong. Please try again.",
+
+            /* ── Reset-password page — placeholders & JS strings ── */
+            reset_pw_placeholder: "At least 8 characters",
+            reset_confirm_ph: "Repeat your new password",
+            reset_err_short: "Password must be at least 8 characters.",
+            reset_err_mismatch: "Passwords do not match.",
+            reset_updating: "Updating…",
+            reset_err_new_link: "Something went wrong. Please request a new link.",
+            reset_err_network: "Network error. Please try again.",
         },
 
         /* ═══════════════════════════════════════════════════════════ SINHALA */
@@ -894,6 +968,80 @@
             compat_free_used_some_html: "නොමිලේ කියවීම් <strong>{used}/{limit}</strong> ඉවර. <a href=\"/pricing\" style=\"color:var(--accent)\">Upgrade කරන්න →</a>",
             compat_free_used_all_html: "නොමිලේ කියවීම් {limit}ම ඉවරයි. <a href=\"/pricing\" style=\"color:#ef4444;font-weight:600\">Upgrade කරන්න →</a>",
             compat_modal_body: "Premium ලබාගෙන ගැළපීම්, දෛනික පලාපල, සම්පූර්ණ කියවීම් — $3.99/month.",
+
+            /* ── Pricing page — plan cards ── */
+            feat_no_email: "❌ දෛනික email ලැබීම",
+            feat_priority_support: "✅ ප්‍රමුඛ සහාය",
+            pricing_monthly_label_html: "මාසිකව ගෙවේ · ඕනෑම වේලාවක අවලංගු කළ හැක.<br>දින 7ක මුදල් ආපසු ලබාදීම.",
+            pricing_yearly_label_lkr_html: "LKR 416/month ක් පමණයි · ඕනෑම වේලාවක අවලංගු කළ හැක.<br>දින 7ක මුදල් ආපසු ලබාදීම.",
+            pricing_free_label_usd: "සෑමවිටම නොමිලේ · Credit card අවශ්‍ය නැහැ.",
+            pricing_monthly_label_usd_html: "මාසිකව ගෙවේ · ස්වයංක්‍රීයව අලුත් වේ · ඕනෑම වේලාවක අවලංගු කළ හැක.<br>දින 7ක මුදල් ආපසු ලබාදීම.",
+            pricing_yearly_label_usd_html: "$2.50/month ක් පමණයි · වාර්ෂිකව ස්වයංක්‍රීයව අලුත් වේ · ඕනෑම වේලාවක අවලංගු කළ හැක.<br>දින 7ක මුදල් ආපසු ලබාදීම.",
+            payhere_renewal_note_html: "🔒 <strong>PayHere</strong> (ශ්‍රී ලංකාව) හරහා ආරක්ෂිත ගෙවීම<br>Visa / Mastercard / Amex / eZ Cash / mCash පිළිගනී",
+            paypal_renewal_note_html: "🔒 <strong>PayPal</strong> හරහා ආරක්ෂිත ගෙවීම<br>Zodovia ලියාපදිංචිවීමේදී භාවිතා කළ <strong>email ලිපිනය</strong> භාවිතා කරන්න.",
+            payhere_about_html: "<strong>PayHere ගැන:</strong> PayHere යනු ශ්‍රී ලංකා මහ බැංකුව විසින් බලපත්‍ර ලබාදුන් ශ්‍රී ලංකාවේ ප්‍රමුඛ ගෙවීම් ද්වාරයයි. ඔබේ card තොරතුරු PayHere විසින් ආරක්ෂිතව සකසනු ලැබේ — Zodovia ඔබේ ගෙවීම් තොරතුරු ගබඩා නොකරයි. ඕනෑම වේලාවක ඔබේ PayHere ගිණුමෙන් හෝ අපව සම්බන්ධ කිරීමෙන් subscription අවලංගු කළ හැකිය.",
+            pricing_already_premium: "ඔබ දැනටමත් Premium සාමාජිකයෙකි ✨",
+            pricing_loading_btn: "Loading... ⌛",
+            pricing_checkout_err: "Checkout ආරම්භ කළ නොහැකිවිය. නැවත උත්සාහ කරන්න හෝ WhatsApp හරහා සම්බන්ධ කරන්න.",
+
+            /* ── Pricing page — bank transfer ── */
+            bank_section_title: "💳 Bank Transfer (LKR) හරහා ගෙවන්න",
+            bank_intro_html: "ඔබේ subscription ගෙවීම සෘජුවම අපගේ බැංකු ගිණුමට transfer කොට proof email කරන්න. <strong>2 working hours</strong> ඇතුළත (9 AM – 6 PM, සඳුදා–සෙනසුරාදා) ඔබේ Premium access සක්‍රීය කරනු ලැබේ.",
+            bank_col_bank: "බැංකුව",
+            bank_col_name: "ගිණුම් නාමය",
+            bank_col_number: "ගිණුම් අංකය",
+            bank_col_branch: "ශාඛාව",
+            bank_how_much: "Transfer කළ යුතු මුදල:",
+            bank_amount_monthly_html: "<strong style=\"color:var(--gold)\">මාසික සැලසුම:</strong> LKR 990",
+            bank_amount_yearly_html: "<strong style=\"color:var(--gold)\">වාර්ෂික සැලසුම:</strong> LKR 4,990",
+            bank_step_1_html: "ඉහත ගිණුමට <strong>LKR 990</strong> (මාසික) හෝ <strong>LKR 4,990</strong> (වාර්ෂික) transfer කරන්න.",
+            bank_step_2: "ගෙවීම් තහවුරු කිරීමේ screenshot හෝ ඡායාරූපයක් ගන්න.",
+            bank_step_3_html: "<strong>contact@zodovia.com</strong> ට ඔබේ <strong>Zodovia ලියාපදිංචි email ලිපිනය</strong> සහිතව email කරන්න.",
+            bank_step_4_html: "<strong>2 working hours</strong> ඇතුළත ඔබේ Premium access සක්‍රීය කොට reply කරනු ලැබේ.",
+            bank_whatsapp_note_html: "ඉක්මනින් සක්‍රීය කිරීමට, transfer proof <a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold);\">+94 700 000 000</a> ට WhatsApp ද කළ හැකිය.",
+
+            /* ── Pricing page — trust block & misc ── */
+            trust_wa_pricing_html: "<a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\">WhatsApp කරන්න</a> — ඉක්මන් හා හිතකාමී සහාය",
+            autorenew_html: "<strong>අවලංගු කිරීම සහ ස්වයංක්‍රීය ජීවිත කාලය:</strong> <strong>PayHere subscription</strong> — <a href=\"mailto:contact@zodovia.com\" style=\"color:var(--gold)\">contact@zodovia.com</a> හෝ <a href=\"https://wa.me/94700000000\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold)\">WhatsApp</a> හරහා ඕනෑම වේලාවක සම්බන්ධ කර අවලංගු කළ හැකිය. ගෙවීම් කාලය අවසන් වන තෙක් සම්පූර්ණ access ලැබේ. <strong>Bank transfer සැලසුම</strong> — නැවත transfer නොකිරීමෙන් access ස්වයංක්‍රීයව නතර වේ. <strong>PayPal subscription</strong> — PayPal account → Settings → Payments → Manage automatic payments → Zodovia සොයා cancel කරන්න. ගෙවූ මුල් ගාස්තුවේ සිට <strong>දින 7ක මුදල් ආපසු ලබාදීම</strong> ලැබේ.",
+            whatsapp_float_label: "WhatsApp කරන්න",
+
+            /* ── Pricing page — FAQ ── */
+            faq_q1: "ශ්‍රී ලංකා රුපියල් (LKR) වලින් ගෙවිය හැකිද?",
+            faq_a1: "ඔව්. ඉහතින් \"LKR ගෙවීම් (PayHere)\" තෝරා ස්ථානීය debit හෝ credit card එකෙන් ගෙවන්න, නැතිනම් \"Bank Transfer\" option භාවිතයෙන් බැංකු ගිණුමට ගෙවන්න. විදේශ පරිශීලකයන්ට PayPal USD හරහා ගෙවිය හැකිය.",
+            faq_q2: "Bank transfer ගෙවීමෙන් ගිණුම සක්‍රීය කරන ආකාරය?",
+            faq_a2_html: "LKR 990 (මාසික) හෝ LKR 4,990 (වාර්ෂික) transfer කොට, ගෙවීම් proof <strong>contact@zodovia.com</strong> ට ඔබේ Zodovia ලියාපදිංචි email ලිපිනය සහිතව email කරන්න. 2 working hours (9 AM – 6 PM, සඳු–සෙන) ඇතුළත ගිණුම සක්‍රීය කෙරේ.",
+            faq_q3: "නොමිලේ ආරම්භ නොකොට කෙලින්ම Premium ලබාගත හැකිද?",
+            faq_a3: "ඔව්. Subscribe button ක්ලික් කරන්න — ගිණුමක් නොමැති නම් ගිණුමක් සෑදීමට ඉල්ලනු ලැබේ (තත්පර 30ක් ගත වේ), ඉන් පසු checkout වෙත ගෙනයයි.",
+            faq_q4: "Zodovia සාමාන්‍ය horoscope වලින් වෙනස් කෙසේද?",
+            faq_a4: "සෑම කියවීමක්ම ඔබේ ලග්නය, ග්‍රහ පිහිටීම් සහ ඔබේ ජීවිත තත්ත්වය අනුව සකස් කෙරේ. ලක්ෂ සංඛ්‍යාත අනෙකුත් අය සමඟ share නොකෙරේ — ඔබටම ගැළපෙන කියවීමකි.",
+            faq_q5: "Subscription අවලංගු කරන ආකාරය?",
+            faq_a5_html: "<strong>contact@zodovia.com</strong> හෝ WhatsApp හරහා සම්බන්ධ කරන්න. PayPal නම් PayPal account → Settings → Manage automatic payments → Zodovia සොයා cancel කරන්න. ගෙවීම් කාලය අවසන් වන තෙක් access ලැබේ.",
+            faq_q6: "නොමිලේ trial period ලබාදෙනවාද?",
+            faq_a6: "නොමිලේ tier සෑමවිටම නොමිලේ ලැබෙන අතර Premium ලක්ෂණ 5ක් preview ලෙස ලබාදෙයි. ගෙවූ සියලු සැලසුම් සඳහා දින 7ක මුදල් ආපසු ලබාදීමද ලැබේ.",
+            faq_q7: "ඔබේ උපන් දත්ත ආරක්ෂිතද?",
+            faq_a7_html: "ඔව්. ඔබේ උපන් දත්ත කේන්දරය ගණනය කිරීමට සහ කියවීම් සකස් කිරීමට පමණක් භාවිතා කෙරේ. ඔබේ දත්ත කිසිවිටෙකත් අනෙකුත් අයට ලබාදෙන්නේ නැහැ. <a href=\"/privacy\">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</a> බලන්න.",
+
+            /* ── Chart page — wheel legend & ascendant ── */
+            wheel_fire: "ගිනි",
+            wheel_earth: "පොළොව",
+            wheel_air: "වාතය",
+            wheel_water: "ජලය",
+            wheel_retro: "Retrograde",
+            ascendant_what_is_html: "<strong>ලග්නය</strong> (Rising Sign) යනු ඔබ උපන් නිශ්චිත මොහොතේ සහ ස්ථානයේ <strong>නැගෙනහිර ක්ෂිතිජය</strong> මත නැගෙමින් තිබූ රාශියයි. රවි රාශිය (~30 දිනකට) හෝ චන්ද්‍ර රාශිය (~2.5 දිනකට) හා සසඳලා, ලග්නය <strong>~2 පැය</strong>ට වරක් වෙනස් වේ — ඔබේ සම්පූර්ණ කේන්දරයේ කාල-නිශ්චිත ලක්ෂ්‍ය ලෙස, ලෝකය ඔබව දකින ආකාරය මෙය හඳුනා ගනී.",
+
+            /* ── Forgot-password page — JS strings ── */
+            forgot_success_msg: "ඒ email ලිපිනය ලියාපදිංචි නම්, මිනිත්තුවක් ඇතුළත reset link ලැබේ. Inbox (සහ spam folder) බලන්න.",
+            forgot_link_sent_btn: "Link යැවිය ✓",
+            forgot_error_msg: "ගැටලුවක් ඇතිවිය. කරුණාකර නැවත උත්සාහ කරන්න.",
+
+            /* ── Reset-password page — placeholders & JS strings ── */
+            reset_pw_placeholder: "අවම වශයෙන් අකුරු 8ක්",
+            reset_confirm_ph: "නව password නැවත ඇතුළු කරන්න",
+            reset_err_short: "Password එක අවම වශයෙන් අකුරු 8ක් විය යුතුය.",
+            reset_err_mismatch: "Passwords ගැළපෙන්නේ නැහැ.",
+            reset_updating: "යාවත්කාලීන කරමින්…",
+            reset_err_new_link: "ගැටලුවක් ඇතිවිය. කරුණාකර නව link ඉල්ලා සිටින්න.",
+            reset_err_network: "Network ගැටලුවක් ඇතිවිය. කරුණාකර නැවත උත්සාහ කරන්න.",
         }
     };
 
