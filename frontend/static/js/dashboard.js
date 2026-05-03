@@ -86,7 +86,7 @@ async function pollForActivation(token) {
             const u = await apiFetch('/api/users/me', 'GET', null, token);
             localStorage.setItem('zodovia_user', JSON.stringify(u));
             if (u.is_paid || u.is_superuser) {
-                if (msgEl) msgEl.textContent = '🎉 Premium activated! Loading your dashboard…';
+                if (msgEl) msgEl.textContent = window.t('dash_premium_activated');
                 await new Promise(r => setTimeout(r, 1200));
                 history.replaceState(null, '', '/dashboard');
                 window.location.reload();
@@ -97,9 +97,9 @@ async function pollForActivation(token) {
 
     // IPN still hasn't arrived after ~30s — show fallback message
     if (msgEl) {
-        msgEl.textContent = 'Activation is taking longer than expected.';
+        msgEl.textContent = window.t('dash_activation_delayed');
         const sub = banner.querySelector('p:last-child');
-        if (sub) sub.innerHTML = 'Your account will activate automatically once PayPal confirms your payment. If it doesn\'t activate within 5 minutes, email us at <a href="mailto:support@zodovia.com" style="color:var(--gold)">support@zodovia.com</a>.';
+        if (sub) sub.innerHTML = window.t('dash_activation_fallback_html');
     }
 }
 
@@ -112,9 +112,9 @@ function showTrialBanner(usesLeft) {
     const banner = document.getElementById('trialBanner');
     if (!banner) return;
     const label = usesLeft === 1
-        ? '1 free preview remaining'
-        : `${usesLeft} free previews remaining`;
-    banner.innerHTML = `✨ ${label} — <a href="/pricing" style="color:var(--gold);font-weight:600">upgrade for unlimited access →</a>`;
+        ? window.t('dash_trial_preview_1')
+        : window.t('dash_trial_previews_n').replace('{n}', usesLeft);
+    banner.innerHTML = `✨ ${label} — <a href="/pricing" style="color:var(--gold);font-weight:600">${window.t('dash_trial_upgrade')}</a>`;
     banner.classList.remove('hidden');
 }
 
@@ -125,11 +125,11 @@ function renderDashboard(user) {
     // Greeting
     const now = new Date();
     const hour = now.getHours();
-    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+    const greeting = hour < 12 ? window.t('dash_greeting_morning') : hour < 18 ? window.t('dash_greeting_afternoon') : window.t('dash_greeting_evening');
     const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 
     document.getElementById('greetingDate').textContent = dateStr;
-    document.getElementById('greetingHeadline').textContent = `${greeting}, ${user.name || 'Star Seeker'} ✨`;
+    document.getElementById('greetingHeadline').textContent = `${greeting}, ${user.name || window.t('dash_greeting_fallback')} ✨`;
     document.getElementById('greetingSign').textContent =
         `${user.sun_sign || ''} Sun · ${user.moon_sign || ''} Moon · ${user.rising_sign || ''} Rising`;
 
@@ -143,7 +143,7 @@ function renderDashboard(user) {
     if (streak >= 2) {
         const streakLine = document.getElementById('streakLine');
         if (streakLine) {
-            streakLine.textContent = `🔥 ${streak}-day streak`;
+            streakLine.textContent = window.t('dash_streak').replace('{n}', streak);
             streakLine.classList.remove('hidden');
         }
     }
@@ -169,7 +169,7 @@ async function loadHoroscope(token) {
             window.location.reload(); // trial just ran out — reload to show upgrade prompt
             return;
         }
-        loading.textContent = 'Could not load horoscope. Please refresh the page.';
+        loading.textContent = window.t('dash_err_horoscope');
     }
 }
 
@@ -202,12 +202,12 @@ function _setupForecastCard({ btnId, loadingId, contentId, endpoint, token }) {
         if (loaded) {
             // Toggle visibility
             content.classList.toggle('hidden');
-            btn.textContent = content.classList.contains('hidden') ? 'View →' : 'Hide ↑';
+            btn.textContent = content.classList.contains('hidden') ? window.t('dash_forecast_view') : window.t('dash_forecast_hide');
             return;
         }
 
         btn.disabled = true;
-        btn.textContent = 'Loading…';
+        btn.textContent = window.t('dash_forecast_loading_btn');
         loading.classList.remove('hidden');
 
         try {
@@ -215,12 +215,12 @@ function _setupForecastCard({ btnId, loadingId, contentId, endpoint, token }) {
             loading.classList.add('hidden');
             content.innerHTML = formatText(res.content);
             content.classList.remove('hidden');
-            btn.textContent = 'Hide ↑';
+            btn.textContent = window.t('dash_forecast_hide');
             btn.disabled = false;
             loaded = true;
         } catch (err) {
-            loading.textContent = err.message || 'Could not load forecast. Please try again.';
-            btn.textContent = 'View →';
+            loading.textContent = err.message || window.t('dash_err_forecast');
+            btn.textContent = window.t('dash_forecast_view');
             btn.disabled = false;
         }
     });
@@ -237,10 +237,10 @@ async function loadIntention(token) {
             content.textContent = res.intention;
             content.classList.remove('hidden');
         } else {
-            loading.textContent = 'View your horoscope first to unlock today\'s intention.';
+            loading.textContent = window.t('dash_intention_locked');
         }
     } catch (err) {
-        if (loading) loading.textContent = 'Could not load today\'s intention. Please refresh.';
+        if (loading) loading.textContent = window.t('dash_err_intention');
     }
 }
 
@@ -260,7 +260,7 @@ function setupAskStars(token) {
         textarea.addEventListener('input', () => {
             const left = ASK_MAX - textarea.value.length;
             if (counterEl) {
-                counterEl.textContent = `${left} characters left`;
+                counterEl.textContent = window.t('chars_left').replace('{n}', left);
                 counterEl.classList.toggle('counter-warn', left < 80);
             }
         });
@@ -268,7 +268,7 @@ function setupAskStars(token) {
 
     toggleBtn?.addEventListener('click', () => {
         form.classList.toggle('hidden');
-        toggleBtn.textContent = form.classList.contains('hidden') ? 'Ask a Question' : 'Close';
+        toggleBtn.textContent = form.classList.contains('hidden') ? window.t('dash_ask_open') : window.t('dash_ask_close');
         if (!form.classList.contains('hidden')) textarea?.focus();
     });
 
@@ -276,14 +276,14 @@ function setupAskStars(token) {
         const question = textarea.value.trim();
         if (!question) { textarea?.focus(); return; }
         if (question.length > ASK_MAX) {
-            resultEl.textContent = `Please keep your question under ${ASK_MAX} characters.`;
+            resultEl.textContent = window.t('dash_err_question_long').replace('{n}', ASK_MAX);
             resultEl.style.color = '#ff8080';
             resultEl.classList.remove('hidden');
             return;
         }
 
         askBtn.disabled = true;
-        askBtn.textContent = '✨ Consulting…';
+        askBtn.textContent = window.t('dash_ask_consulting');
         loadingEl.classList.remove('hidden');
         resultEl.classList.add('hidden');
         resultEl.style.color = '';
@@ -294,18 +294,18 @@ function setupAskStars(token) {
             resultEl.classList.remove('hidden');
             // Clear textarea after a successful answer
             textarea.value = '';
-            if (counterEl) counterEl.textContent = `${ASK_MAX} characters left`;
+            if (counterEl) counterEl.textContent = window.t('chars_left').replace('{n}', ASK_MAX);
         } catch (err) {
             if (err.status === 429) {
-                resultEl.textContent = "You've reached today's limit for this feature. Come back tomorrow for more guidance.";
+                resultEl.textContent = window.t('dash_err_daily_limit');
             } else {
-                resultEl.textContent = err.message || 'Could not get an answer. Please try again.';
+                resultEl.textContent = err.message || window.t('dash_err_answer');
             }
             resultEl.style.color = '#ff8080';
             resultEl.classList.remove('hidden');
         } finally {
             askBtn.disabled = false;
-            askBtn.textContent = 'Ask ✨';
+            askBtn.textContent = window.t('dash_ask_submit');
             loadingEl.classList.add('hidden');
         }
     });

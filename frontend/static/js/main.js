@@ -79,17 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function showPlanBanner(plan) {
     const anchor = document.getElementById('birth-form');
     if (!anchor) return;
-    const label = plan === 'yearly' ? 'Yearly — $29.99/yr (Save 37%)' : 'Monthly — $3.99/mo';
+    const label = plan === 'yearly' ? window.t('plan_banner_yearly_label') : window.t('plan_banner_monthly_label');
     const banner = document.createElement('div');
     banner.style.cssText = 'background:rgba(212,175,55,0.12);border:1px solid var(--gold);border-radius:10px;padding:14px 20px;text-align:center;margin-bottom:0;font-size:0.92rem;';
-    banner.innerHTML = '✨ <strong>Premium ' + label + '</strong> selected — create your account below and you\'ll be taken straight to checkout.';
+    banner.innerHTML = window.t('plan_banner_html').replace('{label}', label);
     anchor.parentNode.insertBefore(banner, anchor);
 }
 
 function updateNavForUser(user) {
     const loginBtn = document.getElementById('navLoginBtn');
     if (loginBtn) {
-        loginBtn.textContent = 'Dashboard';
+        loginBtn.textContent = window.t('nav_dashboard');
         loginBtn.href = '/dashboard';
         loginBtn.id = '';
     }
@@ -148,15 +148,15 @@ function prefillForm(user) {
     // Show a subtle "update" note if they already have a chart
     if (user.sun_sign) {
         const submitBtn = document.getElementById('submitBtn');
-        if (submitBtn) submitBtn.textContent = 'Update My Chart ✨';
+        if (submitBtn) submitBtn.textContent = window.t('btn_update_chart');
         const cardSub = document.querySelector('.card-sub');
-        if (cardSub) cardSub.textContent = 'Your details are saved — update any time or jump straight to your chart.';
+        if (cardSub) cardSub.textContent = window.t('btn_chart_saved_note');
         // Quick-link to their existing chart
         const chartLink = document.createElement('a');
         chartLink.href = '/chart';
         chartLink.className = 'btn btn-outline btn-full';
         chartLink.style.marginTop = '8px';
-        chartLink.textContent = 'View Your Existing Chart →';
+        chartLink.textContent = window.t('btn_view_existing_chart');
         submitBtn?.parentNode?.insertBefore(chartLink, submitBtn.nextSibling);
     }
 }
@@ -302,7 +302,7 @@ function setupBirthForm() {
 
         const originalBtnText = btn.textContent;
         btn.disabled = true;
-        btn.textContent = '✨ Reading the cosmos…';
+        btn.textContent = window.t('btn_reading_cosmos');
 
         try {
             let token = getToken();
@@ -313,11 +313,11 @@ function setupBirthForm() {
                 const password = form.password?.value;
 
                 if (!email || !password) {
-                    showError(errorEl, 'Please enter your email and password to save your chart.');
+                    showError(errorEl, window.t('form_err_enter_credentials'));
                     return;
                 }
                 if (password.length < 8) {
-                    showError(errorEl, 'Password must be at least 8 characters.');
+                    showError(errorEl, window.t('form_err_password_min'));
                     return;
                 }
 
@@ -448,7 +448,7 @@ function setupLoginModal() {
                 window.location.href = '/';
             }
         } catch (err) {
-            showError(loginError, err.message || 'Login failed.');
+            showError(loginError, err.message || window.t('form_err_login'));
         }
     });
 }
@@ -680,7 +680,7 @@ function setupCoordToggle(toggleBtnId, coordInputsId, cityInputId, previewId) {
         if (isOpen) {
             // Close: back to city-only mode
             coordPanel.classList.add('hidden');
-            toggleBtn.textContent = '📍 Use exact coordinates instead';
+            toggleBtn.textContent = window.t('coord_use_coords');
             if (cityInput) cityInput.required = true;
             // Clear coords
             const latEl = document.getElementById('birthLat');
@@ -690,7 +690,7 @@ function setupCoordToggle(toggleBtnId, coordInputsId, cityInputId, previewId) {
         } else {
             // Open: show coord inputs, hide geocode preview
             coordPanel.classList.remove('hidden');
-            toggleBtn.textContent = '✏️ Use city name instead';
+            toggleBtn.textContent = window.t('coord_use_city');
             if (previewEl) previewEl.className = 'geocode-preview hidden';
         }
     });

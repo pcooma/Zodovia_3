@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
             document.getElementById('loadingState').classList.add('hidden');
             document.getElementById('errorMessage').textContent =
-                msg || 'Could not load your chart. Please try again later.';
+                msg || window.t('chart_err_load');
             document.getElementById('errorState').classList.remove('hidden');
         }
     }
@@ -70,7 +70,7 @@ function renderChart(chart) {
         `${SIGN_SYMBOLS[chart.rising_sign] || ''} ${chart.rising_sign}`;
 
     if (chart.is_paid) {
-        document.getElementById('readingTitle').textContent = '✨ Your Full Reading';
+        document.getElementById('readingTitle').textContent = window.t('chart_full_reading_title');
     }
 
     // Reading body
@@ -88,11 +88,11 @@ function renderChart(chart) {
         const item = document.createElement('div');
         item.className = 'planet-item';
         const emoji = planetEmojis[name] || '🌟';
-        const retro = info.retrograde ? '<span class="planet-retro">℞ Retrograde</span>' : '';
+        const retro = info.retrograde ? `<span class="planet-retro">${window.t('chart_retrograde')}</span>` : '';
         item.innerHTML = `
             <div class="planet-name">${emoji} ${name}</div>
             <div class="planet-sign">${info.emoji} ${info.sign}</div>
-            <div class="planet-meta">House ${info.house} · ${info.degree}° ${retro}</div>
+            <div class="planet-meta">${window.t('chart_house_label').replace('{n}', info.house)} · ${info.degree}° ${retro}</div>
         `;
         grid.appendChild(item);
     }
@@ -459,7 +459,7 @@ function setupAskStars() {
         textarea.addEventListener('input', () => {
             const left = STARS_MAX - textarea.value.length;
             if (counter) {
-                counter.textContent = `${left} characters left`;
+                counter.textContent = window.t('chars_left').replace('{n}', left);
                 counter.classList.toggle('counter-warn', left < 80);
             }
         });
@@ -470,7 +470,7 @@ function setupAskStars() {
         if (!question) { textarea?.focus(); return; }
 
         btn.disabled = true;
-        btn.textContent = '✨ Consulting the stars…';
+        btn.textContent = window.t('chart_consulting');
         loading.classList.remove('hidden');
         answer.classList.add('hidden');
         answer.style.color = '';
@@ -481,7 +481,7 @@ function setupAskStars() {
             answer.classList.remove('hidden');
             // Clear after success so user can ask another question
             textarea.value = '';
-            if (counter) counter.textContent = `${STARS_MAX} characters left`;
+            if (counter) counter.textContent = window.t('chars_left').replace('{n}', STARS_MAX);
             // Show usage nudge if approaching free limit
             if (res.free_uses_remaining !== null && res.free_uses_remaining !== undefined) {
                 const used = 10 - res.free_uses_remaining;
@@ -491,13 +491,13 @@ function setupAskStars() {
             if (err.status === 402) {
                 showFreeLimitModal();
             } else {
-                answer.textContent = err.message || 'Could not get an answer. Please try again.';
+                answer.textContent = err.message || window.t('dash_err_answer');
                 answer.style.color = '#ff8080';
                 answer.classList.remove('hidden');
             }
         } finally {
             btn.disabled = false;
-            btn.textContent = 'Ask the Stars ✨';
+            btn.textContent = window.t('chart_ask_btn_reset');
             loading.classList.add('hidden');
         }
     });
@@ -511,7 +511,8 @@ function showFreeTierNudge(remaining) {
         nudge.style.cssText = 'font-size:0.85rem;color:var(--text-muted);margin-top:10px;text-align:center;';
         document.getElementById('starsAnswer')?.after(nudge);
     }
-    nudge.innerHTML = `${remaining} free reading${remaining === 1 ? '' : 's'} remaining. <a href="/pricing" style="color:var(--accent)">Upgrade for unlimited access →</a>`;
+    const plural = remaining === 1 ? '' : 's';
+    nudge.innerHTML = window.t('chart_free_nudge_html').replace('{n}', remaining).replace('{s}', plural);
 }
 
 function showFreeLimitModal() {
@@ -523,10 +524,10 @@ function showFreeLimitModal() {
         modal.innerHTML = `
             <div style="background:var(--card-bg,#1a1a2e);border-radius:16px;padding:40px;max-width:420px;width:100%;text-align:center;border:1px solid rgba(255,255,255,0.1);">
                 <div style="font-size:2.5rem;margin-bottom:16px;">✨</div>
-                <h2 style="margin-bottom:12px;color:var(--text)">You've used all 10 free readings</h2>
-                <p style="color:var(--text-muted);margin-bottom:28px;line-height:1.6">Upgrade to Premium for unlimited questions, daily horoscopes, compatibility checks — all for $3.99/month.</p>
-                <a href="/pricing" style="display:block;background:var(--accent,#8b5cf6);color:#fff;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:600;margin-bottom:12px;">See Pricing →</a>
-                <button onclick="document.getElementById('freeLimitModal').remove()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.9rem;">Maybe later</button>
+                <h2 style="margin-bottom:12px;color:var(--text)">${window.t('free_limit_title')}</h2>
+                <p style="color:var(--text-muted);margin-bottom:28px;line-height:1.6">${window.t('chart_free_limit_body')}</p>
+                <a href="/pricing" style="display:block;background:var(--accent,#8b5cf6);color:#fff;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:600;margin-bottom:12px;">${window.t('btn_see_pricing')}</a>
+                <button onclick="document.getElementById('freeLimitModal').remove()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.9rem;">${window.t('btn_maybe_later')}</button>
             </div>
         `;
         document.body.appendChild(modal);
@@ -553,7 +554,7 @@ async function redirectToCheckout(plan, token) {
         const res = await apiFetch(`/api/payments/checkout-url?plan=${plan}`, 'GET', null, token);
         window.location.href = res.checkout_url;
     } catch (err) {
-        alert('Unable to open checkout. Please try again.');
+        alert(window.t('chart_checkout_err'));
     }
 }
 

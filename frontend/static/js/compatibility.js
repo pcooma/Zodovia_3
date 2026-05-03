@@ -13,12 +13,17 @@ const SIGN_SYMBOLS = {
     Sagittarius:'♐', Capricorn:'♑', Aquarius:'♒', Pisces:'♓'
 };
 
-const REL_LABELS = {
-    romantic: 'Romantic Partner', friend: 'Close Friend',
-    mother: 'Mother', father: 'Father',
-    sibling: 'Brother / Sister', cousin: 'Cousin',
-    colleague: 'Colleague', other: 'Important Person'
-};
+function getRelLabel(type) {
+    const keyMap = {
+        romantic: 'rel_romantic', friend: 'rel_friend',
+        mother: 'rel_mother', father: 'rel_father',
+        sibling: 'rel_sibling', cousin: 'rel_cousin',
+        colleague: 'rel_colleague'
+    };
+    const key = keyMap[type];
+    if (key) return window.t(key);
+    return type;
+}
 
 document.addEventListener('DOMContentLoaded', async () => {
     const token = getToken();
@@ -105,7 +110,7 @@ function setupForm(token) {
         const relType = document.getElementById('relType').value;
 
         if (!p2Name || !p2Date || !p2Time || !p2City) {
-            errorEl.textContent = 'Please fill in all their birth details.';
+            errorEl.textContent = window.t('compat_err_fill');
             errorEl.classList.remove('hidden');
             return;
         }
@@ -115,7 +120,7 @@ function setupForm(token) {
         formSect.classList.add('hidden');
         loadingSt.classList.remove('hidden');
         document.getElementById('loadingMsg').textContent =
-            `Comparing your charts with ${p2Name}'s…`;
+            window.t('compat_comparing').replace('{name}', p2Name);
 
         // Collect optional exact coordinates for person 2
         const p2Lat = parseFloat(document.getElementById('p2Lat')?.value);
@@ -144,10 +149,10 @@ function setupForm(token) {
             if (err.status === 402) {
                 showUpgradeModal();
             } else if (err.status === 429) {
-                errorEl.textContent = "You've reached today's limit for compatibility checks. Come back tomorrow for more.";
+                errorEl.textContent = window.t('compat_err_daily_limit');
                 errorEl.classList.remove('hidden');
             } else {
-                errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+                errorEl.textContent = err.message || window.t('compat_err_generic');
                 errorEl.classList.remove('hidden');
             }
         } finally {
@@ -174,7 +179,7 @@ function renderResult(res) {
     const resultEl = document.getElementById('compatResult');
 
     const sym2 = SIGN_SYMBOLS[res.person2_sun_sign] || '';
-    const relLabel = REL_LABELS[res.relationship_type] || res.relationship_type;
+    const relLabel = getRelLabel(res.relationship_type);
 
     document.getElementById('resultNames').textContent =
         `${user?.name || 'You'} & ${res.person2_name}`;
@@ -232,12 +237,12 @@ function showUsageBanner(freeUses) {
         banner.style.display = 'block';
         banner.style.background = 'rgba(var(--accent-rgb,139,92,246),0.12)';
         banner.style.border = '1px solid rgba(var(--accent-rgb,139,92,246),0.3)';
-        banner.innerHTML = `You've used <strong>${freeUses} of ${FREE_LIMIT}</strong> free readings. <a href="/pricing" style="color:var(--accent)">Upgrade for unlimited access →</a>`;
+        banner.innerHTML = window.t('compat_free_used_some_html').replace('{used}', freeUses).replace('{limit}', FREE_LIMIT);
     } else {
         banner.style.display = 'block';
         banner.style.background = 'rgba(239,68,68,0.12)';
         banner.style.border = '1px solid rgba(239,68,68,0.3)';
-        banner.innerHTML = `You've used all ${FREE_LIMIT} free readings. <a href="/pricing" style="color:#ef4444;font-weight:600">Upgrade to continue →</a>`;
+        banner.innerHTML = window.t('compat_free_used_all_html').replace('{limit}', FREE_LIMIT);
     }
 }
 
@@ -250,10 +255,10 @@ function showUpgradeModal() {
         modal.innerHTML = `
             <div style="background:var(--card-bg,#1a1a2e);border-radius:16px;padding:40px;max-width:420px;width:100%;text-align:center;border:1px solid rgba(255,255,255,0.1);">
                 <div style="font-size:2.5rem;margin-bottom:16px;">✨</div>
-                <h2 style="margin-bottom:12px;color:var(--text)">You've used all 10 free readings</h2>
-                <p style="color:var(--text-muted);margin-bottom:28px;line-height:1.6">Upgrade to Premium for unlimited compatibility checks, daily horoscopes, and deeper readings — all for $3.99/month.</p>
-                <a href="/pricing" style="display:block;background:var(--accent,#8b5cf6);color:#fff;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:600;margin-bottom:12px;">See Pricing →</a>
-                <button onclick="document.getElementById('upgradeModal').remove()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.9rem;">Maybe later</button>
+                <h2 style="margin-bottom:12px;color:var(--text)">${window.t('free_limit_title')}</h2>
+                <p style="color:var(--text-muted);margin-bottom:28px;line-height:1.6">${window.t('compat_modal_body')}</p>
+                <a href="/pricing" style="display:block;background:var(--accent,#8b5cf6);color:#fff;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:600;margin-bottom:12px;">${window.t('btn_see_pricing')}</a>
+                <button onclick="document.getElementById('upgradeModal').remove()" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:0.9rem;">${window.t('btn_maybe_later')}</button>
             </div>
         `;
         document.body.appendChild(modal);
@@ -403,7 +408,7 @@ function setupCoordToggle(toggleBtnId, coordInputsId, cityInputId, previewId) {
         const isOpen = !coordPanel.classList.contains('hidden');
         if (isOpen) {
             coordPanel.classList.add('hidden');
-            toggleBtn.textContent = '📍 Use exact coordinates instead';
+            toggleBtn.textContent = window.t('coord_use_coords');
             if (cityInput) cityInput.required = true;
             const latEl = document.getElementById('p2Lat');
             const lonEl = document.getElementById('p2Lon');
@@ -411,7 +416,7 @@ function setupCoordToggle(toggleBtnId, coordInputsId, cityInputId, previewId) {
             if (lonEl) lonEl.value = '';
         } else {
             coordPanel.classList.remove('hidden');
-            toggleBtn.textContent = '✏️ Use city name instead';
+            toggleBtn.textContent = window.t('coord_use_city');
             if (previewEl) previewEl.className = 'geocode-preview hidden';
         }
     });
